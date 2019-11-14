@@ -6,6 +6,7 @@ set number
 set hlsearch
 set ignorecase
 set smartcase
+set fileignorecase
 
 " Syntaxing
 filetype plugin indent on
