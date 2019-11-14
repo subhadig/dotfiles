@@ -1,17 +1,17 @@
 ## Reload .vimrc from within vim
-:so $MYVIMRC
+- :so $MYVIMRC
 
 ## Searching within the opened file
-:vimgrep pattern %
-:copen
-:cn
-:cp
-:ccl
+- :vimgrep pattern %
+- :copen
+- :cn
+- :cp
+- :ccl
 
 ## Spliting
-:split
-:vsplit
+- :split
+- :vsplit
 
 ## Resizing
-:res +10
-:vertical resize +10
+- :res +10
+- :vertical resize +10
