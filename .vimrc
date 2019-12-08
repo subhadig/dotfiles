@@ -25,8 +25,9 @@ set autoindent
 let g:netrw_liststyle = 3
 let g:netrw_winsize = 25
 
-" Java autocomplete
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" Spell check
+set spelllang=en
+set spellfile=$HOME/workspaces/personal/dotfiles/vim-spell.en.utf-8.add
 
 " Set tab theme
 hi TabLineSel term=reverse cterm=bold ctermfg=15 ctermbg=12 gui=bold guifg=white guibg=blue
