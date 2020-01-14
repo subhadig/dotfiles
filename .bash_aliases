@@ -22,3 +22,4 @@ alias gpull-from-master='git pull origin master'
 
 # Maven
 alias mvn-clean-install-skiptests='mvn clean install -DskipTests'
+alias mvn-install-skiptests='mvn install -DskipTests'
