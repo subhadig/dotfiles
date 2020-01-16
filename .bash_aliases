@@ -4,7 +4,7 @@ alias cdwpn='cd $HOME/workspaces/personal/notes'
 alias cdwpd='cd $HOME/workspaces/personal/dotfiles'
 alias cdwpts='cd $HOME/workspaces/personal/tmux-scripts'
 
-# launch scripts
+# tmux launch scripts
 alias tmux-home='$HOME/workspaces/personal/tmux-scripts/home-tmux.sh'
 alias tmux-work='$HOME/workspaces/personal/tmux-scripts/work-tmux.sh'
 
@@ -23,3 +23,9 @@ alias gpull-from-master='git pull origin master'
 # Maven
 alias mvn-clean-install-skiptests='mvn clean install -DskipTests'
 alias mvn-install-skiptests='mvn install -DskipTests'
+
+# Pandoc
+alias pandoc-convert-doc='pandoc -V geometry:margin=0.8in -s -N --toc'
+
+# Misc
+which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
