@@ -26,6 +26,7 @@ alias mvn-install-skiptests='mvn install -DskipTests'
 
 # Pandoc
 alias pandoc-convert-doc='pandoc -V geometry:margin=0.8in -s -N --toc'
+alias pandoc-convert-slides='pandoc -s -V colortheme:beaver -V theme:Szeged -t beamer'
 
 # Misc
 which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
