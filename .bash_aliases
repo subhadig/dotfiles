@@ -28,7 +28,16 @@ alias mvn-clean-install-skiptests='mvn clean install -DskipTests'
 alias mvn-install-skiptests='mvn install -DskipTests'
 
 # Pandoc
-alias pandoc-convert-doc='pandoc -V geometry:margin=0.8in -s -N --toc -f markdown-implicit_figures'
+alias pandoc-convert-doc="pandoc \
+                            -V geometry:margin=0.8in \
+                            -V fontsize:10pt \
+                            -V mainfont='DejaVu Serif' \
+                            -V monofont='DejaVu Sans Mono' \
+                            -s \
+                            -N \
+                            --toc \
+                            -f markdown-implicit_figures \
+                            --pdf-engine=xelatex"
 alias pandoc-convert-slides='pandoc -s -V colortheme:beaver -V theme:Szeged -t beamer'
 
 # Misc
