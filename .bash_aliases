@@ -33,6 +33,8 @@ alias pandoc-convert-doc="pandoc \
                             -V fontsize:10pt \
                             -V mainfont='DejaVu Serif' \
                             -V monofont='DejaVu Sans Mono' \
+                            -V urlcolor=blue \
+                            -V toccolor=NavyBlue \
                             -s \
                             -N \
                             --toc \
