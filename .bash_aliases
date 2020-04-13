@@ -1,5 +1,6 @@
 # cd
 alias cdwp='cd $HOME/workspaces/personal/'
+alias cdws='cd $HOME/workspaces/study/'
 alias cdwpn='cd $HOME/workspaces/personal/notes'
 alias cdwpd='cd $HOME/workspaces/personal/dotfiles'
 alias cdwpts='cd $HOME/workspaces/personal/tmux-scripts'
