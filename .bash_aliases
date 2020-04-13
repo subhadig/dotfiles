@@ -44,5 +44,8 @@ alias pandoc-convert-doc="pandoc \
 alias pandoc-convert-slides='pandoc -s -V colortheme:beaver -V theme:Szeged -t beamer'
 alias pandoc-convert-mediawiki='pandoc -f markdown-implicit_figures -t mediawiki'
 
+# Kubernetes
+alias minikube-start='minikube start --driver=kvm2'
+
 # Misc
 which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
