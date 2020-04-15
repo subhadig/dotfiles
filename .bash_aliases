@@ -48,7 +48,7 @@ alias pandoc-convert-mediawiki='pandoc -f markdown-implicit_figures -t mediawiki
 # Kubernetes
 case $OSTYPE in
     linux*) alias minikube-start='minikube start --driver=kvm2';;
-    darwin*) alias minikube-start='minikube start --driver=hyperkit';;
+    darwin*) alias minikube-start="minikube start --driver=hyperkit --hyperkit-vpnkit-sock=/Users/${USER}/Library/Containers/com.docker.docker/Data/vpnkit.eth.sock";;
 esac
 
 # Misc
