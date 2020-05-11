@@ -17,6 +17,7 @@ alias jekyll-serve='bundle exec jekyll serve'
 
 # Git
 alias gstatus='git status'
+alias gbranch='git branch'
 alias gadd='git add'
 alias gdiff='git diff'
 alias gcommit='git commit'
