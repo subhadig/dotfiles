@@ -43,14 +43,14 @@ alias pandoc-convert-doc="pandoc \
                             --toc \
                             -f markdown-implicit_figures \
                             --pdf-engine=xelatex"
-alias pandoc-convert-doc-without-toc="pandoc \
-                                        -V geometry:margin=0.8in \
-                                        -V mainfont='DejaVu Serif' \
-                                        -V monofont='DejaVu Sans Mono' \
-                                        -V urlcolor=blue \
-                                        -s \
-                                        -f markdown \
-                                        --pdf-engine=xelatex"
+alias pandoc-convert-resume="pandoc \
+                                -V geometry:margin=0.8in \
+                                -V mainfont='DejaVu Serif' \
+                                -V monofont='DejaVu Sans Mono' \
+                                -V urlcolor=blue \
+                                -s \
+                                -f markdown \
+                                --pdf-engine=xelatex"
 alias pandoc-convert-slides='pandoc -s -V colortheme:beaver -V theme:Szeged -t beamer'
 alias pandoc-convert-mediawiki='pandoc -f markdown-implicit_figures -t mediawiki'
 
