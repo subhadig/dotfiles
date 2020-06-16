@@ -26,6 +26,9 @@ set autoindent
 let g:netrw_liststyle = 3
 let g:netrw_winsize = 25
 
+" Jedi-vim settings
+let g:jedi#use_tabs_not_buffers = 1
+
 " Spell check
 set spelllang=en
 set spellfile=$HOME/workspaces/personal/dotfiles/vim-spell.en.utf-8.add
