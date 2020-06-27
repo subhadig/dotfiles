@@ -1,0 +1,1 @@
+browser "which links2 1>/dev/null && links2 -g %u || links -g %u"

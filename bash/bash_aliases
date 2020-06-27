@@ -62,3 +62,4 @@ esac
 
 # Misc
 which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
+alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C $HOME/workspaces/personal/dotfiles/newsboat/config"
