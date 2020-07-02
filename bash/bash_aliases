@@ -54,6 +54,7 @@ alias pandoc-convert-resume="pandoc \
                                 --pdf-engine=xelatex"
 alias pandoc-convert-slides='pandoc -s -V colortheme:beaver -V theme:Szeged -t beamer'
 alias pandoc-convert-mediawiki='pandoc -f markdown-implicit_figures -t mediawiki'
+alias pandoc-convert-from-mediawiki='pandoc -f mediawiki -t markdown'
 
 # Kubernetes
 case $OSTYPE in
