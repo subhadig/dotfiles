@@ -26,14 +26,14 @@ source $HOME/workspaces/personal/dotfiles/bash/bash_aliases
 ```
 
 ### vim
-Append this to the existing .vimrc.
+Append this to the existing .vimrc. Create one if it does not exists.
 
 ```bash
 source $HOME/workspaces/personal/dotfiles/vim/vimrc
 ```
 
 ### tmux
-Append this to the existing .tmux.conf.
+Append this to the existing .tmux.conf. Create one if it does not exists.
 
 ```bash
 source-file $HOME/workspaces/personal/dotfiles/tmux/tmux.conf
