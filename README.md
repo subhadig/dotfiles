@@ -25,6 +25,14 @@ one.
 source $HOME/workspaces/personal/dotfiles/bash/bash_aliases
 ```
 
+### neovim
+Append this to the existing init.vim. If the file does not exists, create one
+under `$HOME/.config/nvim`
+
+```bash
+source $HOME/workspaces/personal/dotfiles/nvim/init.vim
+```
+
 ### vim
 Append this to the existing .vimrc. Create one if it does not exists.
 
