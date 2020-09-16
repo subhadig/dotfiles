@@ -1,3 +1,8 @@
+#!/usr/bin/env bash
+
+# nvim
+alias vi='nvim'
+
 # cd
 alias cdwp='cd $HOME/workspaces/personal/'
 alias cdws='cd $HOME/workspaces/study/'
