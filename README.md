@@ -13,8 +13,9 @@ Append this to the existing .bashrc.
 ```bash
 # If the ~/workspaces/personal/dotfiles/bash/bashrc file exists then
 # source it.
-if [ -f ~/workspaces/personal/dotfiles/bash/bashrc ]; then
-    . ~/workspaces/personal/dotfiles/bash/bashrc
+export DOTRCDIR="${HOME}/workspaces/personal/dotfiles"
+if [ -f ${DOTRCDIR}/bash/bashrc ]; then
+    . ${DOTRCDIR}/bash/bashrc
 fi
 ```
 
