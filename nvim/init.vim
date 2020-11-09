@@ -20,8 +20,10 @@ if system("uname") =~ "Linux"
     let g:browser = "firefox-latest --private-window "
 elseif system("uname") =~ "Darwin"
     let g:browser = "firefox-latest --private-window "
+    let g:browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
 endif
 
+" View markdown files as HTML on browser
 function! MarkdownView()
     execute "silent !" . "pandoc " . "%:p" . " -o " . "%:p" . ".html"
     execute "silent !" . g:browser . "%:p" . ".html &"
