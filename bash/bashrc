@@ -9,3 +9,9 @@ export INPUTRC="${DOTRCDIR}/bash/inputrc"
 #PATH
 test -d ${HOME}/.gem/ruby/2.5.0/bin && PATH="${HOME}/.gem/ruby/2.5.0/bin:${PATH}"
 export PATH
+
+# This is a workaround for the missing bash.completion file for the fzf package
+# on Debian 10
+if [ "$(fzf --version)" = "0.17.5" ]; then
+    source "${DOTRCDIR}/bash/fzf_0_17_5_completion.bash"
+fi
