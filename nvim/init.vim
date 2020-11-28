@@ -16,10 +16,16 @@ let g:Iosvkem_transp_bg = 1
 colorscheme Iosvkem
 
 " Scripts
+
+" Source the fzf.vim file if exists
+if filereadable("/usr/share/doc/fzf/examples/fzf.vim")
+    source /usr/share/doc/fzf/examples/fzf.vim
+endif
+
+" Set the preferred browser command based on the platform
 if system("uname") =~ "Linux"
     let g:browser = "firefox-latest --private-window "
 elseif system("uname") =~ "Darwin"
-    let g:browser = "firefox-latest --private-window "
     let g:browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
 endif
 
@@ -32,4 +38,12 @@ function! MarkdownView()
 endfunction
 
 " Custom key bindings
+
+" Markdownview
 nnoremap <localleader>v :call MarkdownView()<cr>
+
+" fzf
+nnoremap <C-p> :FZF<cr>
+
+" Open a new tab
+nnoremap <localleader>t :tabe<cr>
