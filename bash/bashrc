@@ -8,6 +8,7 @@ export INPUTRC="${DOTRCDIR}/bash/inputrc"
 
 #PATH
 test -d ${HOME}/.gem/ruby/2.5.0/bin && PATH="${HOME}/.gem/ruby/2.5.0/bin:${PATH}"
+PATH="${DOTRCDIR}/bin:${PATH}"
 export PATH
 
 # This is a workaround for the missing bash.completion file for the fzf package
