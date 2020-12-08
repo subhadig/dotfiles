@@ -21,5 +21,6 @@ get_pulseaudio_sink_name
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Shift>KP_Add" -n -t string -s "pactl set-sink-volume $sink_name +5%"
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Shift>KP_Subtract" -n -t string -s "pactl set-sink-volume $sink_name -5%"
 
-# Browser
+# Browsers
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>w" -n -t string -s "/usr/bin/firefox-latest"
+$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>c" -n -t string -s "/usr/bin/chromium"
