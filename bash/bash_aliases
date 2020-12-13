@@ -32,6 +32,19 @@ alias gcommit-updated='git commit -m "updated"'
 alias gpush-to-master='git push origin master'
 alias gpull-from-master='git pull origin master'
 
+gaddf() {
+    file=$(git status -s|grep ^' '|fzf|awk '{print $2}')
+    git diff $file
+    read -p "Add to the staged? " choice
+    if [ "$choice" = 'y' ]; then
+        git add $file
+    fi
+}
+
+greset() {
+    git diff --name-only --cached|fzf|xargs git reset HEAD
+}
+
 # Maven
 alias mvn-clean-install-skiptests='mvn clean install -DskipTests'
 alias mvn-install-skiptests='mvn install -DskipTests'
@@ -79,4 +92,17 @@ esac
 
 # Misc
 which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
+
+# Search and open
+so() {
+    file=$(fzf)
+    open ${file}
+}
+
+# Search and edit
+se() {
+    file=$(fzf)
+    vi ${file}
+}
+
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C $HOME/workspaces/personal/dotfiles/newsboat/config"
