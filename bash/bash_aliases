@@ -33,7 +33,12 @@ alias gpush-to-master='git push origin master'
 alias gpull-from-master='git pull origin master'
 
 gaddf() {
-    file=$(git status -s|grep ^' '|fzf|awk '{print $2}')
+    local file
+    file=$(git status -s|grep ^' '|fzf)
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+    file=echo ${file}|awk '{print $2}'
     git diff $file
     read -p "Add to the staged? " choice
     if [ "$choice" = 'y' ]; then
@@ -95,12 +100,14 @@ which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
 
 # Search and open
 so() {
+    local file
     file=$(fzf)
     open ${file}
 }
 
 # Search and edit
 se() {
+    local file
     file=$(fzf)
     vi ${file}
 }
