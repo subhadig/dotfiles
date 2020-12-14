@@ -15,4 +15,6 @@ export PATH
 # on Debian 10
 if [ "$(fzf --version)" = "0.17.5" ]; then
     source "${DOTRCDIR}/bash/fzf_0_17_5_completion.bash"
+elif [ -f "/usr/local/opt/fzf/shell/completion.bash" ]; then
+    source "/usr/local/opt/fzf/shell/completion.bash"
 fi
