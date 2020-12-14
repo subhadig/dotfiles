@@ -24,3 +24,9 @@ $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Shift>KP_Subtrac
 # Browsers
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>w" -n -t string -s "/usr/bin/firefox-latest"
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>c" -n -t string -s "/usr/bin/chromium"
+
+# File manager
+$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>f" -n -t string -s "/usr/bin/thunar"
+
+# Editor
+$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>e" -n -t string -s "/usr/bin/mousepad"
