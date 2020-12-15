@@ -38,7 +38,7 @@ gaddf() {
     if [ $? -ne 0 ]; then
         exit 1
     fi
-    file=echo ${file}|awk '{print $2}'
+    file=$(echo ${file}|awk '{print $2}')
     git diff $file
     read -p "Add to the staged? " choice
     if [ "$choice" = 'y' ]; then
@@ -48,6 +48,11 @@ gaddf() {
 
 greset() {
     git diff --name-only --cached|fzf|xargs git reset HEAD
+}
+
+gsetconfigp() {
+    git config user.name "Subhadip Ghosh"
+    git config user.email "subhadipghosh11@gmail.com"
 }
 
 # Maven
