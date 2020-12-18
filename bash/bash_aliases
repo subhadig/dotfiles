@@ -34,15 +34,16 @@ alias gpull-from-master='git pull origin master'
 
 gaddf() {
     local file
-    file=$(git status -s|grep ^' '|fzf)
+    file=$(git status -s|grep '^.[^ ]'|fzf)
     if [ $? -ne 0 ]; then
-        exit 1
+        return
     fi
     file=$(echo ${file}|awk '{print $2}')
-    git diff $file
-    read -p "Add to the staged? " choice
+    git diff "$file"
+    read -p "Add to index? " choice
     if [ "$choice" = 'y' ]; then
-        git add $file
+        git add "$file"
+        echo Added $file to index.
     fi
 }
 
@@ -107,14 +108,14 @@ which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
 so() {
     local file
     file=$(fzf)
-    open ${file}
+    open "${file}"
 }
 
 # Search and edit
 se() {
     local file
     file=$(fzf)
-    vi ${file}
+    vi "${file}"
 }
 
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C $HOME/workspaces/personal/dotfiles/newsboat/config"
