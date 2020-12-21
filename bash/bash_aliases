@@ -15,8 +15,8 @@ alias cdwpts='cd $HOME/workspaces/personal/tmux-scripts'
 alias ll='ls -1'
 
 # tmux launch scripts
-alias tmux-home='$HOME/workspaces/personal/tmux-scripts/home-tmux.sh'
-alias tmux-work='$HOME/workspaces/personal/tmux-scripts/work-tmux.sh'
+alias th='$HOME/workspaces/personal/tmux-scripts/home-tmux.sh'
+alias tw='$HOME/workspaces/personal/tmux-scripts/work-tmux.sh'
 
 # Jekyll
 alias jekyll-serve='bundle exec jekyll serve'

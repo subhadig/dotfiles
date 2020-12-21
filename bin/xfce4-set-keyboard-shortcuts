@@ -28,5 +28,7 @@ $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>c" -n -t s
 # File manager
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>f" -n -t string -s "/usr/bin/thunar"
 
-# Editor
+# Utilities
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>e" -n -t string -s "/usr/bin/mousepad"
+$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>x" -n -t string -s "/usr/bin/mate-calc"
+$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>d" -n -t string -s "/usr/bin/xfce4-dict"
