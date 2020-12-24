@@ -19,7 +19,7 @@ alias th='$HOME/workspaces/personal/tmux-scripts/home-tmux.sh'
 alias tw='$HOME/workspaces/personal/tmux-scripts/work-tmux.sh'
 
 # Jekyll
-alias jekyll-serve='bundle exec jekyll serve'
+alias js='bundle exec jekyll serve'
 
 # Git
 alias gstatus='git status'
@@ -27,8 +27,8 @@ alias gbranch='git branch'
 alias gadd='git add'
 alias gdiff='git diff'
 alias glog='git log'
-alias gcommit='git commit'
-alias gcommit-updated='git commit -m "updated"'
+alias gc='git commit'
+alias gcu='git commit -m "updated"'
 alias gpush-to-master='git push origin master'
 alias gpull-from-master='git pull origin master'
 
