@@ -12,7 +12,7 @@ alias cdwppc='cd $HOME/workspaces/personal/private-configs'
 alias cdwpts='cd $HOME/workspaces/personal/tmux-scripts'
 
 # ls
-alias ll='ls -1'
+alias ll='ls -lrth'
 
 # tmux launch scripts
 alias th='$HOME/workspaces/personal/tmux-scripts/home-tmux.sh'
@@ -108,6 +108,9 @@ which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
 so() {
     local file
     file=$(fzf)
+    if [ $? -ne 0 ]; then
+        return
+    fi
     open "${file}"
 }
 
@@ -115,6 +118,9 @@ so() {
 se() {
     local file
     file=$(fzf)
+    if [ $? -ne 0 ]; then
+        return
+    fi
     vi "${file}"
 }
 
