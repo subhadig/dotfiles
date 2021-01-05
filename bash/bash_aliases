@@ -2,6 +2,7 @@
 
 # nvim
 alias vi='nvim'
+alias vimdiff='nvim -d'
 
 # cd
 alias cdwp='cd $HOME/workspaces/personal/'
