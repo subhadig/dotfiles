@@ -30,8 +30,8 @@ alias gdiff='git diff'
 alias glog='git log'
 alias gc='git commit'
 alias gcu='git commit -m "updated"'
-alias gpush-to-master='git push origin master'
-alias gpull-from-master='git pull origin master'
+alias gptm='git push origin master'
+alias gpfm='git pull origin master'
 
 gaddf() {
     local file

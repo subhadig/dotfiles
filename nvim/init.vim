@@ -1,9 +1,37 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
-source ~/.vimrc
+" Line numbering
+set relativenumber
+set number
 
 " Color column
 set cc=80
+
+" Searching
+set hlsearch
+set ignorecase
+set smartcase
+set fileignorecase
+
+" Syntaxing
+filetype plugin indent on
+syntax on
+
+" Tab options
+set tabstop=4
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+
+" File browsing
+let g:netrw_liststyle = 3
+let g:netrw_winsize = 25
+
+" Jedi-vim settings
+let g:jedi#use_tabs_not_buffers = 1
+
+" Spell check
+set spelllang=en
+set spellfile=$HOME/workspaces/personal/dotfiles/vim/vim-spell.en.utf-8.add
 
 " This line enables the true color support.
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -47,3 +75,9 @@ nnoremap <C-p> :FZF<cr>
 
 " Open a new tab
 nnoremap <localleader>t :tabe<cr>
+
+" Open explore
+nnoremap <localleader>f :Texplore<cr>
+
+" Reload vimrc
+nnoremap <localleader><localleader> :source $MYVIMRC<cr>
