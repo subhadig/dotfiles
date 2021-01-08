@@ -71,7 +71,7 @@ endfunction
 nnoremap <localleader>v :call MarkdownView()<cr>
 
 " fzf
-nnoremap <C-p> :FZF<cr>
+nnoremap <silent> <C-p> :FZF<cr>
 
 " Open a new tab
 nnoremap <localleader>t :tabe<cr>
