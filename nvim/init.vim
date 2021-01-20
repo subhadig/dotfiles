@@ -59,8 +59,8 @@ endif
 
 " View markdown files as HTML on browser
 function! MarkdownView()
-    execute "silent !" . "pandoc " . "%:p" . " -o " . "%:p" . ".html"
-    execute "silent !" . g:browser . "%:p" . ".html &"
+    execute "silent !" . "pandoc " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
+    execute "silent !" . g:browser . "\"" . "%:p" . ".html\" &"
     call getchar()
     execute "silent !" . "rm " . "%:p" . ".html &"
 endfunction
