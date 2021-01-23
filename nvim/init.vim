@@ -48,6 +48,8 @@ colorscheme Iosvkem
 " Source the fzf.vim file if exists
 if filereadable("/usr/share/doc/fzf/examples/fzf.vim")
     source /usr/share/doc/fzf/examples/fzf.vim
+elseif filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
+    source /usr/local/opt/fzf/plugin/fzf.vim
 endif
 
 " Set the preferred browser command based on the platform
@@ -62,7 +64,7 @@ function! MarkdownView()
     execute "silent !" . "pandoc " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
     execute "silent !" . g:browser . "\"" . "%:p" . ".html\" &"
     call getchar()
-    execute "silent !" . "rm " . "%:p" . ".html &"
+    execute "silent !" . "rm " . "\"%:p" . ".html\" &"
 endfunction
 
 " Custom key bindings
