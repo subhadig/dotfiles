@@ -109,6 +109,7 @@ so() {
     if [ $? -ne 0 ]; then
         return
     fi
+    echo "Opening ${file}"
     open "${file}"
 }
 
@@ -119,7 +120,18 @@ se() {
     if [ $? -ne 0 ]; then
         return
     fi
+    echo "Editing ${file}"
     vi "${file}"
+}
+
+# Reload bashrc/bash_profile
+rb() {
+    case "$(uname -s)" in
+        Linux*)     . ~/.bashrc;;
+        Darwin*)    . ~/.bash_profile;;
+        *)          echo "Unknown OS";;
+    esac
+    echo "Reloaded bash configuration"
 }
 
 # Misc
