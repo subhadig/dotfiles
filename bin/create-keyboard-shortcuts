@@ -23,7 +23,12 @@ $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Shift>KP_Subtrac
 
 # Browsers
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>w" -n -t string -s "/usr/bin/firefox-latest"
-$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>c" -n -t string -s "/usr/bin/chromium"
+if which google-chrome 1>/dev/null; then
+    chrome_exec='/usr/bin/google-chrome'
+else
+    chrome_exec='/usr/bin/chromium'
+fi
+$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>c" -n -t string -s ${chrome_exec}
 
 # File manager
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>f" -n -t string -s "/usr/bin/thunar"
