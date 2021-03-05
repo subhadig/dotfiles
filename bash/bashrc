@@ -6,8 +6,12 @@ set -o vi
 # Read the inputrc from the dotrc directory
 export INPUTRC="${DOTRCDIR}/bash/inputrc"
 
-#PATH
+# PATH
+## ruby
 test -d ${HOME}/.gem/ruby/2.5.0/bin && PATH="${HOME}/.gem/ruby/2.5.0/bin:${PATH}"
+test -d ${HOME}/.gem/ruby/3.0.0/bin && PATH="${HOME}/.gem/ruby/3.0.0/bin:${PATH}"
+test -d /usr/local/opt/ruby/bin && PATH="/usr/local/opt/ruby/bin:${PATH}"
+
 PATH="${DOTRCDIR}/bin:${PATH}"
 export PATH
 
