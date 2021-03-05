@@ -103,6 +103,9 @@ case $OSTYPE in
     darwin*) alias minikube-start="minikube start --driver=hyperkit --hyperkit-vpnkit-sock=/Users/${USER}/Library/Containers/com.docker.docker/Data/vpnkit.eth.sock";;
 esac
 
+# Open
+which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
+
 # Search and open
 so() {
     local file
@@ -136,8 +139,6 @@ rb() {
 }
 
 # Misc
-which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
-
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C $HOME/workspaces/personal/dotfiles/newsboat/config"
 
 alias cq="cal -3"
