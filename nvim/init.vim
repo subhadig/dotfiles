@@ -58,6 +58,7 @@ if system("uname") =~ "Linux"
     let g:browser = "firefox-latest --private-window "
 elseif system("uname") =~ "Darwin"
     let g:browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
+    let g:browser = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito "
 endif
 
 " View markdown files as HTML in browser
