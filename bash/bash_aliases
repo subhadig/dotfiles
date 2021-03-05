@@ -92,7 +92,8 @@ alias pandoc-convert-doc-with-code="pandoc \
                                 -N \
                                 --template eisvogel \
                                 --listings"
-alias pandoc-convert-slides='pandoc -s -V colortheme:beaver -V theme:Szeged -t beamer'
+alias pandoc-convert-slides-pdf='pandoc -s -V colortheme:beaver -V theme:Szeged -t beamer'
+alias pandoc-convert-slides-html='pandoc -s --webtex -i -t slidy'
 alias pandoc-convert-mediawiki='pandoc -f markdown-implicit_figures -t mediawiki'
 alias pandoc-convert-from-mediawiki='pandoc -f mediawiki -t markdown'
 
