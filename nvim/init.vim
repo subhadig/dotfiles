@@ -60,7 +60,7 @@ elseif system("uname") =~ "Darwin"
     let g:browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
 endif
 
-" View markdown files as HTML on browser
+" View markdown files as HTML in browser
 function! MarkdownView()
     execute "silent !" . "pandoc " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
     execute "silent !" . g:browser . "\"" . "%:p" . ".html\" &"
@@ -68,10 +68,19 @@ function! MarkdownView()
     execute "silent !" . "rm " . "\"%:p" . ".html\" &"
 endfunction
 
+" Present markdown files as HTML in browser
+function! MarkdownPresent()
+    execute "silent !" . "pandoc -s --webtex -i -t slidy " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
+    execute "silent !" . g:browser . "\"" . "%:p" . ".html\" &"
+    call getchar()
+    execute "silent !" . "rm " . "\"%:p" . ".html\" &"
+endfunction
+
 " Custom key bindings
 
-" Markdownview
+" Markdown
 nnoremap <localleader>v :call MarkdownView()<cr>
+nnoremap <localleader>p :call MarkdownPresent()<cr>
 
 " fzf
 nnoremap <silent> <C-p> :FZF --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
