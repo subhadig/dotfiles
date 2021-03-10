@@ -71,7 +71,7 @@ endfunction
 
 " Present markdown files as HTML in browser
 function! MarkdownPresent()
-    execute "silent !" . "pandoc -s --webtex -i -t slidy " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
+    execute "silent !" . "pandoc -s --webtex -t slidy " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
     execute "silent !" . g:browser . "\"" . "%:p" . ".html\" &"
     call getchar()
     execute "silent !" . "rm " . "\"%:p" . ".html\" &"
@@ -94,3 +94,5 @@ nnoremap <localleader>f :Texplore<cr>
 
 " Reload vimrc
 nnoremap <localleader><localleader> :source $MYVIMRC<cr>
+
+nnoremap <silent> <C-o> :copen<cr>
