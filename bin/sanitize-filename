@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# This script replaces the spaces in a filename with dashes.
+# Usage: sanitize-filename file.ext
+
+old_filename=$1
+new_filename=${old_filename}
+new_filename=$(echo $new_filename|tr "[:upper:]" "[:lower:]")
+new_filename=$(echo $new_filename|tr "-" " ")
+new_filename=$(echo $new_filename|tr -s "-")
+new_filename=$(echo $new_filename|tr " " "-")
+echo Renaming $old_filename to $new_filename
+mv "${old_filename}" "${new_filename}"
