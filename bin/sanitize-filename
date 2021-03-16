@@ -1,13 +1,72 @@
 #!/usr/bin/env bash
 
 # This script replaces the spaces in a filename with dashes.
-# Usage: sanitize-filename file.ext
 
-old_filename=$1
-new_filename=${old_filename}
-new_filename=$(echo $new_filename|tr "[:upper:]" "[:lower:]")
-new_filename=$(echo $new_filename|tr "-" " ")
-new_filename=$(echo $new_filename|tr -s "-")
-new_filename=$(echo $new_filename|tr " " "-")
-echo Renaming $old_filename to $new_filename
-mv "${old_filename}" "${new_filename}"
+write=true
+
+print_usage() {
+    echo "Help: Sanitize a file or files in a directory."
+    echo
+    echo "Syntax: sanitize-filename [-d] file or directory"
+    echo "options:"
+    echo "p     Only print the changes."
+    echo "h     Print this Help."
+    echo
+}
+
+sanitize_file() {
+    old_filename=$1
+    new_filename=${old_filename}
+    new_filename=$(echo $new_filename|tr "[:upper:]" "[:lower:]")
+    new_filename=$(echo $new_filename|tr "-" " ")
+    new_filename=$(echo $new_filename|tr "_" " ")
+    new_filename=$(echo $new_filename|tr -s "-")
+    new_filename=$(echo $new_filename|tr " " "-")
+    echo Renaming $old_filename to $new_filename
+    if $write; then
+        mv "${old_filename}" "${new_filename}"
+    fi
+}
+
+sanitize_dir() {
+    for file in $1/*; do
+        if [ -f "$file" ]; then
+            sanitize_file "$file"
+        elif [ -d "$file" ]; then
+            sanitize_dir "$file"
+        fi
+    done
+}
+
+while getopts "hp" options; do
+    case ${options} in
+        h)
+            print_usage
+            exit 0
+            ;;
+        p)
+            write=false
+            ;;
+        *)
+            echo "Invalid option."
+            exit 1
+            ;;
+    esac
+done
+
+filename=${@:$OPTIND:1}
+
+if [ -z "$filename" ]; then
+    echo "No file or directory specified."
+    echo
+    print_usage
+    exit 1
+elif [ -f "$filename" ]; then
+    sanitize_file "$filename"
+elif [ -d "$filename" ]; then
+    sanitize_dir "$filename"
+fi
+
+if ! $write ; then
+    echo "No chages made to the filesystem."
+fi
