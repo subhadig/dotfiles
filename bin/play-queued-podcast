@@ -5,4 +5,13 @@ queue_file="${HOME}/.newsboat/queue"
 url=`tail -1 ${queue_file} | cut -d ' ' -f1`
 echo playing $url
 vlc ${url} 1>/dev/null 2>1 &
-head -n -1 ${queue_file} > tmp.txt && mv tmp.txt ${queue_file}
+
+# This could have been done in a single line but this is done to support both
+# Linux and MacOS
+lines=`wc -l <${queue_file}`
+lines=$(($lines-1))
+if [ $lines -eq 0 ]; then
+    rm ${queue_file}
+else
+    head -${lines} ${queue_file} > tmp_queue && mv tmp_queue ${queue_file}
+fi
