@@ -139,6 +139,7 @@ rb() {
 }
 
 # Misc
-alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C $HOME/workspaces/personal/dotfiles/newsboat/config"
+alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
+alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
 
 alias cq="cal -3"

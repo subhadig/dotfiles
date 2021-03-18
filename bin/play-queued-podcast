@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+queue_file="${HOME}/.newsboat/queue"
+
+url=`tail -1 ${queue_file} | cut -d ' ' -f1`
+echo playing $url
+vlc ${url} 1>/dev/null 2>1 &
+head -n -1 ${queue_file} > tmp.txt && mv tmp.txt ${queue_file}
