@@ -1,4 +1,5 @@
 auto-reload yes
+reload-threads 3
 
 # Vi like key bindings
 bind-key k up
