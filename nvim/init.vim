@@ -84,7 +84,7 @@ nnoremap <localleader>v :call MarkdownView()<cr>
 nnoremap <localleader>p :call MarkdownPresent()<cr>
 
 " fzf
-nnoremap <silent> <C-p> :FZF --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
+nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
 
 " Open a new tab
 nnoremap <localleader>t :tabe<cr>
