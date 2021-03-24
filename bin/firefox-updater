@@ -1,6 +1,16 @@
 #!/bin/bash
 
 wget -O FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
-sudo tar xjvf FirefoxSetup.tar.bz2 -C /opt/ --overwrite
+
+sudo -v 2>/dev/null
+if [ $? -eq 0 ]; then
+    echo sudo account detected. Enter password when prompted.
+    sudo tar xjvf FirefoxSetup.tar.bz2 -C /opt/ --overwrite
+    sudo ln -f -s /opt/firefox/firefox /usr/bin/firefox-latest
+else
+    echo Enter root password when prompted.
+    su -c "tar xjvf FirefoxSetup.tar.bz2 -C /opt/ --overwrite \
+        && ln -f -s /opt/firefox/firefox /usr/bin/firefox-latest"
+fi
+
 rm FirefoxSetup.tar.bz2
-sudo ln -f -s /opt/firefox/firefox /usr/bin/firefox-latest
