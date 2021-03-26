@@ -147,3 +147,5 @@ alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/u
 alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
 
 alias cq="cal -3"
+
+alias cl="clear"
