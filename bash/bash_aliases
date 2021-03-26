@@ -138,6 +138,10 @@ rb() {
     echo "Reloaded bash configuration"
 }
 
+# Docker
+alias dps='docker ps'
+alias dpsall='docker ps -all'
+
 # Misc
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
 alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
