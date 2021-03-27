@@ -49,4 +49,4 @@ source-file $HOME/workspaces/personal/dotfiles/tmux/tmux.conf
 ```
 
 ## License
-This repository is licensed under the MIT license.
+This repository and the files under it are licensed under the MIT license.
