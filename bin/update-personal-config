@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+pworkspaces="$HOME/workspaces/personal"
+repos[0]="$pworkspaces/dotfiles"
+repos[1]="$pworkspaces/tmux-scripts"
+repos[2]="$pworkspaces/private-configs"
+repos[3]="$pworkspaces/notes"
+
+for repo in ${repos[*]}; do
+    pushd "$repo" 1>/dev/null
+    echo Updating `pwd`
+    git pull origin master
+    if [ $? -ne 0 ]; then
+        echo ERROR: Update failed. Check manually.
+    fi
+    popd 1>/dev/null
+done
