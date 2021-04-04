@@ -39,22 +39,38 @@ gaf() {
     if [ $? -ne 0 ]; then
         return
     fi
+    echo Generating diff for selection: $file
+    echo
+
+    status=$(echo ${file}|awk '{print $1}')
     file=$(echo ${file}|awk '{print $2}')
-    git diff "$file"
+
+    if [ $status = "??" ]; then
+        more "$file"
+    else
+        git diff "$file"
+    fi
+
+    echo
     read -p "Add to index? " choice
     if [ "$choice" = 'y' ]; then
         git add "$file"
         echo Added $file to index.
+    else
+        echo Aborting.
     fi
 }
 
-greset() {
+# Unstages a file but does not revert the changes
+gresethead() {
     git diff --name-only --cached|fzf|xargs git reset HEAD
 }
 
 gsetconfigp() {
     git config user.name "Subhadip Ghosh"
     git config user.email "subhadipghosh11@gmail.com"
+
+    echo Now you may rewrite the commit with new author info!
 }
 
 # Maven
