@@ -165,3 +165,5 @@ alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
 alias cq="cal -3"
 
 alias cl="clear"
+
+alias upc="update-personal-config"
