@@ -9,12 +9,17 @@ $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Primary><Alt>t" 
 get_pulseaudio_sink_name() {
     sinks=( $(pactl list sinks|grep Name:|tr -d [:blank:]|cut -d ":" -f 2) )
 
-    for i in "${!sinks[@]}"; do
-        echo ${i}. ${sinks[$i]}
-    done
-    echo -ne "Enter the number for the pulseaudio sink to use for shortcut: "
-    read choice
-    sink_name=${sinks[$choice]}
+    if [ ${#sinks[@]} -eq 1 ]; then
+        sink_name=${sinks[0]}
+        echo Selecting audio sink: ${sink_name}
+    else
+        for i in "${!sinks[@]}"; do
+            echo ${i}. ${sinks[$i]}
+        done
+        echo -ne "Enter the number for the pulseaudio sink to use for shortcut: "
+        read choice
+        sink_name=${sinks[$choice]}
+    fi
 }
 
 get_pulseaudio_sink_name
@@ -37,3 +42,4 @@ $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>f" -n -t s
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>e" -n -t string -s "/usr/bin/mousepad"
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>x" -n -t string -s "/usr/bin/mate-calc"
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>d" -n -t string -s "/usr/bin/xfce4-dict"
+$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/Print" -n -t string -s "/usr/bin/xfce4-screenshooter"
