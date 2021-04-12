@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 echo Playing $1 in vlc
-vlc $1 1>/dev/null 2>1 &
+vlc $1 1>/dev/null 2>&1 &
