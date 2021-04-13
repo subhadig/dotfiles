@@ -98,11 +98,13 @@ nnoremap <localleader><localleader> :source $MYVIMRC<cr>
 " Open search result pane
 nnoremap <silent> <C-o> :copen<cr>
 
-" Yank link in markdown
+" Markdown
+
+"" Yank link in markdown
 nnoremap <localleader>yl ^f(vi("+y
 
-" Convert to link in markdown
+"" Convert to link in markdown
 nnoremap <localleader>cl ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
 
-" Convert to automatic link in markdown
+"" Convert to automatic link in markdown
 nnoremap <localleader>cal ciW<<C-r>"><Esc>
