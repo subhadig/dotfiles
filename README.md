@@ -48,5 +48,13 @@ Append this to the existing .tmux.conf. Create one if it does not exists.
 source-file $HOME/workspaces/personal/dotfiles/tmux/tmux.conf
 ```
 
+### ideavim
+If using the ideavim plugin for IntelliJ Idea, create a file with name
+`.ideavimrc` on your home directory and paste the following into it.
+
+```vim
+source ~/workspaces/personal/dotfiles/intellij/ideavimrc
+```
+
 ## License
 This repository and the files under it are licensed under the MIT license.

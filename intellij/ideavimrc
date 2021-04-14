@@ -1,0 +1,27 @@
+" Line numbering
+set relativenumber
+set number
+
+" Color column
+set cc=80
+
+" Searching
+set hlsearch
+set ignorecase
+set smartcase
+set fileignorecase
+
+" Syntaxing
+filetype plugin indent on
+syntax on
+
+" Tab options
+set tabstop=4
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+
+" Diable beep sound
+set visualbell
+set noerrorbells
