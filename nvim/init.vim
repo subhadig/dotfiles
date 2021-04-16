@@ -40,9 +40,13 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
 
 " Theme - iosvkem
-let g:Iosvkem_transp_bg = 1
-colorscheme Iosvkem
-hi LineNr guifg=#848383 guibg=#080808 guisp=NONE gui=NONE cterm=NONE
+"let g:Iosvkem_transp_bg = 1
+"colorscheme Iosvkem
+"hi LineNr guifg=#848383 guibg=#080808 guisp=NONE gui=NONE cterm=NONE
+
+" Theme - one-dark
+colorscheme one
+set background=dark
 
 " Scripts
 
