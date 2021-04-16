@@ -71,7 +71,11 @@ gsetconfigp() {
     git config user.name "Subhadip Ghosh"
     git config user.email "subhadipghosh11@gmail.com"
 
-    echo Now you may rewrite the commit with new author info!
+    echo Config updated!
+    read -p "Also reset author for the last commit? " choice
+    if [ "$choice" = 'y' ]; then
+        git commit --amend --reset-author
+    fi
 }
 
 # Maven
