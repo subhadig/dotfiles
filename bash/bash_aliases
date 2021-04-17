@@ -64,7 +64,14 @@ gaf() {
 
 # Unstages a file but does not revert the changes
 gresethead() {
-    git diff --name-only --cached|fzf|xargs git reset HEAD
+    local file
+    file=$(git diff --name-only --cached|fzf)
+    if [ $? -ne 0 ]; then
+        return
+    fi
+    if [ -f "$file" ]; then
+        git reset HEAD $file
+    fi
 }
 
 gsetconfigp() {
