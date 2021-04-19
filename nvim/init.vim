@@ -67,7 +67,7 @@ endif
 
 " View markdown files as HTML in browser
 function! MarkdownView()
-    execute "silent !" . "pandoc " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
+    execute "silent !" . "pandoc -s -c $HOME/workspaces/personal/dotfiles/pandoc/buttondown.css " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
     execute "silent !" . g:browser . "\"" . "%:p" . ".html\" &"
     call getchar()
     execute "silent !" . "rm " . "\"%:p" . ".html\" &"
