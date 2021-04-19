@@ -112,3 +112,8 @@ nnoremap <localleader>cl ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
 
 "" Convert to automatic link in markdown
 nnoremap <localleader>cal ciW<<C-r>"><Esc>
+
+" Remap F1 key so that the annoying help does not come up when F1 key is
+" touched by mistake on Mac
+nnoremap <F1> <Esc>
+inoremap <F1> <Esc>
