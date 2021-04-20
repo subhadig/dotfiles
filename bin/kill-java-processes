@@ -7,7 +7,8 @@ IFS_ORIG=$IFS
 IFS=$'\n'
 for entry in `ps -ef | grep bin/java`; do
     if grep -q -v IntelliJ <<< "$entry" && grep -q -v 'grep bin/java' <<< "$entry"; then
-        pid=`cut -d ' ' -f2 <<< "$entry"`
+        entry=`tr -s " " <<<"$entry"`
+        pid=`cut -d ' ' -f2 <<<"$entry"`
         read -p "Kill $entry: " choice
         if [ "$choice" = "y" ]; then
             kill -9 $pid
