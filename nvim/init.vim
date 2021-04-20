@@ -102,6 +102,10 @@ nnoremap <localleader><localleader> :source $MYVIMRC<cr>
 " Open search result pane
 nnoremap <silent> <C-o> :copen<cr>
 
+" Navigate to next or previous matches during search
+nnoremap <silent> <C-j> :cn<cr>
+nnoremap <silent> <C-k> :cp<cr>
+
 " Markdown
 
 "" Yank link in markdown
