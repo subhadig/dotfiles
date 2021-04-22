@@ -44,7 +44,7 @@ a:visited {
     color: #466B6C;
 }
 ul, ol {
-    padding: 0;
+    /*padding: 0;*/
     margin: 0;
 }
 li {
@@ -257,7 +257,7 @@ button::-moz-focus-inner {
   border: 0;
 }
 
-/*My modifications*/
+/*Stuffs added by me*/
 
 /* Pandoc title header (h1.title) */
 .title {
@@ -299,9 +299,9 @@ code span.cf {
 }
 
 code span.dt {
-    color: #ff6347; /*Tomato red*/
+    color: #ff6347; /*tomato red*/
 }
 
 code span.st {
-    color: #00bfff; /*Sky blue*/
+    color: #00bfff; /*sky blue*/
 }
