@@ -305,3 +305,45 @@ code span.dt {
 code span.st {
     color: #00bfff; /*sky blue*/
 }
+
+/*Slidy specific modifications*/
+
+div.toolbar {
+    background-color: #1e272c; /*a shade of black*/
+    border-top: solid 1px #1e272c;
+}
+
+a:visited { color: #61BFC1 }
+a:link { color: #61BFC1 }
+a:hover { color: #61BFC1 text-decoration: underline }
+a:active { color: #61BFC1 text-decoration: underline }
+
+.toolbar a:link {
+    color: #61BFC1
+}
+
+div.slidy_toc {
+    background-color: #1e272c; /*a shade of black*/
+}
+
+body.single_slide div.slide {
+    position: unset;
+}
+
+div.toolbar {
+    color: unset;
+}
+
+ul, ol {
+    padding: revert;
+}
+
+pre {
+    color: unset;
+    border-style: unset;
+    border-left-width: unset;
+    border-top-width: unset;
+    border-right-width: unset;
+    border-bottom-width: unset;
+    border-color: unset;
+}
