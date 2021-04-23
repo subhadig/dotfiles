@@ -18,6 +18,7 @@ sanitize_file() {
     old_filename=$1
     new_filename=${old_filename}
     new_filename=$(echo $new_filename|tr "[:upper:]" "[:lower:]")
+    new_filename=$(echo $new_filename|tr -d "'")
     new_filename=$(echo $new_filename|tr "-" " ")
     new_filename=$(echo $new_filename|tr "_" " ")
     new_filename=$(echo $new_filename|tr "," " ")
