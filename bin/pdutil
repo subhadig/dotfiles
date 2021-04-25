@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+help() {
+    echo pdutil [preset] [file]
+    echo Allowed presets:
+    echo -e "\tm2h: markdown to html"
+    echo -e "\tm2p: markdown to pdf"
+    echo -e "\tm2s: markdown to slides"
+}
+
+if [ $# -ne 2 ]; then
+    echo Incorrect number of inputs: $#
+    help
+    exit 1
+fi
+
+preset=$1
+input=$2
+
+css=$HOME/workspaces/personal/dotfiles/pandoc/darkdown.css
+
+markdown2html() {
+    local output=`sed 's/.md$/.html/' <<<$input`
+    echo Converting $input to $output
+    exit
+    pandoc \
+        -s \
+        --toc \
+        -V toc-title:"Table of Contents" \
+        -c $css \
+        -o $output \
+        $input 
+}
+
+case "$preset" in
+    'm2h')
+        markdown2html
+        ;;
+
+    'm2p')
+        ;;
+
+    'm2s')
+        ;;
+
+    *)
+        echo Invalid preset: $preset
+        help
+        exit 1
+        ;;
+esac
