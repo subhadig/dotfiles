@@ -170,6 +170,8 @@ rb() {
 # Docker
 alias dps='docker ps'
 alias dpsall='docker ps -all'
+alias dcls='docker container ls'
+alias dclsa='docker container ls -a'
 
 # Misc
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
