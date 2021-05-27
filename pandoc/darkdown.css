@@ -298,11 +298,23 @@ code span.cf {
     color: #76ff7a; /*a shade of green*/
 }
 
+code span.ot {
+    color: #76ff7a; /*a shade of green*/
+}
+
+code span.dv {
+    color: #76ff7a; /*a shade of green*/
+}
+
 code span.dt {
     color: #ff6347; /*tomato red*/
 }
 
 code span.st {
+    color: #00bfff; /*sky blue*/
+}
+
+code span.ch {
     color: #00bfff; /*sky blue*/
 }
 
