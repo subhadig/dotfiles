@@ -4,7 +4,6 @@ wget -O FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-late
 
 sudo -v 2>/dev/null
 if [ $? -eq 0 ]; then
-    echo sudo account detected. Enter password when prompted.
     sudo tar xjvf FirefoxSetup.tar.bz2 -C /opt/ --overwrite
     sudo ln -f -s /opt/firefox/firefox /usr/bin/firefox-latest
 else
