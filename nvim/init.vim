@@ -121,3 +121,7 @@ nnoremap <localleader>cal ciW<<C-r>"><Esc>
 " touched by mistake on Mac
 nnoremap <F1> <Esc>
 inoremap <F1> <Esc>
+
+" Navigation in command mode
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
