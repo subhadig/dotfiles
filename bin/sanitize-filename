@@ -24,6 +24,8 @@ sanitize_file() {
     new_filename=$(echo $new_filename|tr "," " ")
     new_filename=$(echo $new_filename|tr "(" " ")
     new_filename=$(echo $new_filename|tr -d ")")
+    new_filename=$(echo $new_filename|tr -d "[")
+    new_filename=$(echo $new_filename|tr -d "]")
     new_filename=$(echo $new_filename|tr -s " ")
     new_filename=$(echo $new_filename|tr " " "-")
     echo Renaming $old_filename to $new_filename
