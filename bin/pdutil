@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 help() {
-    echo pdutil [preset] [file]
+    echo pdutil [preset] [input file] [output file]
     echo Allowed presets:
     echo -e "\tm2h: markdown to html"
     echo -e "\tm2p: markdown to pdf"
     echo -e "\tm2s: markdown to slides"
 }
 
-if [ $# -ne 2 ]; then
+if [ $# -lt 2 ]; then
     echo Incorrect number of inputs: $#
     help
     exit 1
@@ -16,18 +16,37 @@ fi
 
 preset=$1
 input=$2
+output=$3
 
 css=$HOME/workspaces/personal/dotfiles/pandoc/darkdown.css
 
 markdown2html() {
-    local output=`sed 's/.md$/.html/' <<<$input`
+    if [ -z ${output} ]; then
+        output=`sed 's/.md$/.html/' <<<$input`
+    fi
     echo Converting $input to $output
-    exit
     pandoc \
         -s \
         --toc \
         -V toc-title:"Table of Contents" \
         -c $css \
+        -o $output \
+        $input 
+}
+
+markdown2pdf() {
+    if [ -z ${output} ]; then
+        output=`sed 's/.md$/.pdf/' <<<$input`
+    fi
+    echo Converting $input to $output
+    pandoc \
+        -t html \
+        -s \
+        -c $HOME/workspaces/personal/dotfiles/pandoc/pdf.css \
+        -V margin-left='0.8in' \
+        -V margin-right='0.8in' \
+        -V margin-top='0.8in' \
+        -V margin-bottom='0.8in' \
         -o $output \
         $input 
 }
@@ -38,9 +57,11 @@ case "$preset" in
         ;;
 
     'm2p')
+        markdown2pdf
         ;;
 
     'm2s')
+        echo Not implemented yet.
         ;;
 
     *)

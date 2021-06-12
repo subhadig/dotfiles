@@ -60,9 +60,11 @@ endif
 " Set the preferred browser command based on the platform
 if system("uname") =~ "Linux"
     let g:browser = "firefox-latest --private-window "
+    let g:pdfreader = "xdg-open 2>/dev/null "
 elseif system("uname") =~ "Darwin"
     let g:browser = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito "
     let g:browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
+    let g:pdfreader = "open "
 endif
 
 " View markdown files as HTML in browser
@@ -81,11 +83,20 @@ function! MarkdownPresent()
     execute "silent !" . "rm " . "\"%:p" . ".html\" &"
 endfunction
 
+" View markdown files as PDF in the preferred pdf-reader
+function! MarkdownPdfView()
+    execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/pdutil m2p " . "\"%:p\" " . "\"%:p\"" . ".pdf"
+    execute "silent !" . g:pdfreader . "\"" . "%:p" . ".pdf\" &"
+    call getchar()
+    execute "silent !" . "rm " . "\"%:p" . ".pdf\" &"
+endfunction
+
 " Custom key bindings
 
 " Markdown
 nnoremap <localleader>v :call MarkdownView()<cr>
 nnoremap <localleader>p :call MarkdownPresent()<cr>
+nnoremap <localleader>d :call MarkdownPdfView()<cr>
 
 " fzf
 nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
