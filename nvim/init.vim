@@ -85,10 +85,12 @@ endfunction
 
 " View markdown files as PDF in the preferred pdf-reader
 function! MarkdownPdfView()
+    cd %:p:h
     execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/pdutil m2p " . "\"%:p\" " . "\"%:p\"" . ".pdf"
     execute "silent !" . g:pdfreader . "\"" . "%:p" . ".pdf\" &"
     call getchar()
     execute "silent !" . "rm " . "\"%:p" . ".pdf\" &"
+    cd -
 endfunction
 
 " Custom key bindings
