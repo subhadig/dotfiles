@@ -35,7 +35,7 @@ markdown2html() {
 }
 
 markdown2pdf() {
-    if [ -z ${output} ]; then
+    if [ -z "${output}" ]; then
         output=`sed 's/.md$/.pdf/' <<<$input`
     fi
     echo Converting $input to $output
@@ -47,8 +47,8 @@ markdown2pdf() {
         -V margin-right='0.8in' \
         -V margin-top='0.8in' \
         -V margin-bottom='0.8in' \
-        -o $output \
-        $input 
+        -o "$output" \
+        "$input"
 }
 
 case "$preset" in
