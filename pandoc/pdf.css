@@ -1,5 +1,5 @@
 body{
-    margin: 0 auto;
+    padding: 48px 48px 0px 48px;
     font-family: 'DejaVu Serif', Georgia, Palatino, serif;
     line-height: 1;
 }
@@ -42,7 +42,7 @@ li ul, li ul {
     margin-left: 24px;
 }
 p, ul, ol {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 24px;
 }
 pre {
@@ -52,7 +52,7 @@ pre {
 code {
     font-family: Consolas, Monaco, Andale Mono, monospace;
     line-height: 1.5;
-    font-size: 13px;
+    font-size: 12px;
 }
 table, td, th {
   border: 1px solid black;
@@ -64,6 +64,9 @@ table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+}
+pre, code {
+    word-wrap: break-word;
 }
 pre > code.sourceCode {
     white-space: pre-wrap;

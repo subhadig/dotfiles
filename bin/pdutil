@@ -20,9 +20,11 @@ output=$3
 
 html_css=$HOME/workspaces/personal/dotfiles/pandoc/darkdown.css
 pdf_css=$HOME/workspaces/personal/dotfiles/pandoc/pdf.css
-chrome_exec='chromium'
+
 case "$(uname -s)" in
-    Darwin*)    chrome_exec='chromium';;
+    Linux*)     chrome_exec='chromium';;
+    Darwin*)    chrome_exec='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';;
+    *)          echo "Unknown OS";;
 esac
 
 
@@ -52,13 +54,13 @@ markdown2pdf() {
         -o "$temp_output" \
         "$input"
 
-    $chrome_exec --headless \
+    "$chrome_exec" --headless \
         --disable-gpu \
         --print-to-pdf-no-header \
-        --print-to-pdf=$output \
-        $temp_output
+        --print-to-pdf="$output" \
+        "$temp_output"
 
-    rm $temp_output
+    rm "$temp_output"
 }
 
 case "$preset" in

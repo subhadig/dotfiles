@@ -71,7 +71,25 @@ gresethead() {
         return
     fi
     if [ -f "$file" ]; then
-        git reset HEAD $file
+        git reset HEAD "$file"
+    fi
+}
+
+grestore() {
+    local file
+    file=$(git diff --name-only|fzf)
+    if [ $? -ne 0 ]; then
+        return
+    fi
+    if [ -f "$file" ]; then
+        git diff "$file"
+        read -p "Restore file? " choice
+        if [ "$choice" = 'y' ]; then
+            git checkout -- "$file"
+            echo Restored $file.
+        else
+            echo Aborting.
+        fi
     fi
 }
 
@@ -182,3 +200,12 @@ alias cq="cal -3"
 alias cl="clear"
 
 alias upc="update-personal-config"
+
+case "$(uname -s)" in
+    Linux*)
+        alias chrome-private="chromium -incognito"
+        ;;
+    Darwin*)
+        alias chrome-private="/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito"
+        ;;
+esac
