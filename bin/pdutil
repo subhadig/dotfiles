@@ -18,7 +18,13 @@ preset=$1
 input=$2
 output=$3
 
-css=$HOME/workspaces/personal/dotfiles/pandoc/darkdown.css
+html_css=$HOME/workspaces/personal/dotfiles/pandoc/darkdown.css
+pdf_css=$HOME/workspaces/personal/dotfiles/pandoc/pdf.css
+chrome_exec='chromium'
+case "$(uname -s)" in
+    Darwin*)    chrome_exec='chromium';;
+esac
+
 
 markdown2html() {
     if [ -z ${output} ]; then
@@ -29,26 +35,30 @@ markdown2html() {
         -s \
         --toc \
         -V toc-title:"Table of Contents" \
-        -c $css \
+        -c $html_css \
         -o $output \
         $input 
 }
 
 markdown2pdf() {
+    temp_output=`sed 's/.md$/.html/' <<<$input`
     if [ -z "${output}" ]; then
         output=`sed 's/.md$/.pdf/' <<<$input`
     fi
     echo Converting $input to $output
     pandoc \
-        -t html \
         -s \
-        -c $HOME/workspaces/personal/dotfiles/pandoc/pdf.css \
-        -V margin-left='0.8in' \
-        -V margin-right='0.8in' \
-        -V margin-top='0.8in' \
-        -V margin-bottom='0.8in' \
-        -o "$output" \
+        -c $pdf_css \
+        -o "$temp_output" \
         "$input"
+
+    $chrome_exec --headless \
+        --disable-gpu \
+        --print-to-pdf-no-header \
+        --print-to-pdf=$output \
+        $temp_output
+
+    rm $temp_output
 }
 
 case "$preset" in
