@@ -21,6 +21,9 @@ output=$3
 html_css=$HOME/workspaces/personal/dotfiles/pandoc/darkdown.css
 pdf_css=$HOME/workspaces/personal/dotfiles/pandoc/pdf.css
 
+# html or latex
+pdf_flag='html'
+
 case "$(uname -s)" in
     Linux*)     chrome_exec='chromium';;
     Darwin*)    chrome_exec='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';;
@@ -43,6 +46,37 @@ markdown2html() {
 }
 
 markdown2pdf() {
+    case "$pdf_flag" in
+        'html')
+            markdown2pdfViaHtml
+            ;;
+        'latex')
+            markdown2pdfViaLatex
+            ;;
+    esac
+}
+
+markdown2pdfViaLatex() {
+    if [ -z "${output}" ]; then
+        output=`sed 's/.md$/.pdf/' <<<$input`
+    fi
+    echo Converting $input to $output
+
+    pandoc \
+        -s \
+        -f markdown \
+        --template $HOME/workspaces/personal/dotfiles/pandoc/custom.latex \
+        -V geometry:margin=0.8in \
+        -V mainfont='DejaVu Serif' \
+        -V monofont='DejaVu Sans Mono' \
+        -V fontsize='12pt' \
+        -V urlcolor='blue' \
+        --pdf-engine=xelatex \
+        -o "$output" \
+        "$input"
+}
+
+markdown2pdfViaHtml() {
     temp_output=`sed 's/.md$/.html/' <<<$input`
     if [ -z "${output}" ]; then
         output=`sed 's/.md$/.pdf/' <<<$input`
@@ -73,11 +107,11 @@ case "$preset" in
         ;;
 
     'm2s')
-        echo Not implemented yet.
+        echo ERROR: Not implemented yet.
         ;;
 
     *)
-        echo Invalid preset: $preset
+        echo ERROR: Invalid preset: $preset
         help
         exit 1
         ;;
