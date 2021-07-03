@@ -213,7 +213,7 @@ esac
 # dict modified
 dm() {
     if which dict 1>/dev/null; then
-        dict $1|less +G
+        dict $1 2>&1|less +G
     else
         echo ERROR: dict is not installed
     fi
