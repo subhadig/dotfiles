@@ -209,3 +209,12 @@ case "$(uname -s)" in
         alias chrome-private="/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito"
         ;;
 esac
+
+# dict modified
+dm() {
+    if which dict 1>/dev/null; then
+        dict $1|less +G
+    else
+        echo ERROR: dict is not installed
+    fi
+}
