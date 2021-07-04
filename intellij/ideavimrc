@@ -25,3 +25,12 @@ set autoindent
 " Diable beep sound
 set visualbell
 set noerrorbells
+
+" Resolve shortcut conflicts
+sethandler <C-n> n:ide i:vim
+sethandler <C-b> i:ide n-x-v:vim
+
+" Custom key bindings
+
+"" Reload ideavimrc
+nnoremap <leader><leader> :source ~/.ideavimrc<cr>
