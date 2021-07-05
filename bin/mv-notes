@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+help() {
+    echo mv-notes [path to the markdown notes file] [target directory]
+}
+
+if [ $# -ne 2 ]; then
+    echo Incorrect number of inputs: $#
+    help
+    exit 1
+fi
+
+notes=$1
+target_dir=$2
+
+if [ ! -f "$notes" ]; then
+    echo Notes does not exist: "$notes"
+    exit 1
+fi
+
+if [ ! -d "$target_dir" ]; then
+    echo Target directory does not exist: "$target_dir"
+    exit 1
+fi
+
+target_image_dir=$target_dir
+if [ -d "$target_dir/images" ]; then
+    target_image_dir="$target_dir/images"
+fi
+
+echo Moving $notes to the $target_dir
+mv "$notes" "$target_dir"
+
+while read line
+do
+    if grep -q "^\!\[\]" <<< "$line"; then
+        image_file=${line: 4}
+        if grep -q "{" <<< "$image_file"; then
+            image_file=`cut -d "{" -f 1 <<< "$image_file"`
+        fi
+        image_file=${image_file:0: -1}
+        image_file=`dirname "$notes"`/"$image_file"
+        echo Moving $image_file to $target_image_dir
+        mv "$image_file" "$target_image_dir"
+    fi
+done < "$notes"
