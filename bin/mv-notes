@@ -10,6 +10,8 @@ if [ $# -ne 2 ]; then
     exit 1
 fi
 
+#TODO Ask if cp or mv. Default cp
+
 notes=$1
 target_dir=$2
 
@@ -23,24 +25,29 @@ if [ ! -d "$target_dir" ]; then
     exit 1
 fi
 
-target_image_dir=$target_dir
-if [ -d "$target_dir/images" ]; then
-    target_image_dir="$target_dir/images"
+if grep -q "\/$" <<< $target_dir; then
+    target_dir=${target_dir:0:-1}
 fi
 
+target_image_dir=$target_dir
+if [ -d "$target_image_dir/images" ]; then
+    target_image_dir="$target_image_dir/images"
+fi
+#TODO mkdir image directory if not exists
+
 echo Moving $notes to the $target_dir
-mv "$notes" "$target_dir"
+echo mv "$notes" "$target_dir"
 
 while read line
 do
     if grep -q "^\!\[\]" <<< "$line"; then
-        image_file=${line: 4}
+        image_file=$line
         if grep -q "{" <<< "$image_file"; then
             image_file=`cut -d "{" -f 1 <<< "$image_file"`
         fi
-        image_file=${image_file:0: -1}
+        image_file=${image_file:4: -1}
         image_file=`dirname "$notes"`/"$image_file"
         echo Moving $image_file to $target_image_dir
-        mv "$image_file" "$target_image_dir"
+        echo mv "$image_file" "$target_image_dir"
     fi
 done < "$notes"
