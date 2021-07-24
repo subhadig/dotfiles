@@ -38,6 +38,7 @@ markdown2html() {
     echo Converting $input to $output
     pandoc \
         -s \
+        --template $HOME/workspaces/personal/dotfiles/pandoc/default.html5 \
         --toc \
         -V toc-title:"Table of Contents" \
         -c $html_css \

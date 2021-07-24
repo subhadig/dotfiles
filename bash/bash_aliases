@@ -81,7 +81,7 @@ gafr() {
         file=$(echo ${file}|awk '{print $2}')
 
         if [ $status = "??" ]; then
-            more "$file"
+            vi -R "$file"
         else
             git diff "$file"
         fi
