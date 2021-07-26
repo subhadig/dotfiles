@@ -42,8 +42,8 @@ markdown2html() {
         --toc \
         -V toc-title:"Table of Contents" \
         -c $html_css \
-        -o $output \
-        $input 
+        -o "$output" \
+        "$input" 
 }
 
 markdown2pdf() {
