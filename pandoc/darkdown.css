@@ -318,7 +318,21 @@ code span.ch {
     color: #00bfff; /*sky blue*/
 }
 
-/*Slidy specific modifications*/
+table, td, th {
+  border: 1px solid;
+}
+
+th, td {
+	padding: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/*Slidy specific modifications: Start*/
 
 div.toolbar {
     background-color: #1e272c; /*a shade of black*/
@@ -359,3 +373,4 @@ pre {
     border-bottom-width: unset;
     border-color: unset;
 }
+/*Slidy specific modifications: End*/
