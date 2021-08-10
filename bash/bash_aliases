@@ -48,7 +48,7 @@ gaf() {
     status=$(echo ${file}|awk '{print $1}')
     file=$(echo ${file}|awk '{print $2}')
 
-    if [ $status = "??" ]; then
+    if [ $status = "??" -o $status = "db"  ]; then
         more "$file"
     else
         git diff "$file"
@@ -68,6 +68,7 @@ gaf() {
 gafr() {
     local file
     files=`git status -s|grep '^.[^ ]'`
+    echo $files
     while true
     do
         file=`fzf <<< "$files"`
@@ -80,7 +81,9 @@ gafr() {
         status=$(echo ${file}|awk '{print $1}')
         file=$(echo ${file}|awk '{print $2}')
 
-        if [ $status = "??" ]; then
+        # It's very weird that on MacOS when the `git status -s` is being invoked
+        # from within a script, for new files, the status is 'db' instead of '??'
+        if [ $status = "??" -o $status = "db"  ]; then
             vi -R "$file"
         else
             git diff "$file"
