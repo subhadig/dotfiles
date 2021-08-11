@@ -34,3 +34,16 @@ sethandler <C-b> i:ide n-x-v:vim
 
 "" Reload ideavimrc
 nnoremap <leader><leader> :source ~/.ideavimrc<cr>
+
+nnoremap <A-b> <C-b>
+vnoremap <A-b> <C-b>
+nnoremap <A-d> <C-d>
+vnoremap <A-d> <C-d>
+nnoremap <A-f> <C-f>
+vnoremap <A-f> <C-f>
+
+"" IntelliJ actions
+nnoremap g; :action JumpToLastChange<cr>
+nnoremap == :action ReformatCode<CR>
+vnoremap == :action ReformatCode<CR>
+nnoremap <leader>r :action RenameElement<CR>
