@@ -2,9 +2,9 @@
 
 pworkspaces="$HOME/workspaces/personal"
 repos[0]="$pworkspaces/dotfiles"
-repos[1]="$pworkspaces/tmux-scripts"
-repos[2]="$pworkspaces/private-configs"
-repos[3]="$pworkspaces/notes"
+repos[1]="$pworkspaces/notes"
+repos[2]="$pworkspaces/tmux-scripts"
+repos[3]="$pworkspaces/private-configs"
 
 for repo in ${repos[*]}; do
     if [ -d "$repo" ]; then
