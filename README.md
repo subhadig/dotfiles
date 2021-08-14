@@ -8,19 +8,23 @@ Replace `~/workspaces/personal/dotfiles` in all the steps with the actual
 location of your *dotfiles* directory wherever applicable.
 
 ### bash
-Append this to the existing .bashrc.
+Append this to the existing `.bashrc`.
 
 ```bash
 # If the ~/workspaces/personal/dotfiles/bash/bashrc file exists then
 # source it.
-export DOTRCDIR="${HOME}/workspaces/personal/dotfiles"
 if [ -f ${DOTRCDIR}/bash/bashrc ]; then
     . ${DOTRCDIR}/bash/bashrc
 fi
 ```
 
-Append this to your existing .bash_aliases. If the file does not exist, create
-one.
+Place this line in `.bashrc` before the `.bash_aliases` is sourced.
+```bash
+export DOTRCDIR="${HOME}/workspaces/personal/dotfiles"
+```
+
+Append this to your existing `.bash_aliases`. If the file does not exist,
+create one.
 
 ```bash
 source $HOME/workspaces/personal/dotfiles/bash/bash_aliases
@@ -35,14 +39,14 @@ source $HOME/workspaces/personal/dotfiles/nvim/init.vim
 ```
 
 ### vim
-Append this to the existing .vimrc. Create one if it does not exists.
+Append this to the existing `.vimrc`. Create one if it does not exists.
 
 ```bash
 source $HOME/workspaces/personal/dotfiles/vim/vimrc
 ```
 
 ### tmux
-Append this to the existing .tmux.conf. Create one if it does not exists.
+Append this to the existing `.tmux.conf`. Create one if it does not exists.
 
 ```bash
 source-file $HOME/workspaces/personal/dotfiles/tmux/tmux.conf
