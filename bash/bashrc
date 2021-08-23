@@ -6,6 +6,14 @@ set -o vi
 # Read the inputrc from the dotrc directory
 export INPUTRC="${DOTRCDIR}/bash/inputrc"
 
+# This will force usage of color in ls output
+# This was only required for MacOS. Debian already shows colored output for ls.
+export CLICOLOR=1
+
+# Update the ls color coding
+# directory foreground: cyan (default: blue)
+export LSCOLORS='gxfxcxdxbxegedabagacad'
+
 # PATH
 ## ruby
 test -d ${HOME}/.gem/ruby/2.5.0/bin && PATH="${HOME}/.gem/ruby/2.5.0/bin:${PATH}"
