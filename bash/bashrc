@@ -10,7 +10,8 @@ export INPUTRC="${DOTRCDIR}/bash/inputrc"
 # This was only required for MacOS. Debian already shows colored output for ls.
 export CLICOLOR=1
 
-# Update the ls color coding
+# Update the ls color coding for MacOS
+# Linux is unaffected by this as Linux uses LS_COLORS instead.
 # directory foreground: cyan (default: blue)
 export LSCOLORS='gxfxcxdxbxegedabagacad'
 
