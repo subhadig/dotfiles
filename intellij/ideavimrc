@@ -27,8 +27,11 @@ set visualbell
 set noerrorbells
 
 " Resolve shortcut conflicts
+" More info: https://github.com/JetBrains/ideavim/wiki/sethandler
 sethandler <C-n> n:ide i:vim
 sethandler <C-b> i:ide n-x-v:vim
+sethandler <C-c> a:ide
+sethandler <C-v> i:ide n-x-v:vim
 
 " Custom key bindings
 
