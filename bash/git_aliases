@@ -10,6 +10,7 @@ alias gc='git commit'
 alias gcu='git commit -m "updated"'
 alias gptm='git push origin master'
 alias gpfm='git pull origin master'
+alias gptc='git push origin `git branch --show-current`'
 
 # git add with fzf
 gaf() {
