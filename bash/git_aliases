@@ -10,8 +10,10 @@ alias gc='git commit'
 alias gcu='git commit -m "updated"'
 alias gptm='git push origin master'
 alias gpfm='git pull origin master'
-alias gptc='git push origin `git branch --show-current`'
-alias gpfc='git pull origin `git branch --show-current`'
+#alias gptc='git push origin `git branch --show-current`' Not supported in git version < 2.22
+alias gptc='git push origin `git rev-parse --abbrev-ref HEAD`'
+#alias gpfc='git pull origin `git branch --show-current`' Not supported in git version < 2.22
+alias gpfc='git pull origin `git rev-parse --abbrev-ref HEAD`'
 
 # git add with fzf
 gaf() {
