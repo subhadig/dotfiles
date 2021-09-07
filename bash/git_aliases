@@ -46,8 +46,7 @@ gaf() {
 # git add with fzf recursive
 gafr() {
     local file
-    files=`git status -s|grep '^.[^ ]'`
-    echo $files
+    files=`git status -s -uall|grep '^.[^ ]'`
     while true
     do
         file=`fzf <<< "$files"`
