@@ -127,6 +127,8 @@ alias cl="clear"
 
 alias upc="update-personal-config"
 
+alias restcall="$HOME/workspaces/personal/restcall/src/restcall.py"
+
 case "$(uname -s)" in
     Linux*)
         alias chrome-private="chromium -incognito"
