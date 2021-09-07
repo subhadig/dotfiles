@@ -89,7 +89,7 @@ gafr() {
 }
 
 # Unstages a file but does not revert the changes
-gresethead() {
+gunstage() {
     local file
     file=$(git diff --name-only --cached|fzf)
     if [ $? -ne 0 ]; then
