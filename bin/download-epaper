@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+restcall="$HOME/workspaces/personal/restcall/src/restcall.py"
+reqfile="/tmp/get-ie-newspaper.json"
+
+$restcall -g "$reqfile"
+
+filename='ie-kolkata-'`date +%d-%m-%Y`'.pdf'
+resfile='/tmp/'$filename
+
+sed "s|\"url\": \"\"|\"url\": \"https://pdf.indianexpress.com/pdfupload/subepaper/$filename\"|" <"$reqfile" >/tmp/tmpget-ie-newspaper.json
+mv /tmp/tmpget-ie-newspaper.json "$reqfile"
+
+sed "s|\"resFile\": \"\"|\"resFile\": \"$resfile\"|" <"$reqfile" >/tmp/tmpget-ie-newspaper.json
+mv /tmp/tmpget-ie-newspaper.json "$reqfile"
+
+$restcall "$reqfile"
+
+if which open 1>/dev/null; then
+    open "$resfile"
+else
+    xdg-open 2>/dev/null "$resfile"
+fi
