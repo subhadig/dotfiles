@@ -19,6 +19,7 @@ alias cdvimplugin='cd $HOME/.local/share/nvim/site/pack/vim-plugins/'
 
 # ls
 alias ll='ls -lrth'
+alias l1='ls -1rt'
 
 # tmux launch scripts
 alias th='$HOME/workspaces/personal/dotfiles/tmux/home-tmux.sh'
