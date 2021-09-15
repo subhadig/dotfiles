@@ -107,9 +107,8 @@ rb() {
     case "$(uname -s)" in
         Linux*)     . ~/.bashrc;;
         Darwin*)    . ~/.bash_profile;;
-        *)          echo "Unknown OS";;
+        *)          echo "ERROR: Unknown OS";;
     esac
-    echo "Reloaded bash configuration"
 }
 
 # Docker

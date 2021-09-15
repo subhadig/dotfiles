@@ -55,6 +55,7 @@ gafr() {
         if [ $? -ne 0 ]; then
             return
         fi
+        clear
         echo Generating diff for selection: $file
         echo
 
