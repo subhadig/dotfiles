@@ -108,8 +108,6 @@ nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\
 
 " Open a new tab
 nnoremap <localleader>t :tabe<cr>
-" Open a new tab after last tab
-nnoremap <localleader>tl :$tabe<cr>
 
 " Open explore
 nnoremap <localleader>f :Texplore<cr>
