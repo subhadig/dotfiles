@@ -102,6 +102,7 @@ endfunction
 nnoremap <localleader>v :call MarkdownView()<cr>
 nnoremap <localleader>p :call MarkdownPresent()<cr>
 nnoremap <localleader>d :call MarkdownPdfView()<cr>
+vnoremap <localleader>mft :!$HOME/workspaces/personal/dotfiles/nvim/scripts/markdown_table_format.py<cr>
 
 " fzf
 nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
