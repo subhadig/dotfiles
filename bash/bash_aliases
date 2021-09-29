@@ -147,3 +147,14 @@ dm() {
         echo ERROR: dict is not installed
     fi
 }
+
+kill-bg-jobs() {
+    IFS_ORIG=$IFS
+    IFS=$'\n'
+    for job in `jobs`; do
+        job_id=`cut -f1 -d ']' <<<$job|tr -d '['`
+        echo Killing bg job with ID:$job_id
+        kill %$job_id
+    done
+    IFS=$IFS_ORIG
+}
