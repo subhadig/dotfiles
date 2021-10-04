@@ -99,9 +99,9 @@ endfunction
 " Custom key bindings
 
 " Markdown
-nnoremap <localleader>v :call MarkdownView()<cr>
-nnoremap <localleader>p :call MarkdownPresent()<cr>
-nnoremap <localleader>d :call MarkdownPdfView()<cr>
+nnoremap <localleader>mv :call MarkdownView()<cr>
+nnoremap <localleader>mp :call MarkdownPresent()<cr>
+nnoremap <localleader>md :call MarkdownPdfView()<cr>
 vnoremap <localleader>mft :!$HOME/workspaces/personal/dotfiles/nvim/scripts/markdown_table_format.py<cr>
 
 " fzf
