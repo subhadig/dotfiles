@@ -44,15 +44,25 @@ def print_row(max_col_lenths, row):
     """
     sys.stdout.write('|')
     for ind, col_len in enumerate(max_col_lenths):
+        # Print a 'space' before the value
         sys.stdout.write(' ')
-        if ind < len(row):
-            val = row[ind]
-            val = val.strip()
-            sys.stdout.write(val)
-            for remaining_char in range(col_len - len(val)):
-                sys.stdout.write(' ')
+
+        # Print the value
+        val = row[ind] if ind < len(row) else ''
+        val = val.strip()
+        sys.stdout.write(val)
+
+        # Fill the remaining column length with 'space'
+        for remaining_char in range(col_len - len(val)):
+            sys.stdout.write(' ')
+
+        # Print a 'space' after the value
         sys.stdout.write(' ')
+
+        # End the column
         sys.stdout.write('|')
+
+    # End of row, print a new line
     sys.stdout.write('\n')
 
 def format(headers, rows):
@@ -62,7 +72,6 @@ def format(headers, rows):
     Print the second row comprised of dashes and pipes.
     Lastly print the data rows one by one.
     """
-    formatted_text = ''
     max_col_lenths = [len(each.strip()) for each in headers]
     for each in rows:
         get_col_lens_for_row(max_col_lenths, each)
