@@ -22,8 +22,8 @@ set softtabstop=4
 set shiftwidth=4
 set autoindent
 
-" Timeoutlen for key sequence
-set timeoutlen=1500
+" Timeoutlen for key sequence - default 1000
+set timeoutlen=2000
 
 " File browsing
 let g:netrw_liststyle = 3

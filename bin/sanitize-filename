@@ -36,7 +36,9 @@ sanitize_file() {
 }
 
 sanitize_dir() {
-    for file in $1/*; do
+    sanitize_file "$1"
+    dir="$new_filename"
+    for file in "$dir"/*; do
         if [ -f "$file" ]; then
             sanitize_file "$file"
         elif [ -d "$file" ]; then
@@ -72,6 +74,9 @@ elif [ -f "$filename" ]; then
     sanitize_file "$filename"
 elif [ -d "$filename" ]; then
     sanitize_dir "$filename"
+else
+    echo "ERROR: Unsupported file type for file: $filename"
+    exit 1
 fi
 
 if ! $write ; then
