@@ -16,7 +16,7 @@ browser "which firefox-latest 1>/dev/null && firefox-latest --private-window %u 
 macro v set browser "vlc %u 1>/dev/null 2>&1 &"; open-in-browser ; set browser "which firefox-latest 1>/dev/null && firefox-latest --private-window %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
 
 # Play videos in browser with ,V
-macro V set browser "which firefox-latest 1>/dev/null && firefox-latest --new-window %u || /Applications/Firefox.app/Contents/MacOS/firefox %u"; open-in-browser ; set browser "which firefox-latest 1>/dev/null && firefox-latest --private-window %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
+macro V set browser "which firefox-latest 1>/dev/null && firefox-latest --new-window %u 1>/dev/null 2>&1 || /Applications/Firefox.app/Contents/MacOS/firefox %u 1>/dev/null 2>&1 &"; open-in-browser ; set browser "which firefox-latest 1>/dev/null && firefox-latest --private-window %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
 
 # Play podcasts in VLC with ,p directly from newsboat
 macro p set browser "play-queued-podcast %u"; enqueue ; open-in-browser ; set browser "which firefox-latest 1>/dev/null && firefox-latest --private-window %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
