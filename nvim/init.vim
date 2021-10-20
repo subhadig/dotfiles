@@ -104,12 +104,23 @@ nnoremap <localleader>mp :call MarkdownPresent()<cr>
 nnoremap <localleader>md :call MarkdownPdfView()<cr>
 vnoremap <localleader>mft :!$HOME/workspaces/personal/dotfiles/nvim/scripts/markdown_table_format.py<cr>
 
+"" Yank link in markdown
+nnoremap <localleader>yl ^f(vi("+y
+
+"" Convert to link in markdown
+nnoremap <localleader>cl ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
+
+"" Convert to automatic link in markdown
+nnoremap <localleader>cal ciW<<C-r>"><Esc>
+
 " fzf
 nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
 
-" Open a new tab
+" Tabs
+
+"" Open a new tab
 nnoremap <localleader>t :tabe<cr>
-" Open a new tab after last tab
+"" Open a new tab after last tab
 nnoremap <localleader>T :$tabe<cr>
 
 " Open explore
@@ -125,17 +136,6 @@ nnoremap <silent> <C-o> :copen<cr>
 nnoremap <silent> <C-j> :cn<cr>
 nnoremap <silent> <C-k> :cp<cr>
 
-" Markdown
-
-"" Yank link in markdown
-nnoremap <localleader>yl ^f(vi("+y
-
-"" Convert to link in markdown
-nnoremap <localleader>cl ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
-
-"" Convert to automatic link in markdown
-nnoremap <localleader>cal ciW<<C-r>"><Esc>
-
 " Remap F1 key so that the annoying help does not come up when F1 key is
 " touched by mistake on Mac
 nnoremap <F1> <Esc>
@@ -144,3 +144,7 @@ inoremap <F1> <Esc>
 " Navigation in command mode
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
+
+" Json formatting
+nnoremap <silent> <localleader>jf :!$HOME/workspaces/personal/dotfiles/bin/json-format<cr>
+vnoremap <silent> <localleader>jf :!$HOME/workspaces/personal/dotfiles/bin/json-format<cr>
