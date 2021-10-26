@@ -102,16 +102,16 @@ endfunction
 nnoremap <localleader>mv :call MarkdownView()<cr>
 nnoremap <localleader>mp :call MarkdownPresent()<cr>
 nnoremap <localleader>md :call MarkdownPdfView()<cr>
-vnoremap <localleader>mft :!$HOME/workspaces/personal/dotfiles/nvim/scripts/markdown_table_format.py<cr>
+vnoremap <localleader>mtf :!$HOME/workspaces/personal/dotfiles/nvim/scripts/markdown_table_format.py<cr>
 
 "" Yank link in markdown
-nnoremap <localleader>yl ^f(vi("+y
+nnoremap <localleader>mly ^f(vi("+y
 
 "" Convert to link in markdown
-nnoremap <localleader>cl ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
+nnoremap <localleader>mlc ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
 
 "" Convert to automatic link in markdown
-nnoremap <localleader>cal ciW<<C-r>"><Esc>
+nnoremap <localleader>mlca ciW<<C-r>"><Esc>
 
 " fzf
 nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
