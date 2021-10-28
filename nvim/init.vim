@@ -96,6 +96,15 @@ function! MarkdownPdfView()
     cd -
 endfunction
 
+" Show markdown headers in the quickfix window without the filename and
+" positions
+function! MarkdownTOC()
+    vim /^#/ %
+    copen
+    setlocal conceallevel=2 concealcursor=nc
+    syntax match quickFixFileNamePosition /^[^#]*/ transparent conceal
+endfunction
+
 " Custom key bindings
 
 " Markdown
@@ -103,6 +112,7 @@ nnoremap <localleader>mv :call MarkdownView()<cr>
 nnoremap <localleader>mp :call MarkdownPresent()<cr>
 nnoremap <localleader>md :call MarkdownPdfView()<cr>
 vnoremap <localleader>mtf :!$HOME/workspaces/personal/dotfiles/nvim/scripts/markdown_table_format.py<cr>
+nnoremap <localleader>mc :call MarkdownTOC()<cr>
 
 "" Yank link in markdown
 nnoremap <localleader>mly ^f(vi("+y
@@ -122,6 +132,11 @@ nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\
 nnoremap <localleader>t :tabe<cr>
 "" Open a new tab after last tab
 nnoremap <localleader>T :$tabe<cr>
+
+" Window
+"" Resize horizontal window
+nnoremap <silent> <C-w>+ :resize +10<cr>
+nnoremap <silent> <C-w>- :resize -10<cr>
 
 " Open explore
 nnoremap <localleader>f :Texplore<cr>
