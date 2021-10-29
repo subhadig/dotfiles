@@ -64,10 +64,12 @@ endif
 if system("uname") =~ "Linux"
     let g:browser = "firefox-latest --private-window "
     let g:pdfreader = "xdg-open 2>/dev/null "
+    let g:wordprocessor = "xdg-open 2>/dev/null "
 elseif system("uname") =~ "Darwin"
     let g:browser = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito "
     let g:browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
     let g:pdfreader = "open "
+    let g:wordprocessor = "open "
 endif
 
 " View markdown files as HTML in browser
@@ -96,6 +98,16 @@ function! MarkdownPdfView()
     cd -
 endfunction
 
+" View markdown files as MS Word document in the system default word processor
+function! MarkdownWordDocView()
+    cd %:p:h
+    execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/pdutil m2d " . "\"%:p\" " . "\"%:p\"" . ".docx"
+    execute "silent !" . g:wordprocessor . "\"" . "%:p" . ".docx\" &"
+    call getchar()
+    execute "silent !" . "rm " . "\"%:p" . ".docx\" &"
+    cd -
+endfunction
+
 " Show markdown headers in the quickfix window without the filename and
 " positions
 function! MarkdownTOC()
@@ -111,6 +123,7 @@ endfunction
 nnoremap <localleader>mv :call MarkdownView()<cr>
 nnoremap <localleader>mp :call MarkdownPresent()<cr>
 nnoremap <localleader>md :call MarkdownPdfView()<cr>
+nnoremap <localleader>mw :call MarkdownWordDocView()<cr>
 vnoremap <localleader>mtf :!$HOME/workspaces/personal/dotfiles/nvim/scripts/markdown_table_format.py<cr>
 nnoremap <localleader>mc :call MarkdownTOC()<cr>
 

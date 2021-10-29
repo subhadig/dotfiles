@@ -5,6 +5,7 @@ help() {
     echo Allowed presets:
     echo -e "\tm2h: markdown to html"
     echo -e "\tm2p: markdown to pdf"
+    echo -e "\tm2d: markdown to docx"
     echo -e "\tm2s: markdown to slides"
 }
 
@@ -20,6 +21,7 @@ output=$3
 
 html_css=$HOME/workspaces/personal/dotfiles/pandoc/darkdown.css
 pdf_css=$HOME/workspaces/personal/dotfiles/pandoc/pdf.css
+eisvogel_template=$HOME/workspaces/personal/dotfiles/pandoc/eisvogel.latex
 
 # html or latex
 pdf_flag='html'
@@ -32,7 +34,7 @@ esac
 
 
 markdown2html() {
-    if [ -z ${output} ]; then
+    if [ -z "${output}" ]; then
         output=`sed 's/.md$/.html/' <<<$input`
     fi
     echo Converting $input to $output
@@ -98,6 +100,23 @@ markdown2pdfViaHtml() {
     rm "$temp_output"
 }
 
+markdown2docx() {
+    if [ -z "${output}" ]; then
+        output=`sed 's/.md$/.docx/' <<<$input`
+    fi
+    
+    echo Converting $input to $output
+
+    pandoc \
+        -V geometry:margin=0.8in \
+        -V mainfont='DejaVu Serif' \
+        -V monofont='DejaVu Sans Mono' \
+        -V urlcolor=blue \
+        --listings \
+        -o "$output" \
+        "$input" 
+}
+
 case "$preset" in
     'm2h')
         markdown2html
@@ -105,6 +124,10 @@ case "$preset" in
 
     'm2p')
         markdown2pdf
+        ;;
+
+    'm2d')
+        markdown2docx
         ;;
 
     'm2s')
