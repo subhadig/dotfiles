@@ -22,6 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+device_label='TOSHIBA EXT'
+mount_path="/media/${USER}/ext_hdd"
+
 exec_admin_command() {
     if $user_has_sudo; then
         sudo $1
@@ -30,13 +33,21 @@ exec_admin_command() {
     fi
 }
 
+echo Initiating backup...
+
 # Find the pretty hostname
 # backup_laptop
 comp_name=`hostnamectl --pretty`
 
-if [ -z $comp_name ]; then
-    echo "Computer name not set. Exiting"
+if [ -z "$comp_name" ]; then
+    echo "Computer name not set. Exiting."
     exit 1
+fi
+
+read -p "Type the computer name[$comp_name] to be used for backup: " comp_name_user
+
+if [ "$comp_name_user" != "$comp_name" ]; then
+    echo Computer name did not match. Exiting.
 fi
 
 user_has_sudo=false
@@ -44,27 +55,14 @@ sudo -v 2>/dev/null
 if [ $? -eq 0 ]; then
     user_has_sudo=true
 fi
-#TODO remove
-echo User sudo status: $user_has_sudo
 
 # List of directories that needs to be backed up
 # Paths are relative from the user's home directory
 backed_dirs[0]='Documents'
-#backed_dirs[1]='Notebooks'
-#backed_dirs[2]='Music'
-#backed_dirs[3]='Pictures'
-#backed_dirs[4]='Videos'
-
-#TODO remove
-#declare -A synced_dirs
-#synced_dirs["/home/${USER}/Documents"]="backup_laptop"
-#synced_dirs["/home/${USER}/Notebooks"]="backup_laptop"
-#synced_dirs["/home/${USER}/Music"]="backup_laptop"
-#synced_dirs["/home/${USER}/Pictures"]="backup_laptop"
-#synced_dirs["/home/${USER}/Videos"]="backup_laptop"
-
-device_label='TOSHIBA EXT'
-mount_path="/media/${USER}/ext_hdd"
+backed_dirs[1]='Notebooks'
+backed_dirs[2]='Music'
+backed_dirs[3]='Pictures'
+backed_dirs[4]='Videos'
 
 # Get the device path with the matching label
 device_path=''
@@ -85,8 +83,7 @@ if [ -z "$device_path" ]; then
 fi
 
 # Mount the external drive
-echo Mounting ${device_path} to ${mount_path}. Continue?
-read choice
+read -p "Mounting ${device_path} to ${mount_path}. Continue? " choice
 if [ "$choice" != "y" ]; then
     echo Selected $choice. Exiting.
     exit 1
@@ -98,18 +95,21 @@ if [ ! -d ${mount_path} ]; then
     exec_admin_command "mkdir -p ${mount_path}"
 fi
 
-echo Mounting..
-exec_admin_command "mount -t ntfs ${device_path} ${mount_path}"
+echo Mounting...
+exec_admin_command "mount -o uid=${USER} -t ntfs ${device_path} ${mount_path}"
 
 echo
 
 # Sync every path in synced_dir
 for dir in "${backed_dirs[@]}"
 do
-    echo Syncing /home/${USER}/${dir} to ${mount_path}/${comp_name}/${dir} ..
-    rsync -av --delete "/home/${USER}/${dir}" "${mount_path}/${comp_name}"
+    if [ -d "$dir" ]; then
+        echo Syncing /home/${USER}/${dir} to ${mount_path}/${comp_name}/${dir}...
+        rsync -av --delete "/home/${USER}/${dir}" "${mount_path}/${comp_name}"
+    fi
+    echo
 done
 
 # Unmount the external drive
-echo Unmounting ${device_path} ..
+echo Unmounting ${device_path}...
 exec_admin_command "umount ${device_path}"
