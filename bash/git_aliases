@@ -143,7 +143,7 @@ printgaliases() {
     echo gptm: Git push to master
     echo gpfm: Git pull from master
     echo gafr: Git add with fzf search. Recursive.
-    echo gresethead: Git unstage a file but don\'t revert the changes with fzf search.
+    echo gunstage: Git unstage a file but don\'t revert the changes with fzf search.
     echo grestore: Git restore a file to HEAD with fzf search.
     echo gsetconfigp: Git set user.name and user.email config to private.
 }

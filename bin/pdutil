@@ -24,6 +24,7 @@ pdf_css=$HOME/workspaces/personal/dotfiles/pandoc/pdf.css
 eisvogel_template=$HOME/workspaces/personal/dotfiles/pandoc/eisvogel.latex
 
 # html or latex
+#pdf_flag='latex'
 pdf_flag='html'
 
 case "$(uname -s)" in
@@ -68,7 +69,7 @@ markdown2pdfViaLatex() {
     pandoc \
         -s \
         -f markdown \
-        --template $HOME/workspaces/personal/dotfiles/pandoc/custom.latex \
+        --template $eisvogel_template \
         -V geometry:margin=0.8in \
         -V mainfont='DejaVu Serif' \
         -V monofont='DejaVu Sans Mono' \
@@ -109,8 +110,6 @@ markdown2docx() {
 
     pandoc \
         -V geometry:margin=0.8in \
-        -V mainfont='DejaVu Serif' \
-        -V monofont='DejaVu Sans Mono' \
         -V urlcolor=blue \
         --listings \
         -o "$output" \
