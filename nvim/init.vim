@@ -70,6 +70,7 @@ elseif system("uname") =~ "Darwin"
     let g:browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
     let g:pdfreader = "open "
     let g:wordprocessor = "open "
+    let g:texteditor = "open "
 endif
 
 " View markdown files as HTML in browser
@@ -108,6 +109,16 @@ function! MarkdownWordDocView()
     cd -
 endfunction
 
+" View markdown files as plain text document in the system default text editor
+function! MarkdownTextView()
+    cd %:p:h
+    execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/pdutil m2t " . "\"%:p\" " . "\"%:p\"" . ".txt"
+    execute "silent !" . g:texteditor . "\"" . "%:p" . ".txt\" &"
+    call getchar()
+    execute "silent !" . "rm " . "\"%:p" . ".txt\" &"
+    cd -
+endfunction
+
 " Show markdown headers in the quickfix window without the filename and
 " positions
 function! MarkdownTOC()
@@ -124,6 +135,7 @@ nnoremap <localleader>mv :call MarkdownView()<cr>
 nnoremap <localleader>mp :call MarkdownPresent()<cr>
 nnoremap <localleader>md :call MarkdownPdfView()<cr>
 nnoremap <localleader>mw :call MarkdownWordDocView()<cr>
+nnoremap <localleader>mx :call MarkdownTextView()<cr>
 vnoremap <localleader>mtf :!$HOME/workspaces/personal/dotfiles/nvim/scripts/markdown_table_format.py<cr>
 nnoremap <localleader>mc :call MarkdownTOC()<cr>
 

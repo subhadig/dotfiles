@@ -6,6 +6,7 @@ help() {
     echo -e "\tm2h: markdown to html"
     echo -e "\tm2p: markdown to pdf"
     echo -e "\tm2d: markdown to docx"
+    echo -e "\tm2t: markdown to text"
     echo -e "\tm2s: markdown to slides"
 }
 
@@ -116,6 +117,19 @@ markdown2docx() {
         "$input" 
 }
 
+markdown2text() {
+    if [ -z "${output}" ]; then
+        output=`sed 's/.md$/.txt/' <<<$input`
+    fi
+    echo Converting $input to $output
+    pandoc \
+        -s \
+        -f markdown \
+        -t plain \
+        -o "$output" \
+        "$input" 
+}
+
 case "$preset" in
     'm2h')
         markdown2html
@@ -127,6 +141,10 @@ case "$preset" in
 
     'm2d')
         markdown2docx
+        ;;
+
+    'm2t')
+        markdown2text
         ;;
 
     'm2s')
