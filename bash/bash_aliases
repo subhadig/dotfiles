@@ -158,3 +158,16 @@ kill-bg-jobs() {
     done
     IFS=$IFS_ORIG
 }
+
+rc() {
+    local req_file
+    req_file=$1
+    restcall "$req_file"
+    read -p "Open response file? " choice
+    if [ "$choice" = 'y' ]; then
+        local res_file
+        res_file=`cut -f1 -d '.' <<<"$req_file"`
+        res_file="${res_file}-res.json"
+        vi -R "$res_file"
+    fi
+}
