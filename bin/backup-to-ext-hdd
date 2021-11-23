@@ -103,7 +103,7 @@ echo
 # Sync every path in synced_dir
 for dir in "${backed_dirs[@]}"
 do
-    if [ -d "$dir" ]; then
+    if [ -d "/home/${USER}/${dir}" ]; then
         echo Syncing /home/${USER}/${dir} to ${mount_path}/${comp_name}/${dir}...
         rsync -av --delete "/home/${USER}/${dir}" "${mount_path}/${comp_name}"
     fi
