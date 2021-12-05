@@ -188,3 +188,6 @@ cnoremap <C-f> <Right>
 " Json formatting
 nnoremap <silent> <localleader>jf :!$HOME/workspaces/personal/dotfiles/bin/json-format<cr>
 vnoremap <silent> <localleader>jf :!$HOME/workspaces/personal/dotfiles/bin/json-format<cr>
+
+" Copy to system clipboard
+vnoremap <silent> <localleader>y "+y
