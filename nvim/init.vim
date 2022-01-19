@@ -160,8 +160,11 @@ nnoremap <localleader>T :$tabe<cr>
 
 " Window
 "" Resize horizontal window
-nnoremap <silent> <C-w>+ :resize +10<cr>
-nnoremap <silent> <C-w>- :resize -10<cr>
+nnoremap <silent> <C-w>+ :resize +20<cr>
+nnoremap <silent> <C-w>- :resize -20<cr>
+"" Resize vertical window
+nnoremap <silent> <C-w>> :vertical resize +30<cr>
+nnoremap <silent> <C-w>< :vertical resize -30<cr>
 
 " Open explore
 nnoremap <localleader>f :Texplore<cr>
