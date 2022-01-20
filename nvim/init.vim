@@ -25,6 +25,10 @@ set autoindent
 " Timeoutlen for key sequence - default 1000
 set timeoutlen=2000
 
+" Set foldmethod to syntax but disable fold by default
+set foldmethod=syntax
+set nofoldenable
+
 " File browsing
 let g:netrw_liststyle = 3
 let g:netrw_winsize = 25
