@@ -127,7 +127,7 @@ endfunction
 " positions
 function! MarkdownTOC()
     vim /^#/ %
-    copen
+    copen 20
     setlocal conceallevel=2 concealcursor=nc
     syntax match quickFixFileNamePosition /^[^#]*/ transparent conceal
 endfunction
