@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+args=($@)
+filename=${args[-1]}
+echo Compiling ${filename}...
+javac "$args"
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+classname=`cut -d '.' -f1 <<<"$filename"`
+echo Running ${classname}...
+java "${classname}"
+
+echo Cleaning up...
+rm "${classname}".class

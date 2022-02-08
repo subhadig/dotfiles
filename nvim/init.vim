@@ -132,6 +132,10 @@ function! MarkdownTOC()
     syntax match quickFixFileNamePosition /^[^#]*/ transparent conceal
 endfunction
 
+function! CompileAndRunJava()
+    execute "!" . "$HOME/workspaces/personal/dotfiles/bin/compile-run-java " . "\"%:p:t\""
+endfunction
+
 " Custom key bindings
 
 " Markdown
@@ -198,3 +202,6 @@ vnoremap <silent> <localleader>jf :!$HOME/workspaces/personal/dotfiles/bin/json-
 
 " Copy to system clipboard
 vnoremap <silent> <localleader>y "+y
+
+" Java speicific keybindings
+autocmd FileType java nnoremap <localleader>r :call CompileAndRunJava()<cr>
