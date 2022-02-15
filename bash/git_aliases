@@ -132,7 +132,7 @@ gsetconfigp() {
     fi
 }
 
-printgaliases() {
+printgitaliases() {
     echo gstatus: Git status
     echo gbranch: Git branch
     echo gadd: Git add
