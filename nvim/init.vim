@@ -135,8 +135,18 @@ function! MarkdownTOC()
     syntax match quickFixFileNamePosition /^[^#]*/ transparent conceal
 endfunction
 
+" Java specific functions
+" TODO: move to a separate file when this grows long
+
 function! CompileAndRunJava()
     execute "!" . "$HOME/workspaces/personal/dotfiles/bin/compile-run-java " . "\"%:p:t\""
+endfunction
+
+function! InsertJavaMain()
+    let l:mainfunction = ["    public static void main(String[] args) {"]
+    call add(l:mainfunction, "        ")
+    call add(l:mainfunction, "    }")
+    call append(line("."), l:mainfunction)
 endfunction
 
 " Custom key bindings
@@ -208,3 +218,4 @@ vnoremap <silent> <localleader>y "+y
 
 " Java speicific keybindings
 autocmd FileType java nnoremap <localleader>r :call CompileAndRunJava()<cr>
+autocmd FileType java nnoremap <localleader>jm :call InsertJavaMain()<cr>
