@@ -119,6 +119,19 @@ alias dpsall='docker ps -all'
 alias dcls='docker container ls'
 alias dclsa='docker container ls -a'
 
+# dict modified
+dm() {
+    if which dict 1>/dev/null; then
+        dict $1 2>&1|less +G
+    else
+        echo ERROR: dict is not installed
+    fi
+}
+
+# Python
+alias py-create-venv="python3 -m venv ./venv"
+alias py-activate-venv=". venv/bin/activate"
+
 # Misc
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
 alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
@@ -140,15 +153,6 @@ case "$(uname -s)" in
         alias firefox="open -a Firefox"
         ;;
 esac
-
-# dict modified
-dm() {
-    if which dict 1>/dev/null; then
-        dict $1 2>&1|less +G
-    else
-        echo ERROR: dict is not installed
-    fi
-}
 
 kill-bg-jobs() {
     IFS_ORIG=$IFS
