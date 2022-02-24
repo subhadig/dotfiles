@@ -135,25 +135,6 @@ function! MarkdownTOC()
     syntax match quickFixFileNamePosition /^[^#]*/ transparent conceal
 endfunction
 
-" Java specific functions
-" TODO: move to a separate file when this grows long
-
-function! CompileAndRunJava()
-    update
-    execute "!" . "$HOME/workspaces/personal/dotfiles/bin/compile-run-java " . "\"%:p:t\""
-endfunction
-
-function! InsertJavaMain()
-    let l:mainfunction = ["    public static void main(String[] args) {"]
-    call add(l:mainfunction, "        ")
-    call add(l:mainfunction, "    }")
-    call append(line("."), l:mainfunction)
-endfunction
-
-function! InsertJavaPrintln()
-    let l:mainfunction = "System.out.println();"
-    call setline('.', getline('.') . l:mainfunction)
-endfunction
 
 " Custom key bindings
 
@@ -222,7 +203,8 @@ vnoremap <silent> <localleader>jf :!$HOME/workspaces/personal/dotfiles/bin/json-
 " Copy to system clipboard
 vnoremap <silent> <localleader>y "+y
 
-" Java speicific keybindings
-autocmd FileType java nnoremap <localleader>r :call CompileAndRunJava()<cr>
-autocmd FileType java nnoremap <localleader>jm :call InsertJavaMain()<cr>
-autocmd FileType java nnoremap <localleader>jp :call InsertJavaPrintln()<cr>
+" Python specific keybindings
+autocmd FileType python nnoremap <F9> :w<CR>:exec "!" shellescape(expand("%:p"), 1)<CR>
+
+" Load Java speicific init file
+autocmd FileType java source $HOME/workspaces/personal/dotfiles/nvim/java-init.vim
