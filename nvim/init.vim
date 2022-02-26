@@ -204,7 +204,7 @@ vnoremap <silent> <localleader>jf :!$HOME/workspaces/personal/dotfiles/bin/json-
 vnoremap <silent> <localleader>y "+y
 
 " Python specific keybindings
-autocmd FileType python nnoremap <F9> :w<CR>:exec "!" shellescape(expand("%:p"), 1)<CR>
+autocmd FileType python source $HOME/workspaces/personal/dotfiles/nvim/python-init.vim
 
 " Load Java speicific init file
 autocmd FileType java source $HOME/workspaces/personal/dotfiles/nvim/java-init.vim
