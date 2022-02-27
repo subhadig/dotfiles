@@ -76,7 +76,7 @@ gafr() {
         if [ "$choice" = 'y' ]; then
             git add "$file"
             echo Added $file to index.
-            files=`grep -v "$file" <<<"$files"`
+            files=`grep -v " $file$" <<<"$files"`
         else
             echo Aborting.
         fi
