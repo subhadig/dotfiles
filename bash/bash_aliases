@@ -129,8 +129,8 @@ dm() {
 }
 
 # Python
-alias py-create-venv="python3 -m venv ./venv"
-alias py-activate-venv=". venv/bin/activate"
+alias py-create-venv="python3 -m venv ./.venv"
+alias py-activate-venv=". .venv/bin/activate"
 
 # Misc
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
