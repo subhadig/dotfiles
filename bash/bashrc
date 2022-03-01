@@ -17,8 +17,13 @@ export LSCOLORS='gxfxcxdxbxegedabagacad'
 
 # PATH
 ## ruby
-test -d ${HOME}/.gem/ruby/2.5.0/bin && PATH="${HOME}/.gem/ruby/2.5.0/bin:${PATH}"
-test -d ${HOME}/.gem/ruby/3.0.0/bin && PATH="${HOME}/.gem/ruby/3.0.0/bin:${PATH}"
+if [ -d ${HOME}/.gem/ruby/3.0.0/bin ]; then
+    PATH="${HOME}/.gem/ruby/3.0.0/bin:${PATH}"
+elif [ -d ${HOME}/.gem/ruby/2.7.0/bin ]; then
+    PATH="${HOME}/.gem/ruby/2.7.0/bin:${PATH}"
+elif [ -d ${HOME}/.gem/ruby/2.5.0/bin ]; then
+    PATH="${HOME}/.gem/ruby/2.5.0/bin:${PATH}"
+fi
 test -d /usr/local/opt/ruby/bin && PATH="/usr/local/opt/ruby/bin:${PATH}"
 
 PATH="${DOTRCDIR}/bin:${PATH}"
