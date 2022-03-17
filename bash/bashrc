@@ -39,3 +39,6 @@ elif [ -f "/usr/share/doc/fzf/examples/completion.bash" ]; then
 elif [ -f "/usr/local/opt/fzf/shell/completion.bash" ]; then
     source "/usr/local/opt/fzf/shell/completion.bash"
 fi
+
+# This is used by my custom npm config
+PATH=${HOME}/.local/bin/:$PATH
