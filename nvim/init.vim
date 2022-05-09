@@ -49,6 +49,9 @@ set termguicolors
 " Yaml speicific configuration
 autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
+" Json speicific configuration
+autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
+
 " Theme - iosvkem
 "let g:Iosvkem_transp_bg = 1
 "colorscheme Iosvkem
