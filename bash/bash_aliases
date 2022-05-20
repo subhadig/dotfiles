@@ -143,6 +143,7 @@ alias cl="clear"
 alias upc="update-personal-config"
 
 alias restcall="$HOME/workspaces/personal/restcall/src/restcall.py"
+alias lr="ls -lrt|grep .json$|grep -v res.json$"
 
 case "$(uname -s)" in
     Linux*)
