@@ -138,5 +138,8 @@ autocmd FileType python source $HOME/workspaces/personal/dotfiles/nvim/python-in
 " Load Java speicific init file
 autocmd FileType java source $HOME/workspaces/personal/dotfiles/nvim/java-init.vim
 
+" Load Kotlin speicific init file
+autocmd FileType kotlin source $HOME/workspaces/personal/dotfiles/nvim/kotlin-init.vim
+
 " Load Markdown speicific init file
 autocmd FileType markdown source $HOME/workspaces/personal/dotfiles/nvim/markdown-init.vim

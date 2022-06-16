@@ -42,3 +42,6 @@ fi
 
 # This is used by my custom npm config
 PATH=${HOME}/.local/bin/:$PATH
+
+# Include Kotlin compiler in the PATH
+test -d "${HOME}/opt/kotlinc/bin" && PATH="${HOME}/opt/kotlinc/bin:${PATH}"

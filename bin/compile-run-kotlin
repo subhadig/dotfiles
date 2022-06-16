@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+args=($@)
+filename=${args[-1]}
+
+if [ -d "${HOME}/opt/kotlinc/bin" ]; then
+    KOTLIN_BIN="${HOME}/opt/kotlinc/bin"
+else
+    echo Kotlin bin not found. Exiting...
+    exit 1
+fi
+
+TMP_KOTLIN_JAR=/tmp/kotlinTmp.jar
+
+echo Compiling ${filename}...
+
+$KOTLIN_BIN/kotlinc "$args" -d $TMP_KOTLIN_JAR
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+classname=`cut -d '.' -f1 <<<"$filename"`
+classname=${classname^}Kt
+echo Running ${classname}...
+$KOTLIN_BIN/kotlin -cp $TMP_KOTLIN_JAR "$classname"
+
+echo Cleaning up...
+rm $TMP_KOTLIN_JAR
