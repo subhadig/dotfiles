@@ -44,4 +44,8 @@ fi
 PATH=${HOME}/.local/bin/:$PATH
 
 # Include Kotlin compiler in the PATH
-test -d "${HOME}/opt/kotlinc/bin" && PATH="${HOME}/opt/kotlinc/bin:${PATH}"
+if [ -d "${HOME}/opt/kotlinc/bin" ]; then
+    PATH="${HOME}/opt/kotlinc/bin:${PATH}"
+elif [ -d "/opt/kotlinc/bin" ]; then
+    PATH="/opt/kotlinc/bin:${PATH}"
+fi

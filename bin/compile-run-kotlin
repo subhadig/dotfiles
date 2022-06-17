@@ -5,6 +5,8 @@ filename=${args[-1]}
 
 if [ -d "${HOME}/opt/kotlinc/bin" ]; then
     KOTLIN_BIN="${HOME}/opt/kotlinc/bin"
+elif [ -d "/opt/kotlinc/bin" ]; then
+    KOTLIN_BIN="/opt/kotlinc/bin"
 else
     echo Kotlin bin not found. Exiting...
     exit 1
@@ -12,9 +14,10 @@ fi
 
 TMP_KOTLIN_JAR=/tmp/kotlinTmp.jar
 
-echo Compiling ${filename}...
+dir=`dirname ${filename}`
+echo Compiling files in directory: \"${dir}\"...
 
-$KOTLIN_BIN/kotlinc "$args" -d $TMP_KOTLIN_JAR
+$KOTLIN_BIN/kotlinc `find ${dir} -name "*.kt"` -d $TMP_KOTLIN_JAR
 if [ $? -ne 0 ]; then
     exit 1
 fi
