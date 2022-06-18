@@ -8,14 +8,14 @@ if [ -d "${HOME}/opt/kotlinc/bin" ]; then
 elif [ -d "/opt/kotlinc/bin" ]; then
     KOTLIN_BIN="/opt/kotlinc/bin"
 else
-    echo Kotlin bin not found. Exiting...
+    echo ERROR: Kotlin bin not found. Exiting...
     exit 1
 fi
 
 TMP_KOTLIN_JAR=/tmp/kotlinTmp.jar
 
 dir=`dirname ${filename}`
-echo Compiling files in directory: \"${dir}\"...
+echo INFO: Compiling files in directory: \"${dir}\"...
 
 $KOTLIN_BIN/kotlinc `find ${dir} -name "*.kt"` -d $TMP_KOTLIN_JAR
 if [ $? -ne 0 ]; then
@@ -24,8 +24,8 @@ fi
 
 classname=`cut -d '.' -f1 <<<"$filename"`
 classname=${classname^}Kt
-echo Running ${classname}...
+echo INFO: Running ${classname}...
 $KOTLIN_BIN/kotlin -cp $TMP_KOTLIN_JAR "$classname"
 
-echo Cleaning up...
+echo INFO: Cleaning up...
 rm $TMP_KOTLIN_JAR
