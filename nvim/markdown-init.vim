@@ -67,6 +67,16 @@ function! MarkdownTOC()
     syntax match quickFixFileNamePosition /^[^#]*/ transparent conceal
 endfunction
 
+function! ModifyTextWidth()
+    echo 'I am called'
+    " If the line ends with Markdown link - set big value for textwidth or If it's a header
+    if getline(".")=~'^.*\[.*\](.*)$' || getline(".")=~'^#.*'
+        setlocal textwidth=500
+    else
+        setlocal textwidth=80 " Otherwise use normal textwidth
+    endif
+endfunction
+
 " Key bindings
 nnoremap <localleader>mv :call MarkdownView()<cr>
 nnoremap <localleader>mp :call MarkdownPresent()<cr>
@@ -85,3 +95,6 @@ nnoremap <localleader>mlc ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
 "" Convert to automatic link in markdown
 nnoremap <localleader>mlca ciW<<C-r>"><Esc>
 
+
+" Autocmd Events
+autocmd CursorMovedI *.md call ModifyTextWidth()
