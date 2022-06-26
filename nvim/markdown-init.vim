@@ -70,8 +70,9 @@ function! MarkdownTOC()
 endfunction
 
 function! ModifyTextWidth()
-    " If the line ends with Markdown link or If it's a header - set big value for textwidth
-    if getline(".")=~'^.*\[.*\](.*)$' || getline(".")=~'^#.*'
+    let l:line=getline(".")
+    " If the line ends with Markdown link or If it's a header - set a big value for textwidth
+    if l:line=~'^.*\[.*\](.*' || l:line=~'^#.*'
         setlocal textwidth=500
     else
         setlocal textwidth=80 " Otherwise use normal textwidth
