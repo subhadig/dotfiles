@@ -4,6 +4,13 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 
+" Treat the header lines as comments and don't merge them with the content
+" lines when formatting them together
+set comments+=n:#
+
+" Automatically inserts newline after 80 characters when typing in Insert mode
+set textwidth=80
+
 " Functions
 "" View markdown files as HTML in browser
 function! MarkdownView()
