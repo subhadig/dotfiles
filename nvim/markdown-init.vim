@@ -11,6 +11,8 @@ set comments+=n:#
 " Automatically inserts newline after 80 characters when typing in Insert mode
 set textwidth=80
 
+setlocal indentexpr=CustomMarkdownIndent()
+
 " Functions
 "" View markdown files as HTML in browser
 function! MarkdownView()
@@ -68,13 +70,35 @@ function! MarkdownTOC()
 endfunction
 
 function! ModifyTextWidth()
-    echo 'I am called'
-    " If the line ends with Markdown link - set big value for textwidth or If it's a header
+    " If the line ends with Markdown link or If it's a header - set big value for textwidth
     if getline(".")=~'^.*\[.*\](.*)$' || getline(".")=~'^#.*'
         setlocal textwidth=500
     else
         setlocal textwidth=80 " Otherwise use normal textwidth
     endif
+endfunction
+
+function! CustomMarkdownIndent()
+    let l:prev_line=getline(v:lnum - 1)
+    if l:prev_line=~'^\S*[-*+] .*' " If the line is the starting of a bullet list
+        return s:get_staring_space_count(l:prev_line) + 2
+    else
+        return -1
+    endif
+endfunction
+
+function! s:get_staring_space_count(line)
+py3 << endPy3
+import vim
+count = 0
+line = vim.eval('a:line')
+for c in line:
+    if c == ' ':
+        count = count + 1
+    else:
+        break
+endPy3
+    return py3eval("'count'")
 endfunction
 
 " Key bindings
