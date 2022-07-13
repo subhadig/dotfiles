@@ -178,3 +178,6 @@ rc() {
         vi -R "$res_file"
     fi
 }
+
+alias pu='pushd'
+alias po='popd'
