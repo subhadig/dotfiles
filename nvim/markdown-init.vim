@@ -81,7 +81,7 @@ endfunction
 
 function! CustomMarkdownIndent()
     let l:prev_line=getline(v:lnum - 1)
-    if l:prev_line=~'^\S*[-*+] .*' " If the line is the starting of a bullet list
+    if l:prev_line=~'^\s*[-*+] .*' " If the line is the starting of a bullet list
         return s:get_staring_space_count(l:prev_line) + 2
     else
         return -1
@@ -99,7 +99,7 @@ for c in line:
     else:
         break
 endPy3
-    return py3eval("'count'")
+    return py3eval("count")
 endfunction
 
 " Key bindings
