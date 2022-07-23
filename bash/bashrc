@@ -40,8 +40,9 @@ elif [ -f "/usr/local/opt/fzf/shell/completion.bash" ]; then
     source "/usr/local/opt/fzf/shell/completion.bash"
 fi
 
-# This is used by my custom npm config
-PATH=${HOME}/.local/bin/:$PATH
+# This is used by my custom npm config. Also utilizing this for storing all
+# local command line binaries.
+PATH=${HOME}/.local/bin:$PATH
 
 # Include Kotlin compiler in the PATH
 if [ -d "${HOME}/opt/kotlinc/bin" ]; then
