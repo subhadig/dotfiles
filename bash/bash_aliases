@@ -145,6 +145,19 @@ sr() {
     vi "${file}"
 }
 
+rc() {
+    local req_file
+    req_file=$1
+    restcall "$req_file"
+    read -p "Open response file? " choice
+    if [ "$choice" = 'y' ]; then
+        local res_file
+        res_file=`cut -f1 -d '.' <<<"$req_file"`
+        res_file="${res_file}-res.json"
+        vi -R "$res_file"
+    fi
+}
+
 # Misc
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
 alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
@@ -174,19 +187,6 @@ kill-bg-jobs() {
         kill %$job_id
     done
     IFS=$IFS_ORIG
-}
-
-rc() {
-    local req_file
-    req_file=$1
-    restcall "$req_file"
-    read -p "Open response file? " choice
-    if [ "$choice" = 'y' ]; then
-        local res_file
-        res_file=`cut -f1 -d '.' <<<"$req_file"`
-        res_file="${res_file}-res.json"
-        vi -R "$res_file"
-    fi
 }
 
 alias pu='pushd'
