@@ -1,5 +1,6 @@
 auto-reload yes
 reload-threads 3
+download-timeout 60
 
 # Vi like key bindings
 bind-key k up
