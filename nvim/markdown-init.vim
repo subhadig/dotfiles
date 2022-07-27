@@ -102,6 +102,14 @@ endPy3
     return py3eval("count")
 endfunction
 
+function! MarkdownOpenLinkAsVideo()
+    let l:line=getline(".")
+    let l:starting_parenthesis_index=stridx(l:line, "(")
+    let l:closing_parenthesis_index=stridx(l:line, ")")
+    let l:url=l:line[l:starting_parenthesis_index+1:l:closing_parenthesis_index-1]
+    execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/play " . l:url
+endfunction
+
 " Key bindings
 nnoremap <localleader>mv :call MarkdownView()<cr>
 nnoremap <localleader>mp :call MarkdownPresent()<cr>
@@ -119,6 +127,9 @@ nnoremap <localleader>mlc ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
 
 "" Convert to automatic link in markdown
 nnoremap <localleader>mlca ciW<<C-r>"><Esc>
+
+"" Open Link as Video
+nnoremap <localleader>mov :call MarkdownOpenLinkAsVideo()<cr>
 
 
 " Autocmd Events
