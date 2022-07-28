@@ -17,7 +17,7 @@ setlocal indentexpr=CustomMarkdownIndent()
 "" View markdown files as HTML in browser
 function! MarkdownView()
     execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/pdutil m2h " . "\"%:p\" " . "\"%:p\"" . ".html"
-    execute "silent !" . g:browser . "\"" . "%:p" . ".html\" &"
+    execute "silent !" . g:private_browser . "\"" . "%:p" . ".html\" &"
     call getchar()
     execute "silent !" . "rm " . "\"%:p" . ".html\" &"
 endfunction
@@ -25,7 +25,7 @@ endfunction
 "" Present markdown files as HTML in browser
 function! MarkdownPresent()
     execute "silent !" . "pandoc -s --webtex -t slidy -c $HOME/workspaces/personal/dotfiles/pandoc/darkdown.css " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
-    execute "silent !" . g:browser . "\"" . "%:p" . ".html\" &"
+    execute "silent !" . g:private_browser . "\"" . "%:p" . ".html\" &"
     call getchar()
     execute "silent !" . "rm " . "\"%:p" . ".html\" &"
 endfunction
@@ -102,12 +102,26 @@ endPy3
     return py3eval("count")
 endfunction
 
-function! MarkdownOpenLinkAsVideo()
+function! s:get_link_from_current_line()
     let l:line=getline(".")
     let l:starting_parenthesis_index=stridx(l:line, "(")
     let l:closing_parenthesis_index=stridx(l:line, ")")
-    let l:url=l:line[l:starting_parenthesis_index+1:l:closing_parenthesis_index-1]
+    return l:line[l:starting_parenthesis_index+1:l:closing_parenthesis_index-1]
+endfunction
+
+function! MarkdownLinkOpenAsVideo()
+    let l:url=s:get_link_from_current_line()
     execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/play " . l:url
+endfunction
+
+function! MarkdownLinkOpenInBrowser()
+    let l:url=s:get_link_from_current_line()
+    execute "silent !" . g:browser . l:url
+endfunction
+
+function! MarkdownLinkOpenInPrivateBrowser()
+    let l:url=s:get_link_from_current_line()
+    execute "silent !" . g:private_browser . l:url
 endfunction
 
 " Key bindings
@@ -129,7 +143,9 @@ nnoremap <localleader>mlc ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
 nnoremap <localleader>mlca ciW<<C-r>"><Esc>
 
 "" Open Link as Video
-nnoremap <localleader>mov :call MarkdownOpenLinkAsVideo()<cr>
+nnoremap <localleader>mlov :call MarkdownLinkOpenAsVideo()<cr>
+nnoremap <localleader>mlob :call MarkdownLinkOpenInBrowser()<cr>
+nnoremap <localleader>mlop :call MarkdownLinkOpenInPrivateBrowser()<cr>
 
 
 " Autocmd Events
