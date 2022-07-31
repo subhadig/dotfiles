@@ -9,13 +9,13 @@ alias vi='nvim'
 alias vimdiff='nvim -d'
 
 # cd
-alias cdwp='cd $HOME/workspaces/personal/'
-alias cdws='cd $HOME/workspaces/study/'
-alias cdwpn='cd $HOME/workspaces/personal/notes'
-alias cdwpd='cd $HOME/workspaces/personal/dotfiles'
-alias cdwppc='cd $HOME/workspaces/personal/private-configs'
-alias cdwpts='cd $HOME/workspaces/personal/tmux-scripts'
-alias cdvimplugin='cd $HOME/.local/share/nvim/site/pack/vim-plugins/'
+alias cdwp='pushd $HOME/workspaces/personal/'
+alias cdws='pushd $HOME/workspaces/study/'
+alias cdwpn='pushd $HOME/workspaces/personal/notes'
+alias cdwpd='pushd $HOME/workspaces/personal/dotfiles'
+alias cdwppc='pushd $HOME/workspaces/personal/private-configs'
+alias cdwpts='pushd $HOME/workspaces/personal/tmux-scripts'
+alias cdvimplugin='pushd $HOME/.local/share/nvim/site/pack/vim-plugins/'
 
 # ls
 alias ll='ls -lrth'
@@ -169,12 +169,21 @@ pu() {
         *) echo ERROR: Zero or one argument expected.
     esac
     local path
-    path=`find "$initPath" ! -path '*/.*' -type d 2>/dev/null | fzf --preview='ls -C {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
+    path=`find "$initPath" ! -path '*/.*' -type d -maxdepth 5 2>/dev/null | fzf --preview='ls -C {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
     if [ $? -ne 0 ]; then
         return
     fi
     echo pushd $path
     pushd "$path"
+}
+
+pub() {
+    local entry
+    entry=`dirs -v -l | fzf`
+    if [ $? -ne 0 ]; then
+        return
+    fi
+    pushd +`awk '{print $1}' <<<$entry`
 }
 
 
