@@ -15,6 +15,10 @@ export CLICOLOR=1
 # directory foreground: cyan (default: blue)
 export LSCOLORS='gxfxcxdxbxegedabagacad'
 
+# Don't add the following colon(:) separated commands are not added in bash
+# history
+export HISTIGNORE='cl:history'
+
 # PATH
 ## ruby
 if [ -d ${HOME}/.gem/ruby/3.0.0/bin ]; then

@@ -90,6 +90,7 @@ so() {
         return
     fi
     echo "Opening ${file}"
+    history -s open "${file}"
     open "${file}"
 }
 
@@ -101,6 +102,7 @@ se() {
         return
     fi
     echo "Editing ${file}"
+    history -s vi "${file}"
     vi "${file}"
 }
 
@@ -142,6 +144,7 @@ sr() {
         return
     fi
     echo "Editing request file ${file}"
+    history -s vi "${file}"
     vi "${file}"
 }
 
