@@ -158,6 +158,26 @@ rc() {
     fi
 }
 
+# pushd and popd
+alias po='popd'
+
+pu() {
+    local initPath
+    case $# in
+        1) initPath="$1";;
+        0) initPath=".";;
+        *) echo ERROR: Zero or one argument expected.
+    esac
+    local path
+    path=`find "$initPath" ! -path '*/.*' -type d 2>/dev/null | fzf --preview='ls -C {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
+    if [ $? -ne 0 ]; then
+        return
+    fi
+    echo pushd $path
+    pushd "$path"
+}
+
+
 # Misc
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
 alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
@@ -188,6 +208,3 @@ kill-bg-jobs() {
     done
     IFS=$IFS_ORIG
 }
-
-alias pu='pushd'
-alias po='popd'
