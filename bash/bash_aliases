@@ -172,7 +172,12 @@ pu() {
         *) echo ERROR: Zero or one argument expected.
     esac
     local path
-    path=`find "$initPath" ! -path '*/.*' -type d -maxdepth 5 2>/dev/null | fzf --preview='ls -C {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
+    # Follow symbolic links (-L)
+    # Exclude paths with Library - for MacOS
+    # Exclude paths hidden files
+    # Type directory
+    # Max search depth 5
+    path=`find -L "$initPath" ! -path '*Library*' ! -path '*/.*' -type d -maxdepth 5 2>/dev/null | fzf --preview='ls -C {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
     if [ $? -ne 0 ]; then
         return
     fi
