@@ -187,7 +187,7 @@ pu() {
 
 pub() {
     local entry
-    entry=`dirs -v -l | fzf`
+    entry=`dirs -v -l | fzf --tac`
     if [ $? -ne 0 ]; then
         return
     fi
