@@ -180,7 +180,7 @@ pu() {
         # Follow symbolic links (-l)
         # Ignore Library folder - for MacOS
         # Max depth 5
-        path=`tree -dfil -I 'Library/' -L 5 "$initPath" 2>/dev/null | fzf --tiebreak='end,length,index' --preview='ls -C {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
+        path=`tree -dfil -I 'Library/' -L 5 "$initPath" 2>/dev/null | fzf --preview='ls -tC {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
         if [ $? -ne 0 ]; then
             return
         fi
