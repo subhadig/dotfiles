@@ -9,6 +9,7 @@ alias vi='nvim'
 alias vimdiff='nvim -d'
 
 # cd
+alias cd='pushd'
 alias cdwp='pushd $HOME/workspaces/personal/'
 alias cdws='pushd $HOME/workspaces/study/'
 alias cdwpn='pushd $HOME/workspaces/personal/notes'
@@ -172,14 +173,27 @@ pu() {
         *) echo ERROR: Zero or one argument expected.
     esac
     local path
-    # Follow symbolic links (-L)
-    # Exclude paths with Library - for MacOS
-    # Exclude paths hidden files
-    # Type directory
-    # Max search depth 5
-    path=`find -L "$initPath" ! -path '*Library*' ! -path '*/.*' -type d -maxdepth 5 2>/dev/null | fzf --preview='ls -C {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
-    if [ $? -ne 0 ]; then
-        return
+    if which tree 1>/dev/null 2>&1; then
+        # Type directory (-d)
+        # Show full path (-f)
+        # Don't show indentation (-i)
+        # Follow symbolic links (-l)
+        # Ignore Library folder - for MacOS
+        # Max depth 5
+        path=`tree -dfil -I 'Library/' -L 5 "$initPath" 2>/dev/null | fzf --tiebreak='end,length,index' --preview='ls -C {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
+        if [ $? -ne 0 ]; then
+            return
+        fi
+    else
+        # Follow symbolic links (-L)
+        # Exclude paths with Library - for MacOS
+        # Exclude paths hidden files
+        # Type directory
+        # Max search depth 5
+        path=`find -L "$initPath" ! -path '*Library*' ! -path '*/.*' -type d -maxdepth 5 2>/dev/null | fzf --preview='ls -C {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
+        if [ $? -ne 0 ]; then
+            return
+        fi
     fi
     echo pushd $path
     pushd "$path"
