@@ -199,13 +199,19 @@ pu() {
     pushd "$path"
 }
 
-pub() {
+pubf() {
     local entry
     entry=`dirs -v -l | fzf --tac`
     if [ $? -ne 0 ]; then
         return
     fi
     pushd +`awk '{print $1}' <<<$entry`
+}
+
+pub() {
+    dirs -v -l
+    read -p "Enter index: " choice
+    pushd +$choice
 }
 
 
