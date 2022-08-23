@@ -215,6 +215,9 @@ pub() {
     else
         dirs -v -l
         read -p "Enter index: " choice
+        if [ -z "$choice" ]; then
+            return
+        fi
         history -s pushd +$choice
         pushd +$choice
     fi
