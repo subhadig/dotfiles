@@ -152,6 +152,10 @@ sr() {
 rc() {
     local req_file
     req_file=$1
+    if [ -z "$req_file" ]; then
+        req_file=`fzf --preview='head -$FZF_PREVIEW_LINES {}' -q '!-res.json$ .json$ '`
+        history -s rc "${req_file}"
+    fi
     restcall "$req_file"
     read -p "Open response file? " choice
     if [ "$choice" = 'y' ]; then
