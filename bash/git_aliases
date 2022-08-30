@@ -93,7 +93,7 @@ gafr() {
 # Unstages a file but does not revert the changes
 gunstage() {
     local file
-    file=$(git diff --name-only --cached|fzf)
+    file=`git diff --name-only --cached|fzf`
     if [ $? -ne 0 ]; then
         return
     fi
@@ -105,7 +105,7 @@ gunstage() {
 # Revert changes for a file.
 grestore() {
     local file
-    file=$(git diff --name-only|fzf)
+    file=`git diff --name-only|fzf`
     if [ $? -ne 0 ]; then
         return
     fi
@@ -118,6 +118,18 @@ grestore() {
         else
             echo Aborting.
         fi
+    fi
+}
+
+gsb() {
+    local branch
+    branch=`git branch | grep -v ^* | fzf`
+    if [ $? -ne 0 ]; then
+        return
+    else
+        branch=`sed 's/ *$//g' <<<"${branch}"`
+        git checkout ${branch}
+        history -s git checkout ${branch}
     fi
 }
 
@@ -147,5 +159,6 @@ printgitaliases() {
     echo gafr: Git add with fzf search. Recursive.
     echo gunstage: Git unstage a file but don\'t revert the changes with fzf search.
     echo grestore: Git restore a file to HEAD with fzf search.
+    echo gsb: Git switch branch with fzf search.
     echo gsetconfigp: Git set user.name and user.email config to private.
 }
