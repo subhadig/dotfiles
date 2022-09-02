@@ -1,6 +1,7 @@
 auto-reload yes
 reload-threads 3
 download-timeout 120
+feed-sort-order lastupdated
 
 # Vi like key bindings
 bind-key k up

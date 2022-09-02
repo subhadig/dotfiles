@@ -7,7 +7,8 @@ fi
 case "$1" in
     *"youtube"*)
         echo Playing $1 in vlc as a youtube video
-        yt-dlp --print urls --format best "$1" | vlc -
+        url=`yt-dlp --print urls --format best "$1" 2>/dev/null`
+        vlc "$url" 1>/dev/null 2>&1 &
         ;;
     *)
         echo Playing $1 in vlc
