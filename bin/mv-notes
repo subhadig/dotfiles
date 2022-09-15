@@ -1,19 +1,41 @@
 #!/usr/bin/env bash
 
-help() {
-    echo mv-notes [path to the markdown notes file] [target directory]
+print_usage() {
+    echo "Help: Move notes to the target directory."
+    echo "Usage: mv-notes [path to the markdown notes file] [target directory]"
+    echo "options:"
+    echo "p     Only print the changes."
+    echo "h     Print this Help."
+    echo
 }
 
-if [ $# -ne 2 ]; then
+if [ $# -lt 2 ]; then
     echo Incorrect number of inputs: $#
-    help
+    print_usage
     exit 1
 fi
 
+while getopts "hp" options; do
+    case ${options} in
+        h)
+            print_usage
+            exit 0
+            ;;
+        p)
+            write=false
+            ;;
+        *)
+            echo "Invalid option."
+            exit 1
+            ;;
+    esac
+done
+
 #TODO Ask if cp or mv. Default cp
 
-notes=$1
-target_dir=$2
+shift "$(($OPTIND - 1))"
+notes="$1"
+target_dir="$2"
 
 if [ ! -f "$notes" ]; then
     echo Notes does not exist: "$notes"
@@ -25,18 +47,21 @@ if [ ! -d "$target_dir" ]; then
     exit 1
 fi
 
+echo Moving notes: $notes to target:$target_dir
+
 if grep -q "\/$" <<< $target_dir; then
     target_dir=${target_dir:0:-1}
 fi
 
-target_image_dir=$target_dir
-if [ -d "$target_image_dir/images" ]; then
-    target_image_dir="$target_image_dir/images"
+target_image_dir="$target_dir/images"
+if [ ! -d "$target_image_dir" ]; then
+    echo Creating target images directory
+    if $write; then
+        mkdir "$target_image_dir"
+    else
+        echo mkdir "$target_image_dir"
+    fi
 fi
-#TODO mkdir image directory if not exists
-
-echo Moving $notes to the $target_dir
-echo mv "$notes" "$target_dir"
 
 while read line
 do
@@ -48,6 +73,17 @@ do
         image_file=${image_file:4: -1}
         image_file=`dirname "$notes"`/"$image_file"
         echo Moving $image_file to $target_image_dir
-        echo mv "$image_file" "$target_image_dir"
+        if $write; then
+            mv "$image_file" "$target_image_dir"
+        else
+            echo mv "$image_file" "$target_image_dir"
+        fi
     fi
 done < "$notes"
+
+echo Moving $notes to the $target_dir
+if $write; then
+    mv "$notes" "$target_dir"
+else
+    echo mv "$notes" "$target_dir"
+fi
