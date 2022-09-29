@@ -23,6 +23,7 @@ output=$3
 html_css=$HOME/workspaces/personal/dotfiles/pandoc/darkdown.css
 pdf_css=$HOME/workspaces/personal/dotfiles/pandoc/pdf.css
 eisvogel_template=$HOME/workspaces/personal/dotfiles/pandoc/eisvogel.latex
+custom_reference_docx=$HOME/workspaces/personal/dotfiles/pandoc/custom-reference.docx
 
 # html or latex
 #pdf_flag='latex'
@@ -113,6 +114,7 @@ markdown2docx() {
         -V geometry:margin=0.8in \
         -V urlcolor=blue \
         --listings \
+        --reference-doc=$custom_reference_docx \
         -o "$output" \
         "$input" 
 }
