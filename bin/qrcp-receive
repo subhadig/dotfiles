@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+trap "kill 0" EXIT
+
+if ! which qrcp 1>/dev/null 2>&1; then
+    echo ERROR: qrcp not installed.
+    exit 1
+fi
+
+if [ -n $1 ]; then
+    args="--output=$1"
+fi
+
+let "port = $RANDOM % 50000 + 1000";
+
+echo Enabling port: $port
+# Check if user has sudo access
+sudo -v 2>/dev/null
+if [ $? -eq 0 ]; then
+    sudo firewall-cmd --add-port=$port/tcp
+else
+    echo Enter root password when prompted.
+    su -c "sudo firewall-cmd --add-port=$port/tcp"
+fi
+
+qrcp receive --port $port $args
+
+echo Disabling port: $port
+sudo -v 2>/dev/null
+if [ $? -eq 0 ]; then
+    sudo firewall-cmd --remove-port=$port/tcp
+else
+    echo Enter root password when prompted.
+    su -c "sudo firewall-cmd --remove-port=$port/tcp"
+fi
+
+echo "Exiting..."
