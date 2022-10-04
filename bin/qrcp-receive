@@ -1,6 +1,30 @@
 #!/usr/bin/env bash
 trap "kill 0" EXIT
 
+print_usage() {
+    echo "Help: A wrapper around qrcp that runs receive on random port and also
+    automatically opens and closes the port in the firewall."
+    echo "Usage: qrcp-receive [target directory]"
+    echo "options:"
+    echo "h     Print this Help."
+    echo
+}
+
+while getopts "h" options; do
+    case ${options} in
+        h)
+            print_usage
+            exit 0
+            ;;
+        *)
+            echo "Invalid option."
+            exit 1
+            ;;
+    esac
+done
+
+shift "$(($OPTIND - 1))"
+
 if ! which qrcp 1>/dev/null 2>&1; then
     echo ERROR: qrcp not installed.
     exit 1
