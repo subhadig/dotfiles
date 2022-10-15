@@ -6,6 +6,8 @@ feed-sort-order lastupdated
 # Vi like key bindings
 bind-key k up
 bind-key j down
+bind-key ^F pagedown
+bind-key ^B pageup
 
 # Podboat configurations
 player "vlc 1>/dev/null 2>&1"
