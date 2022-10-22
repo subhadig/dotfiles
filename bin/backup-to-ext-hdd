@@ -48,6 +48,7 @@ read -p "Type the computer name[$comp_name] to be used for backup: " comp_name_u
 
 if [ "$comp_name_user" != "$comp_name" ]; then
     echo Computer name did not match. Exiting.
+    exit 1
 fi
 
 user_has_sudo=false
@@ -80,6 +81,7 @@ IFS=$IFS_ORIG
 
 if [ -z "$device_path" ]; then
     echo "Device path not found. Exiting"
+    exit 1
 fi
 
 # Mount the external drive
