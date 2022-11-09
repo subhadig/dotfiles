@@ -228,6 +228,7 @@ pub() {
 }
 
 # Gradle
+alias gr="./gradlew"
 alias gr-publishtomavenlocal="./gradlew publishToMavenLocal"
 alias gr-build="./gradlew build -x test"
 alias gr-buildtest="./gradlew build"
