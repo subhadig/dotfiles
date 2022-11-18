@@ -133,6 +133,28 @@ gsb() {
     fi
 }
 
+grb() {
+    local branch
+    branch=`git branch | grep -v ^* | fzf`
+    if [ $? -ne 0 ]; then
+        return
+    else
+        branch=`sed 's/ *$//g' <<<"${branch}" | sed 's/^ *//g'` #Remove starting and trailing spaces
+        read -p "Are you sure you want to remove the branch: $branch from local?[y/N] " choice
+        if [ "$choice" = 'y' ]; then
+            git branch -d "$branch"
+            if [ $? -eq 0 ]; then
+                echo Removed $branch.
+            else
+                echo Failed to remove $branch
+            fi
+            history -s git branch -d "$branch"
+        else
+            echo Aborting.
+        fi
+    fi
+}
+
 gsetconfigp() {
     git config user.name "Subhadip Ghosh"
     git config user.email "subhadipghosh11@gmail.com"
@@ -160,5 +182,6 @@ printgitaliases() {
     echo gunstage: Git unstage a file but don\'t revert the changes with fzf search.
     echo grestore: Git restore a file to HEAD with fzf search.
     echo gsb: Git switch branch with fzf search.
+    echo grb: Git remove branch with fzf search.
     echo gsetconfigp: Git set user.name and user.email config to private.
 }
