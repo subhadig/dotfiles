@@ -9,12 +9,6 @@ print_usage() {
     echo
 }
 
-if [ $# -lt 2 ]; then
-    echo Incorrect number of inputs: $#
-    print_usage
-    exit 1
-fi
-
 while getopts "hp" options; do
     case ${options} in
         h)
@@ -23,13 +17,21 @@ while getopts "hp" options; do
             ;;
         p)
             write=false
+            echo "Running in print mode. No changes will be made."
             ;;
         *)
-            echo "Invalid option."
+            echo "ERROR: Invalid option."
+            print_usage
             exit 1
             ;;
     esac
 done
+
+if [ $# -lt 2 ]; then
+    echo Incorrect number of inputs: $#
+    print_usage
+    exit 1
+fi
 
 #TODO Ask if cp or mv. Default cp
 
