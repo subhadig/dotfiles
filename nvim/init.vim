@@ -29,9 +29,11 @@ set timeoutlen=2000
 set foldmethod=syntax
 set nofoldenable
 
-" File browsing
+" File browsing (netrw)
 let g:netrw_liststyle = 3
 let g:netrw_winsize = 25
+"" Enable line number in netrw
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 " Jedi-vim settings
 let g:jedi#use_tabs_not_buffers = 1
