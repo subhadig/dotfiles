@@ -109,19 +109,29 @@ function! s:get_link_from_current_line()
     return l:line[l:starting_parenthesis_index+1:l:closing_parenthesis_index-1]
 endfunction
 
+function! s:decode_url(url)
+py3 << endPy3
+import vim
+from urllib.parse import unquote
+url = vim.eval('a:url')
+decoded_url = unquote(url)
+endPy3
+    return py3eval("decoded_url")
+endfunction
+
 function! MarkdownLinkOpenAsVideo()
     let l:url=s:get_link_from_current_line()
     execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/play " . l:url
 endfunction
 
 function! MarkdownLinkOpenInBrowser()
-    let l:url=s:get_link_from_current_line()
-    execute "silent !" . g:browser . l:url
+    let l:url=s:decode_url(s:get_link_from_current_line())
+    execute "silent !" . g:browser . "\"" . l:url . "\""
 endfunction
 
 function! MarkdownLinkOpenInPrivateBrowser()
-    let l:url=s:get_link_from_current_line()
-    execute "silent !" . g:private_browser . l:url
+    let l:url=s:decode_url(s:get_link_from_current_line())
+    execute "silent !" . g:private_browser . "\"" . l:url . "\""
 endfunction
 
 " Key bindings
