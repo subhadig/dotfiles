@@ -104,8 +104,8 @@ endfunction
 
 function! s:get_link_from_current_line()
     let l:line=getline(".")
-    let l:starting_parenthesis_index=stridx(l:line, "(")
-    let l:closing_parenthesis_index=stridx(l:line, ")")
+    let l:starting_parenthesis_index=stridx(l:line, "(", stridx(l:line, "]"))
+    let l:closing_parenthesis_index=stridx(l:line, ")", stridx(l:line, "]"))
     return l:line[l:starting_parenthesis_index+1:l:closing_parenthesis_index-1]
 endfunction
 
