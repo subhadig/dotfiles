@@ -233,6 +233,24 @@ alias gr-publishtomavenlocal="./gradlew publishToMavenLocal"
 alias gr-build="./gradlew build -x test"
 alias gr-buildtest="./gradlew build"
 
+# gpg
+encrypt() {
+    local infile="$1"
+    gpg -c "$infile"
+    read -p "Delete original file? " choice
+    if [ "$choice" = 'y' ]; then
+        rm "$infile"
+        echo Deleted $infile.
+    fi
+}
+
+decrypt() {
+    local infile="$1"
+    local outfile=`sed 's/.gpg$//' <<<"$infile"`
+    echo $filename
+    gpg -o "$outfile" -d "$infile"
+}
+
 # Misc
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
 alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
