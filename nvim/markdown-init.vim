@@ -126,12 +126,12 @@ endfunction
 
 function! MarkdownLinkOpenInBrowser()
     let l:url=s:decode_url(s:get_link_from_current_line())
-    execute "silent !" . g:browser . "\"" . l:url . "\""
+    execute "silent !" . g:browser . "\"" . l:url . "\" &"
 endfunction
 
 function! MarkdownLinkOpenInPrivateBrowser()
     let l:url=s:decode_url(s:get_link_from_current_line())
-    execute "silent !" . g:private_browser . "\"" . l:url . "\""
+    execute "silent !" . g:private_browser . "\"" . l:url . "\" &"
 endfunction
 
 " Key bindings
