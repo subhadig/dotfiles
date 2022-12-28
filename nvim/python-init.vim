@@ -1,4 +1,4 @@
-" Java specific settings
+" Python specific settings
 
 " Functions
 function! InsertPythonMain()
