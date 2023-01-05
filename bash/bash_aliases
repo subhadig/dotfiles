@@ -136,7 +136,7 @@ alias py-create-venv="python3 -m venv ./.venv"
 alias py-activate-venv=". .venv/bin/activate"
 
 # Restcall
-alias restcall="$HOME/workspaces/personal/restcall/src/restcall.py"
+#alias restcall="$HOME/workspaces/personal/restcall/src/restcall.py"
 alias lr="ls -lrt|grep .json$|grep -v res.json$"
 sr() {
     local file
