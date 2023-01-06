@@ -54,3 +54,7 @@ if [ -d "${HOME}/opt/kotlinc/bin" ]; then
 elif [ -d "/opt/kotlinc/bin" ]; then
     PATH="/opt/kotlinc/bin:${PATH}"
 fi
+
+# This will make sure that pip user install goes into ~/.local.
+# Although this happens automatically on Linux, this is required for MacOS
+export PYTHONUSERBASE=~/.local
