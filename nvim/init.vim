@@ -72,7 +72,7 @@ elseif filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
     source /usr/local/opt/fzf/plugin/fzf.vim
 endif
 
-" Set the preferred browser command based on the platform
+" Set the preferred browser command and other settings based on the platform
 if system("uname") =~ "Linux"
     let g:private_browser = "firefox-latest --private-window "
     let g:browser = "firefox-latest "
@@ -86,6 +86,8 @@ elseif system("uname") =~ "Darwin"
     let g:pdfreader = "open "
     let g:wordprocessor = "open "
     let g:texteditor = "open "
+    " This will make it easier for nvim to find the python exec to use
+    let g:python3_host_prog='/usr/local/bin/python3'
 endif
 
 " Custom key bindings
