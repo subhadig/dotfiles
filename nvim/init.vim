@@ -139,7 +139,7 @@ vnoremap <silent> <localleader>jf :!$HOME/workspaces/personal/dotfiles/bin/json-
 " Copy to system clipboard
 vnoremap <silent> <localleader>y "+y
 
-" Python specific keybindings
+" Load Python specific init file
 autocmd FileType python source $HOME/workspaces/personal/dotfiles/nvim/python-init.vim
 
 " Load Java speicific init file
