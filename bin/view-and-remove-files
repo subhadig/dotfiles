@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+IFS_ORIG=$IFS
+IFS=$'\n'
+echo Enter \'q\' to quit anytime.
+for file in `ls -1tp | grep -v '/'`;do
+    while :
+    do
+        read -p "Open[o]/Remove[r]/Skip[s] file: $file? " choice
+        case "$choice" in
+            o)
+                open "$file"
+                ;;
+            r)
+                rm "$file"
+                break
+                ;;
+            s)
+                continue 2
+                ;;
+            q)
+                break 2
+                ;;
+        esac
+    done
+done
+IFS=$IFS_ORIG
