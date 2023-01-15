@@ -34,6 +34,7 @@ if [ -n "$1" ]; then
     if [ ! -d "$1" ]; then
         mkdir -p "$1"
     fi
+    echo Using output directory: $1
     args="--output=$1"
 fi
 

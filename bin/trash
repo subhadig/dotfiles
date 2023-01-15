@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+case "$(uname -s)" in
+    Linux*)
+        # Works only when Gnome I/O is present
+        gio trash "$@"
+        ;;
+    Darwin*)
+        echo ERROR: Yet to be implemented
+        ;;
+esac
