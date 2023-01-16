@@ -1,11 +1,35 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python
 
+import argparse
+import sys
+
+def _mac_move_to_trash():
+    pass
+
+def _linux_move_to_trash(files):
+    # Works only when Gnome I/O is present
+    gio trash "$files_to_remove"
+
+files_to_remove=$@
 case "$(uname -s)" in
     Linux*)
-        # Works only when Gnome I/O is present
-        gio trash "$@"
         ;;
     Darwin*)
-        echo ERROR: Yet to be implemented
+        mac_move_to_trash "$files_to_remove"
         ;;
 esac
+
+def main():
+    parser=argparse.ArgumentParser(description='Trash files')
+    parser.add_argument('files', help='Files to trash')
+
+    args=parser.parse_args()
+
+    if sys.platform == 'linux':
+        pass
+    elif sys.platform == 'darwin':
+        _mac_move_to_trash()
+
+
+if __name__=='__main__':
+    main()
