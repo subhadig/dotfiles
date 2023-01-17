@@ -1,35 +1,35 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 import sys
+import subprocess
+from os import path
 
-def _mac_move_to_trash():
-    pass
+def _mac_move_to_trash(files):
+    posix_files = []
+    for file in files:
+        if path.exists(file):
+            posix_files.append(f'the POSIX file "{path.abspath(file)}"')
+        else:
+            sys.stderr.write(f"trash: {file}: No such file or directory\n")
+            exit(1)
+    posix_files_str = ', '.join(posix_files)
+    subprocess.run(['osascript', '-e', f'tell app "Finder" to move {{ {posix_files_str} }} to trash'], stdout=subprocess.DEVNULL)
 
 def _linux_move_to_trash(files):
     # Works only when Gnome I/O is present
-    gio trash "$files_to_remove"
-
-files_to_remove=$@
-case "$(uname -s)" in
-    Linux*)
-        ;;
-    Darwin*)
-        mac_move_to_trash "$files_to_remove"
-        ;;
-esac
+    subprocess.run(['gio', 'trash', files])
 
 def main():
     parser=argparse.ArgumentParser(description='Trash files')
-    parser.add_argument('files', help='Files to trash')
+    parser.add_argument('files', nargs='*', help='Move files to Trash')
 
     args=parser.parse_args()
 
     if sys.platform == 'linux':
-        pass
+        _linux_move_to_trash(args.files)
     elif sys.platform == 'darwin':
-        _mac_move_to_trash()
-
+        _mac_move_to_trash(args.files)
 
 if __name__=='__main__':
     main()
