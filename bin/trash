@@ -18,18 +18,24 @@ def _mac_move_to_trash(files):
 
 def _linux_move_to_trash(files):
     # Works only when Gnome I/O is present
-    subprocess.run(['gio', 'trash', files])
+    subprocess.run(['gio', 'trash', ' '.join(files)])
 
 def main():
-    parser=argparse.ArgumentParser(description='Trash files')
+    parser = argparse.ArgumentParser(description='Trash files')
     parser.add_argument('files', nargs='*', help='Move files to Trash')
 
-    args=parser.parse_args()
+    args = parser.parse_args()
+    files = args.files
+    
+    if len(files)==0:
+        print('trash: missing operand')
+        print("Try 'trash --help' for more information.")
+        exit(1)
 
     if sys.platform == 'linux':
-        _linux_move_to_trash(args.files)
+        _linux_move_to_trash(files)
     elif sys.platform == 'darwin':
-        _mac_move_to_trash(args.files)
+        _mac_move_to_trash(files)
 
 if __name__=='__main__':
     main()
