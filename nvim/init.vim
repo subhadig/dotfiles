@@ -72,7 +72,7 @@ elseif filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
     source /usr/local/opt/fzf/plugin/fzf.vim
 endif
 
-" Set the preferred browser command and other settings based on the platform
+" Set the preferred browser command and other platform specific settings
 if system("uname") =~ "Linux"
     let g:private_browser = "firefox-latest --private-window "
     let g:browser = "firefox-latest "
@@ -133,8 +133,7 @@ cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 
 " Json formatting
-nnoremap <silent> <localleader>jf :!$HOME/workspaces/personal/dotfiles/bin/json-format<cr>
-vnoremap <silent> <localleader>jf :!$HOME/workspaces/personal/dotfiles/bin/json-format<cr>
+autocmd FileType json setlocal equalprg=$HOME/workspaces/personal/dotfiles/bin/json-format
 
 " Copy to system clipboard
 vnoremap <silent> <localleader>y "+y
