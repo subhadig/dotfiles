@@ -78,6 +78,9 @@ if system("uname") =~ "Linux"
     let g:browser = "firefox-latest "
     let g:pdfreader = "xdg-open 2>/dev/null "
     let g:wordprocessor = "xdg-open 2>/dev/null "
+    " This will make it easier for nvim to find the python exec to use inside
+    " venv
+    let g:python3_host_prog='/usr/bin/python3'
 elseif system("uname") =~ "Darwin"
     let g:private_browser = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito "
     let g:private_browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
@@ -86,7 +89,8 @@ elseif system("uname") =~ "Darwin"
     let g:pdfreader = "open "
     let g:wordprocessor = "open "
     let g:texteditor = "open "
-    " This will make it easier for nvim to find the python exec to use
+    " This will make it easier for nvim to find the python exec to use inside
+    " venv
     let g:python3_host_prog='/usr/local/bin/python3'
 endif
 
