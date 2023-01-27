@@ -15,8 +15,12 @@ mv /tmp/tmpget-ie-newspaper.json "$reqfile"
 
 restcall "$reqfile"
 
-if which open 1>/dev/null; then
-    open 2>/dev/null "$resfile"
+if [ -f "$resfile" ]; then
+    if which open 1>/dev/null; then
+        open 2>/dev/null "$resfile"
+    else
+        xdg-open 2>/dev/null "$resfile"
+    fi
 else
-    xdg-open 2>/dev/null "$resfile"
+    echo ERROR: E-paper not downloaded.
 fi
