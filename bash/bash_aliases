@@ -268,6 +268,7 @@ case "$(uname -s)" in
     Darwin*)
         alias chrome-private="/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito"
         alias firefox="open -a Firefox"
+        alias quicktime='open -a "Quicktime Player"'
         ;;
 esac
 
