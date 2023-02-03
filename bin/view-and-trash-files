@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 
+TRASH_BIN=$HOME/workspaces/personal/dotfiles/bin/trash
+
 IFS_ORIG=$IFS
 IFS=$'\n'
 echo Enter \'q\' to quit anytime.
 for file in `ls -1tp | grep -v '/'`;do
     while :
     do
-        read -p "Open[o]/Remove[r]/Skip[s] file: $file? " choice
+        read -p "Open[o]/Trash[t]/Skip[s] file: $file? " choice
         case "$choice" in
             o)
                 open "$file"
                 ;;
             r)
-                rm "$file"
+                $TRASH_BIN "$file"
                 break
                 ;;
             s)
