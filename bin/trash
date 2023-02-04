@@ -5,7 +5,7 @@ import sys
 import subprocess
 from os import path
 
-def _mac_move_to_trash(files):
+def _mac_move_to_trash(files: list):
     posix_files = []
     for file in files:
         if path.exists(file):
@@ -16,9 +16,10 @@ def _mac_move_to_trash(files):
     posix_files_str = ', '.join(posix_files)
     subprocess.run(['osascript', '-e', f'tell app "Finder" to move {{ {posix_files_str} }} to trash'], stdout=subprocess.DEVNULL)
 
-def _linux_move_to_trash(files):
-    # Works only when Gnome I/O is present
-    subprocess.run(['gio', 'trash', ' '.join(files)])
+def _linux_move_to_trash(files: list):
+    for f in files:
+        # Works only when Gnome I/O is present
+        subprocess.run(['gio', 'trash', f])
 
 def main():
     parser = argparse.ArgumentParser(description='Trash files')

@@ -13,7 +13,7 @@ for file in `ls -1tp | grep -v '/'`;do
             o)
                 open "$file"
                 ;;
-            r)
+            t)
                 $TRASH_BIN "$file"
                 break
                 ;;
