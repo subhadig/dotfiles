@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+
+import subprocess
+import sys
+
+def _get_all_installed_packages():
+    all_packages = subprocess.check_output(['brew', 'list', '-1']).split()
+    return _decode_list(all_packages)
+
+def _print_package_name_if_dependent(package: str, all_packages: list) -> list:
+    dep_list = []
+    for each_package in all_packages:
+        try:
+            deps = subprocess.check_output(['brew', 'deps', each_package]).split()
+            deps =  _decode_list(deps)
+        except subprocess.CalledProcessError:
+            # possible issue calling brew deps due to 'fake formulas'
+            continue
+        if package in deps:
+            dep_list.append(each_package)
+
+    return dep_list
+
+def _decode_list(packages: list):
+    return list(map(lambda p : p.decode(), packages))
+
+def main():
+    if len(sys.argv) < 2:
+        raise SystemExit('Missing package name to check reverse dependency for.')
+
+    package = sys.argv[1]
+
+    all_packages = _get_all_installed_packages()
+    if package not in all_packages:
+        raise SystemExit('Package is not installed. Exiting')
+
+    # skip the package itself
+    all_packages.remove(package)
+
+    dep_list = _print_package_name_if_dependent(package, all_packages)
+    print(f'Dependent packages for {package}: {", ".join(dep_list)}')
+
+if __name__=='__main__':
+    main()
