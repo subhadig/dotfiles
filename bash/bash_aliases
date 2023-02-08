@@ -257,6 +257,9 @@ if which links2 1>/dev/null 2>&1; then
 fi
 source $HOME/workspaces/personal/private-configs/links/links-aliases
 
+# lynx
+alias lynx='lynx -vikeys -image_links -editor=nvim -cookies'
+
 # Misc
 alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
 alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
