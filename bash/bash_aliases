@@ -257,7 +257,7 @@ if which links2 1>/dev/null 2>&1; then
 fi
 
 # lynx
-alias lynx='lynx -vikeys -image_links -editor=nvim -cookies'
+alias lynx="lynx -cfg=${DOTRCDIR}/lynx/lynx.cfg"
 source $HOME/workspaces/personal/private-configs/lynx/lynx-aliases
 
 # Misc
