@@ -134,6 +134,11 @@ function! MarkdownLinkOpenInPrivateBrowser()
     execute "silent !" . g:private_browser . "\"" . l:url . "\" &"
 endfunction
 
+function! MarkdownLinkOpenInLynx()
+    let l:url=s:decode_url(s:get_link_from_current_line())
+    execute "silent ! tmux new-window " . g:lynxbrowser . "\"" . l:url . "\""
+endfunction
+
 " Key bindings
 nnoremap <localleader>mv :call MarkdownView()<cr>
 nnoremap <localleader>mp :call MarkdownPresent()<cr>
@@ -156,6 +161,7 @@ nnoremap <localleader>mlca ciW<<C-r>"><Esc>
 nnoremap <localleader>mlov :call MarkdownLinkOpenAsVideo()<cr>
 nnoremap <localleader>mlob :call MarkdownLinkOpenInBrowser()<cr>
 nnoremap <localleader>mlop :call MarkdownLinkOpenInPrivateBrowser()<cr>
+nnoremap <localleader>mlol :call MarkdownLinkOpenInLynx()<cr>
 
 
 " Autocmd Events

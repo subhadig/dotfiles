@@ -93,6 +93,7 @@ elseif system("uname") =~ "Darwin"
     " venv
     let g:python3_host_prog='/usr/local/bin/python3'
 endif
+let g:lynxbrowser = "lynx -cfg=$HOME/workspaces/personal/dotfiles/lynx/lynx.cfg "
 
 " Custom key bindings
 
