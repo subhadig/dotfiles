@@ -16,6 +16,9 @@ download-path ".newsboat/podcasts/%n"
 # A browser setting that works on both Debian and MacOS
 browser "which firefox-latest 1>/dev/null && firefox-latest --private-window %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
 
+# Open links in lynx
+macro l set browser "lynx -cfg=${DOTRCDIR}/lynx/lynx.cfg %u"; open-in-browser ; set browser "which firefox-latest 1>/dev/null && firefox-latest --private-window %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
+
 # Play videos in VLC with ,v
 macro v set browser "play %u"; open-in-browser ; set browser "which firefox-latest 1>/dev/null && firefox-latest --private-window %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
 
