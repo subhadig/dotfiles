@@ -235,7 +235,7 @@ alias gr-build="./gradlew build -x test"
 alias gr-buildtest="./gradlew build"
 
 # gpg
-encrypt() {
+encrypt-file() {
     local infile="$1"
     gpg -c "$infile"
     read -p "Delete original file? " choice
@@ -245,10 +245,9 @@ encrypt() {
     fi
 }
 
-decrypt() {
+decrypt-file() {
     local infile="$1"
     local outfile=`sed 's/.gpg$//' <<<"$infile"`
-    echo $filename
     gpg -o "$outfile" -d "$infile"
 }
 
