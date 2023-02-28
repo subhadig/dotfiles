@@ -155,6 +155,9 @@ rc() {
     req_file=$1
     if [ -z "$req_file" ]; then
         req_file=`fzf --preview='head -$FZF_PREVIEW_LINES {}' -q '!-res.json$ .json$ '`
+        if [ $? -ne 0 ]; then
+            return
+        fi
         history -s rc "${req_file}"
     fi
     restcall "$req_file"
