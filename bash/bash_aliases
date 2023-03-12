@@ -273,6 +273,8 @@ alias cl="clear"
 
 alias upc="update-personal-config"
 
+source $HOME/workspaces/personal/private-configs/play/play-aliases
+
 case "$(uname -s)" in
     Linux*)
         alias chrome-private="chromium -incognito"
