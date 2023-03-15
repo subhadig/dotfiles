@@ -19,6 +19,7 @@ alias gpfc='git pull origin `git rev-parse --abbrev-ref HEAD`'
 # git add with fzf
 gaf() {
     echo WARNING: This function is deprecated. Please use gafr instead.
+    return
     local file
     file=$(git status -s|grep '^.[^ ]'|fzf)
     if [ $? -ne 0 ]; then
@@ -49,7 +50,7 @@ gaf() {
 # git add with fzf recursive
 gafr() {
     local file
-    files=`git status -s -uall|grep '^.[^ ]'`
+    files=`git status -s -uall --no-renames|grep '^.[^ ]'`
     while true
     do
         file=`fzf <<< "$files"`
