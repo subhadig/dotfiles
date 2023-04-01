@@ -282,6 +282,9 @@ source $HOME/workspaces/personal/private-configs/play/play-aliases
 case "$(uname -s)" in
     Linux*)
         alias chrome-private="chromium -incognito"
+        alias clear-clipboard="xclip -selection clipboard </dev/null \
+            && xclip -selection primary </dev/null \
+            && xclip -selection secondary </dev/null"
         ;;
     Darwin*)
         alias chrome-private="/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito"
