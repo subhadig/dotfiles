@@ -7,6 +7,7 @@ fi
 # nvim
 alias vi='nvim'
 alias vimdiff='nvim -d'
+alias view='nvim -R'
 
 # cd
 alias cd='pushd'
