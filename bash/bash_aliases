@@ -10,7 +10,7 @@ alias vimdiff='nvim -d'
 alias view='nvim -R'
 
 # cd
-alias cd='pushd'
+#alias cd='pushd'
 alias cdwp='pushd $HOME/workspaces/personal/'
 alias cdws='pushd $HOME/workspaces/study/'
 alias cdwpn='pushd $HOME/workspaces/personal/notes'
