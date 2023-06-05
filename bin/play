@@ -4,6 +4,20 @@ if [ $# -ne 1 ]; then
     echo ERROR: Incorrect arguments. Pass the source location.
     exit 1
 fi
+
+play_local() {
+    case "$(uname -s)" in
+        Darwin*)
+            echo Playing $1 in QuickTime Player
+            open -a 'QuickTime Player' "$1"
+            ;;
+        *)
+            echo Playing $1 in vlc
+            vlc "$1" 1>/dev/null 2>&1 &
+            ;;
+    esac
+}
+
 case "$1" in
     *"youtube"*)
         echo Playing $1 in vlc as a youtube video
@@ -11,7 +25,6 @@ case "$1" in
         vlc "$url" 1>/dev/null 2>&1 &
         ;;
     *)
-        echo Playing $1 in vlc
-        vlc "$1" 1>/dev/null 2>&1 &
+        play_local "$1"
         ;;
 esac
