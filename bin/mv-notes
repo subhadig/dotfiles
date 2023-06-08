@@ -4,8 +4,8 @@ print_usage() {
     echo "Help: Move notes to the target directory."
     echo "Usage: mv-notes [path to the markdown notes file] [target directory]"
     echo "options:"
-    echo "p     Only print the changes."
-    echo "h     Print this Help."
+    echo "-p     Only print the changes."
+    echo "-h     Print this Help."
     echo
 }
 
