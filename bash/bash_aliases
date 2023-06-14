@@ -10,13 +10,15 @@ alias vimdiff='nvim -d'
 alias view='nvim -R'
 
 # cd
+export WP="$HOME/workspaces/personal"
+export WPN="$WP/notes"
 #alias cd='pushd'
-alias cdwp='pushd $HOME/workspaces/personal/'
+alias cdwp="pushd $WP"
 alias cdws='pushd $HOME/workspaces/study/'
-alias cdwpn='pushd $HOME/workspaces/personal/notes'
-alias cdwpd='pushd $HOME/workspaces/personal/dotfiles'
-alias cdwppc='pushd $HOME/workspaces/personal/private-configs'
-alias cdwpts='pushd $HOME/workspaces/personal/tmux-scripts'
+alias cdwpn="pushd $WPN"
+alias cdwpd="pushd $WP/dotfiles"
+alias cdwppc="pushd $WP/private-configs"
+alias cdwpts="pushd $WP/tmux-scripts"
 alias cdvimplugin='pushd $HOME/.local/share/nvim/site/pack/vim-plugins/'
 
 # ls
@@ -24,8 +26,8 @@ alias ll='ls -lrth'
 alias l1='ls -1rt'
 
 # tmux launch scripts
-alias th='$HOME/workspaces/personal/dotfiles/tmux/home-tmux.sh'
-alias tw='$HOME/workspaces/personal/dotfiles/tmux/work-tmux.sh'
+alias th="$WP/dotfiles/tmux/home-tmux.sh"
+alias tw="$WP/dotfiles/tmux/work-tmux.sh"
 
 # Jekyll
 alias js='bundle exec jekyll serve'
@@ -266,7 +268,7 @@ alias lynx="lynx -cfg=${DOTRCDIR}/lynx/lynx.cfg"
 source $HOME/workspaces/personal/private-configs/lynx/lynx-aliases
 
 # Misc
-alias newsboat="newsboat -u $HOME/workspaces/personal/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
+alias newsboat="newsboat -u $WP/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
 alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
 
 alias cq="cal -3"
