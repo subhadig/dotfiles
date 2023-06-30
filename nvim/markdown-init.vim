@@ -148,8 +148,7 @@ endfunction
 
 function! MarkdownPathOpenInTmux()
     let l:path=s:get_path_from_current_line()
-    echom l:path
-    execute "! tmux new-window -c " . "\"" . l:path . "\""
+    execute "silent ! tmux new-window -c " . "\"" . l:path . "\""
 endfunction
 
 " Key bindings
