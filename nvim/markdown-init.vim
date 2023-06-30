@@ -104,9 +104,9 @@ endfunction
 
 function! s:get_link_from_current_line()
     let l:line=getline(".")
-    let l:starting_parenthesis_index=stridx(l:line, "(", stridx(l:line, "]"))
-    let l:closing_parenthesis_index=stridx(l:line, ")", stridx(l:line, "]"))
-    return l:line[l:starting_parenthesis_index+1:l:closing_parenthesis_index-1]
+    let l:starting_parenthesis_index=stridx(l:line, "(", stridx(l:line, "]") + 1)
+    let l:closing_parenthesis_index=stridx(l:line, ")", stridx(l:line, "]") + 1)
+    return l:line[l:starting_parenthesis_index + 1:l:closing_parenthesis_index - 1]
 endfunction
 
 function! s:decode_url(url)
@@ -139,6 +139,19 @@ function! MarkdownLinkOpenInLynx()
     execute "silent ! tmux new-window " . g:lynxbrowser . "\"" . l:url . "\""
 endfunction
 
+function! s:get_path_from_current_line()
+    let l:line=getline(".")
+    let l:starting_index=stridx(l:line, "`")
+    let l:ending_index=stridx(l:line, "`", l:starting_index + 1)
+    return l:line[l:starting_index + 1:l:ending_index - 1]
+endfunction
+
+function! MarkdownPathOpenInTmux()
+    let l:path=s:get_path_from_current_line()
+    echom l:path
+    execute "! tmux new-window -c " . "\"" . l:path . "\""
+endfunction
+
 " Key bindings
 nnoremap <localleader>mv :call MarkdownView()<cr>
 nnoremap <localleader>mp :call MarkdownPresent()<cr>
@@ -157,11 +170,14 @@ nnoremap <localleader>mlc ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
 "" Convert to automatic link in markdown
 nnoremap <localleader>mlca ciW<<C-r>"><Esc>
 
-"" Open Link as Video
+"" Open Links
 nnoremap <localleader>mlov :call MarkdownLinkOpenAsVideo()<cr>
 nnoremap <localleader>mlob :call MarkdownLinkOpenInBrowser()<cr>
 nnoremap <localleader>mlop :call MarkdownLinkOpenInPrivateBrowser()<cr>
 nnoremap <localleader>mlol :call MarkdownLinkOpenInLynx()<cr>
+
+"" Open path
+nnoremap <localleader>mpot :call MarkdownPathOpenInTmux()<cr>
 
 
 " Autocmd Events
