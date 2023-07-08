@@ -68,21 +68,24 @@ while getopts "hp" options; do
     esac
 done
 
-filename=${@:$OPTIND:1}
-
-if [ -z "$filename" ]; then
-    echo "No file or directory specified."
-    echo
-    print_usage
-    exit 1
-elif [ -f "$filename" ]; then
-    sanitize_file "$filename"
-elif [ -d "$filename" ]; then
-    sanitize_dir "$filename"
-else
-    echo "ERROR: Unsupported file type for file: $filename"
-    exit 1
-fi
+IFS_ORIG=$IFS
+IFS=$'\n'
+for filename in ${@:$OPTIND}; do
+    if [ -z "$filename" ]; then
+        echo "No file or directory specified."
+        echo
+        print_usage
+        exit 1
+    elif [ -f "$filename" ]; then
+        sanitize_file "$filename"
+    elif [ -d "$filename" ]; then
+        sanitize_dir "$filename"
+    else
+        echo "ERROR: Unsupported file type for file: $filename"
+        exit 1
+    fi
+done
+IFS=$IFS_ORIG
 
 if ! $write ; then
     echo "No chages made to the filesystem."
