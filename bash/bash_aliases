@@ -175,6 +175,7 @@ rc() {
 }
 
 # pushd and popd
+alias pd='pushd'
 alias po='popd'
 
 pu() {
@@ -190,9 +191,11 @@ pu() {
         # Show full path (-f)
         # Don't show indentation (-i)
         # Follow symbolic links (-l)
+        # Recursively run tree in each subdirectory (-R): Experimental. To be removed if no advantage found.
+        # Do not descend directories containing more than 30 files (--filelimit): Experimental
         # Ignore Library folder - for MacOS
         # Max depth 5
-        path=`tree -dfilc -I 'Library/' -L 5 "$initPath" 2>/dev/null | fzf --preview='ls -tC {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
+        path=`tree -dfilcR --filelimit 30 -I 'Library/' -L 5 "$initPath" 2>/dev/null | fzf --preview='ls -tC {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
         if [ $? -ne 0 ]; then
             return
         fi
@@ -232,6 +235,29 @@ pub() {
         fi
         history -s pushd +$choice
         pushd +$choice
+    fi
+}
+
+# Experimental
+dedup-dirstack() {
+    local stack=`dirs -l -p`
+    local ustack=`sort <<<$stack|uniq`
+    if [ "$stack" != "$ustack" ]; then
+        echo not matching
+        dirs -c
+        local cur_dir=`dirs -l`
+        echo $cur_dir
+
+        local IFS_ORIG=$IFS
+        IFS=$'\n'
+        
+        for path in "$ustack"; do
+            if [ "$path" != "$cur_dir" ]; then
+                pushd -n "$path"
+            fi
+        done
+
+        IFS=$IFS_ORIG
     fi
 }
 
