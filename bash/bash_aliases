@@ -212,13 +212,16 @@ pu() {
     pushd "$path"
 }
 
-pubf() {
+# Pushd fuzzy
+pf() {
     local entry
     entry=`dirs -v -l | fzf --tac`
     if [ $? -ne 0 ]; then
         return
     fi
-    pushd +`awk '{print $1}' <<<$entry`
+    local choice=`awk '{print $1}' <<<$entry`
+    history -s pushd +$choice
+    pushd +$choice
 }
 
 pub() {
@@ -257,6 +260,7 @@ dedup-dirstack() {
     fi
 }
 
+# Pushd with dedup-dirstack
 pd() {
     pushd "$1" 1>/dev/null
     dedup-dirstack 1>/dev/null
