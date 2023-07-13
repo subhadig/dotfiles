@@ -238,11 +238,11 @@ pub() {
 
 # Experimental
 dedup-dirstack() {
-    local stack=`dirs -p`
+    local stack=`dirs -p -l`
     local ustack=`sort <<<$stack|uniq`
     if [ "$stack" != "$ustack" ]; then
         dirs -c
-        local cur_dir=`dirs`
+        local cur_dir=`dirs -l`
 
         local IFS_ORIG=$IFS
         IFS=$'\n'
