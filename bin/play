@@ -1,19 +1,62 @@
 #!/usr/bin/env bash
 
-if [ $# -ne 1 ]; then
+print_usage() {
+    echo "Help: Play media."
+    echo "Usage: play [--vlc] [path to the media file or youtube link]"
+    echo "options:"
+    echo "-1     Force play in vlc."
+    echo "-h     Print this Help."
+    echo
+}
+
+force_play_in_vlc=false
+while getopts "h1" options; do
+    case ${options} in
+        h)
+            print_usage
+            exit 0
+            ;;
+        1)
+            force_play_in_vlc=true
+            echo "Force playing in vlc."
+            ;;
+        *)
+            echo "ERROR: Invalid option."
+            print_usage
+            exit 1
+            ;;
+    esac
+done
+
+shift "$(($OPTIND - 1))"
+
+if [ -z "$1" ]; then
     echo ERROR: Incorrect arguments. Pass the source location.
+    print_usage
     exit 1
 fi
+
+play_in_vlc() {
+    echo Playing $1 in vlc
+    vlc "$1" 1>/dev/null 2>&1 &
+}
+
+play_in_quicktime() {
+    echo Playing $1 in QuickTime Player
+    open -a 'QuickTime Player' "$1"
+}
 
 play_local() {
     case "$(uname -s)" in
         Darwin*)
-            echo Playing $1 in QuickTime Player
-            open -a 'QuickTime Player' "$1"
+            if $force_play_in_vlc; then
+                play_in_vlc "$1"
+            else
+                play_in_quicktime "$1"
+            fi
             ;;
         *)
-            echo Playing $1 in vlc
-            vlc "$1" 1>/dev/null 2>&1 &
+            play_in_vlc "$1"
             ;;
     esac
 }
