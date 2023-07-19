@@ -63,9 +63,9 @@ play_local() {
 
 case "$1" in
     *"youtube"*)
-        echo Playing $1 in vlc as a youtube video
+        echo Preparing to play $1 as a youtube video
         url=`yt-dlp --print urls --format best "$1" 2>/dev/null`
-        vlc "$url" 1>/dev/null 2>&1 &
+        play_in_vlc "$url"
         ;;
     *)
         play_local "$1"
