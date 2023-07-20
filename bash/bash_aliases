@@ -303,6 +303,7 @@ source $HOME/workspaces/personal/private-configs/lynx/lynx-aliases
 alias newsboat="newsboat -u $WP/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
 alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
 
+alias cal="ncal -b"
 alias cq="cal -3"
 
 alias cl="clear"
