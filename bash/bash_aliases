@@ -177,6 +177,7 @@ rc() {
 # pushd and popd
 alias po='popd'
 
+## pushd with fuzzy search
 pu() {
     local initPath
     case $# in
@@ -212,7 +213,7 @@ pu() {
     pushd "$path"
 }
 
-# Pushd fuzzy
+## pushd go back to previous directories with fuzzy search
 pf() {
     local entry
     entry=`dirs -v -l | fzf --tac`
@@ -239,7 +240,7 @@ pub() {
     fi
 }
 
-# Experimental
+## Experimental
 dedup-dirstack() {
     local stack=`dirs -p -l`
     local ustack=`sort <<<$stack|uniq`
@@ -260,12 +261,13 @@ dedup-dirstack() {
     fi
 }
 
-# Pushd with dedup-dirstack
+## Pushd with dedup-dirstack
 pd() {
     pushd "$1" 1>/dev/null
     dedup-dirstack 1>/dev/null
     dirs
 }
+_fzf_setup_completion dir pd
 
 # Gradle
 alias gr="./gradlew"
