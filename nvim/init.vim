@@ -78,6 +78,7 @@ if system("uname") =~ "Linux"
     let g:browser = "firefox-latest "
     let g:pdfreader = "xdg-open 2>/dev/null "
     let g:wordprocessor = "xdg-open 2>/dev/null "
+    let g:texteditor = "open "
     " This will make it easier for nvim to find the python exec to use inside
     " venv
     let g:python3_host_prog='/usr/bin/python3'
