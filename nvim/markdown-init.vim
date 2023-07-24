@@ -114,9 +114,9 @@ py3 << endPy3
 import vim
 from urllib.parse import unquote
 url = vim.eval('a:url')
-decoded_url = unquote(url)
+decoded_url = unquote(url).replace('#', '\#')
 endPy3
-    return fnameescape(py3eval("decoded_url"))
+    return py3eval("decoded_url")
 endfunction
 
 function! MarkdownLinkOpenAsVideo()

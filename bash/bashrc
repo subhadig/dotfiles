@@ -58,3 +58,6 @@ fi
 # This will make sure that pip user install goes into ~/.local.
 # Although this happens automatically on Linux, this is required for MacOS
 export PYTHONUSERBASE=~/.local
+
+# fzf custom completion
+_fzf_setup_completion path trash
