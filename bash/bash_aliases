@@ -305,7 +305,6 @@ source $HOME/workspaces/personal/private-configs/lynx/lynx-aliases
 alias newsboat="newsboat -u $WP/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
 alias podboat="podboat -C ${DOTRCDIR}/newsboat/config"
 
-alias cal="ncal -b"
 alias cq="cal -3"
 
 alias cl="clear"
@@ -326,6 +325,7 @@ case "$(uname -s)" in
         alias clear-clipboard="xclip -selection clipboard </dev/null \
             && xclip -selection primary </dev/null \
             && xclip -selection secondary </dev/null"
+        alias cal="ncal -b"
         ;;
     Darwin*)
         alias chrome-private="/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito"
