@@ -59,5 +59,6 @@ fi
 # Although this happens automatically on Linux, this is required for MacOS
 export PYTHONUSERBASE=~/.local
 
-# fzf custom completion
+# fzf custom completions
 _fzf_setup_completion path trash
+_fzf_setup_completion path play
