@@ -216,7 +216,7 @@ pu() {
 ## pushd go back to previous directories with fuzzy search
 pf() {
     local entry
-    entry=`dirs -v -l | fzf --tac`
+    entry=`dirs -v -l | fzf --tac --tiebreak=begin`
     if [ $? -ne 0 ]; then
         return
     fi
