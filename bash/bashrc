@@ -33,16 +33,12 @@ test -d /usr/local/opt/ruby/bin && PATH="/usr/local/opt/ruby/bin:${PATH}"
 PATH="${DOTRCDIR}/bin:${PATH}"
 export PATH
 
-# This is a workaround for the missing bash.completion file for the fzf package
-# on Debian 10
-if [ "$(fzf --version)" = "0.17.5" ]; then
-    source "${DOTRCDIR}/bash/fzf_0_17_5_completion.bash"
-elif [ -f "/usr/share/doc/fzf/examples/completion.bash" ]; then
-    # bash.completion is available on Debian 11
-    source "/usr/share/doc/fzf/examples/completion.bash"
-elif [ -f "/usr/local/opt/fzf/shell/completion.bash" ]; then
-    source "/usr/local/opt/fzf/shell/completion.bash"
-fi
+# Load fzf completion on Debian`
+test -f /usr/share/doc/fzf/examples/key-bindings.bash && source /usr/share/doc/fzf/examples/key-bindings.bash
+test -f /usr/share/bash-completion/completions/fzf && source /usr/share/bash-completion/completions/fzf
+
+# Load fzf completion on MacOS
+test -f /usr/local/opt/fzf/shell/completion.bash && source /usr/local/opt/fzf/shell/completion.bash
 
 # This is used by my custom npm config. Also utilizing this for storing all
 # local command line binaries.
