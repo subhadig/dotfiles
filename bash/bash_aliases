@@ -30,7 +30,7 @@ alias th="$WP/dotfiles/tmux/home-tmux.sh"
 alias tw="$WP/dotfiles/tmux/work-tmux.sh"
 
 # Jekyll
-alias js='bundle exec jekyll serve'
+alias jekyll-serve='bundle exec jekyll serve'
 
 # Git
 source "${DOTRCDIR}/bash/git_aliases"
