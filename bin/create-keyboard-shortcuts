@@ -35,6 +35,9 @@ else
 fi
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>c" -n -t string -s ${chrome_exec}
 
+# Thunderbird
+$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>m" -n -t string -s "/usr/bin/thunderbird"
+
 # File manager
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>f" -n -t string -s "/usr/bin/thunar"
 
