@@ -165,6 +165,9 @@ rc() {
         history -s rc "${req_file}"
     fi
     restcall "$req_file"
+    if [ $? -ne 0 ]; then
+        return
+    fi
     read -p "Open response file? " choice
     if [ "$choice" = 'y' -o -z "$choice" ]; then
         local res_file
