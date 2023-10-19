@@ -8,9 +8,11 @@ Replace `~/workspaces/personal/dotfiles` in all the steps with the actual
 location of your *dotfiles* directory wherever applicable.
 
 ### bash
-Append this to the existing `.bashrc`.
+Place the following content in `.bashrc` before the `.bash_aliases` is sourced.
 
 ```bash
+export DOTRCDIR="${HOME}/workspaces/personal/dotfiles"
+
 # If the ~/workspaces/personal/dotfiles/bash/bashrc file exists then
 # source it.
 if [ -f ${DOTRCDIR}/bash/bashrc ]; then
@@ -18,35 +20,40 @@ if [ -f ${DOTRCDIR}/bash/bashrc ]; then
 fi
 ```
 
-Place this line in `.bashrc` before the `.bash_aliases` is sourced.
-```bash
-export DOTRCDIR="${HOME}/workspaces/personal/dotfiles"
-```
-
-Append this to your existing `.bash_aliases`. If the file does not exist,
-create one.
+Append this to your existing `.bash_aliases`.
+If the file does not exist, create one.
 
 ```bash
 source $HOME/workspaces/personal/dotfiles/bash/bash_aliases
 ```
 
 ### neovim
-Append this to the existing init.vim. If the file does not exists, create one
-under `$HOME/.config/nvim`
+Append this to the `$HOME/.config/nvim/init.vim`.
+If the file does not exists, create one.
 
 ```bash
 source $HOME/workspaces/personal/dotfiles/nvim/init.vim
 ```
 
+To also configure the [vim-plugins](https://github.com/subhadig/vim-plugins),
+execute the following commands:
+
+```bash
+mkdir -p ~/.local/share/nvim/site/pack/ && cd $_
+git clone --recurse-submodules git@github.com:subhadig/vim-plugins.git
+```
+
 ### vim
-Append this to the existing `.vimrc`. Create one if it does not exists.
+Append this to the existing `.vimrc`.
+Create one if it does not exists.
 
 ```bash
 source $HOME/workspaces/personal/dotfiles/vim/vimrc
 ```
 
 ### tmux
-Append this to the existing `.tmux.conf`. Create one if it does not exists.
+Append this to the existing `.tmux.conf`.
+Create one if it does not exists.
 
 ```bash
 source-file $HOME/workspaces/personal/dotfiles/tmux/tmux.conf
