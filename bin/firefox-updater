@@ -1,15 +1,26 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+pushd /tmp
 
 wget -O FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
+wget -O firefox-latest.desktop "https://raw.githubusercontent.com/mozilla/sumo-kb/main/install-firefox-linux/firefox.desktop"
+sed 's/^Exec=firefox %u/Exec=firefox-latest %u/' firefox-latest.desktop > tmp-firefox-latest.desktop
+mv tmp-firefox-latest.desktop firefox-latest.desktop
+
+install-firefox() {
+    sudo tar xjvf /tmp/FirefoxSetup.tar.bz2 -C /opt/ --overwrite
+    sudo ln -f -s /opt/firefox/firefox /usr/bin/firefox-latest
+    sudo mv /tmp/firefox-latest.desktop /usr/share/applications/
+}
 
 sudo -v 2>/dev/null
 if [ $? -eq 0 ]; then
-    sudo tar xjvf FirefoxSetup.tar.bz2 -C /opt/ --overwrite
-    sudo ln -f -s /opt/firefox/firefox /usr/bin/firefox-latest
+    install-firefox
 else
+    export -f install-firefox
     echo Enter root password when prompted.
-    su -c "tar xjvf FirefoxSetup.tar.bz2 -C /opt/ --overwrite \
-        && ln -f -s /opt/firefox/firefox /usr/bin/firefox-latest"
+    su -c "install-firefox"
 fi
 
 rm FirefoxSetup.tar.bz2
+popd
