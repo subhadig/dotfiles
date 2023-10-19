@@ -67,5 +67,14 @@ If using the ideavim plugin for IntelliJ Idea, create a file with name
 source ~/workspaces/personal/dotfiles/intellij/ideavimrc
 ```
 
+## Dependencies
+Different scripts/configurations in this repository require the following
+packages that do not come installed OOTB:
+
+### Debian
+```bash
+sudo apt install git tmux fzf neovim wget bash-completion
+```
+
 ## License
 This repository and the files under it are licensed under the MIT license.
