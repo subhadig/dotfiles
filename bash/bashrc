@@ -21,16 +21,21 @@ export HISTIGNORE='cl:history'
 
 # PATH
 ## ruby
-if [ -d ${HOME}/.gem/ruby/3.1.0/bin ]; then
-    PATH="${HOME}/.gem/ruby/3.1.0/bin:${PATH}"
-elif [ -d ${HOME}/.gem/ruby/3.0.0/bin ]; then
-    PATH="${HOME}/.gem/ruby/3.0.0/bin:${PATH}"
-elif [ -d ${HOME}/.gem/ruby/2.7.0/bin ]; then
-    PATH="${HOME}/.gem/ruby/2.7.0/bin:${PATH}"
-elif [ -d ${HOME}/.gem/ruby/2.5.0/bin ]; then
-    PATH="${HOME}/.gem/ruby/2.5.0/bin:${PATH}"
-fi
 test -d /usr/local/opt/ruby/bin && PATH="/usr/local/opt/ruby/bin:${PATH}"
+if which ruby >/dev/null && which gem >/dev/null; then
+  export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+# The following commented out lines should be removed after the above logic is
+# tested
+#if [ -d ${HOME}/.gem/ruby/3.1.0/bin ]; then
+#    PATH="${HOME}/.gem/ruby/3.1.0/bin:${PATH}"
+#elif [ -d ${HOME}/.gem/ruby/3.0.0/bin ]; then
+#    PATH="${HOME}/.gem/ruby/3.0.0/bin:${PATH}"
+#elif [ -d ${HOME}/.gem/ruby/2.7.0/bin ]; then
+#    PATH="${HOME}/.gem/ruby/2.7.0/bin:${PATH}"
+#elif [ -d ${HOME}/.gem/ruby/2.5.0/bin ]; then
+#    PATH="${HOME}/.gem/ruby/2.5.0/bin:${PATH}"
+#fi
 
 PATH="${DOTRCDIR}/bin:${PATH}"
 export PATH
