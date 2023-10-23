@@ -68,6 +68,8 @@ gafr() {
         # from within a script, for new files, the status is 'db' instead of '??'
         if [ $status = "??" -o $status = "db"  ]; then
             vi -R "$file"
+        elif [ $status = "D" ]; then
+            echo Deleted file: $file
         else
             git diff "$file"
         fi
