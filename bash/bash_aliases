@@ -212,7 +212,7 @@ pu() {
             return
         fi
     fi
-    echo pushd $path
+    echo pd $path
     pushd "$path"
 }
 
