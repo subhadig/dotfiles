@@ -179,6 +179,7 @@ rc() {
 
 # pushd and popd
 alias po='popd'
+alias dv='dirs -v'
 
 ## pushd with fuzzy search
 pu() {
