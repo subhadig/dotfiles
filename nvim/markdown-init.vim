@@ -151,6 +151,11 @@ function! MarkdownPathOpenInTmux()
     execute "silent ! tmux new-window -c " . "\"" . l:path . "\""
 endfunction
 
+function! MarkdownPathOpenInVim()
+    let l:path=s:get_path_from_current_line()
+    execute "tabe" . " " . l:path
+endfunction
+
 " Key bindings
 nnoremap <localleader>mv :call MarkdownView()<cr>
 nnoremap <localleader>mp :call MarkdownPresent()<cr>
@@ -177,6 +182,8 @@ nnoremap <localleader>mlol :call MarkdownLinkOpenInLynx()<cr>
 
 "" Open path
 nnoremap <localleader>mpot :call MarkdownPathOpenInTmux()<cr>
+"" Open file in vim
+nnoremap <localleader>mpov :call MarkdownPathOpenInVim()<cr>
 
 
 " Autocmd Events
