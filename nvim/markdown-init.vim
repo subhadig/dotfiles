@@ -153,6 +153,9 @@ endfunction
 
 function! MarkdownPathOpenInVim()
     let l:path=s:get_path_from_current_line()
+    if !(stridx(l:path, "/") == 0 || stridx(l:path, "~") == 0)
+        let l:path=expand("%:.:h") . "/" . l:path
+    endif
     execute "tabe" . " " . l:path
 endfunction
 
