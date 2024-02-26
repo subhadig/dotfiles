@@ -114,7 +114,7 @@ py3 << endPy3
 import vim
 from urllib.parse import unquote
 url = vim.eval('a:url')
-decoded_url = unquote(url).replace('#', '\\#')
+decoded_url = unquote(url).replace('#', '\#')
 endPy3
     return py3eval("decoded_url")
 endfunction

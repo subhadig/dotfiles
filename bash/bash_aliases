@@ -89,7 +89,7 @@ which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
 # Search and open
 so() {
     local file
-    file=`ls -t|fzf`
+    file=`fzf`
     if [ $? -ne 0 ]; then
         return
     fi
