@@ -94,7 +94,8 @@ elseif system("uname") =~ "Darwin"
     let g:texteditor = "open "
     " This will make it easier for nvim to find the python exec to use inside
     " venv
-    let g:python3_host_prog='/Users/ghoss8/workspaces/personal/neovim-python/.venv/bin/python3'
+    " expand might be slower. Come up with a better way
+    let g:python3_host_prog=expand($NVIM_PYTHON3_HOST_PROG)
 endif
 let g:lynxbrowser = "lynx -cfg=$HOME/workspaces/personal/dotfiles/lynx/lynx.cfg "
 
