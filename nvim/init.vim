@@ -70,6 +70,8 @@ if filereadable("/usr/share/doc/fzf/examples/fzf.vim")
     source /usr/share/doc/fzf/examples/fzf.vim
 elseif filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
     source /usr/local/opt/fzf/plugin/fzf.vim
+elseif filereadable("/opt/homebrew/opt/fzf/plugin/fzf.vim")
+    source /opt/homebrew/opt/fzf/plugin/fzf.vim
 endif
 
 " Set the preferred browser command and other platform specific settings
@@ -92,7 +94,7 @@ elseif system("uname") =~ "Darwin"
     let g:texteditor = "open "
     " This will make it easier for nvim to find the python exec to use inside
     " venv
-    let g:python3_host_prog='/usr/local/bin/python3'
+    let g:python3_host_prog='/Users/ghoss8/workspaces/personal/neovim-python/.venv/bin/python3'
 endif
 let g:lynxbrowser = "lynx -cfg=$HOME/workspaces/personal/dotfiles/lynx/lynx.cfg "
 
