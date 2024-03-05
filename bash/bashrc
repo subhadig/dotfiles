@@ -46,6 +46,7 @@ test -f /usr/share/bash-completion/completions/fzf && source /usr/share/bash-com
 
 # Load fzf completion on MacOS
 test -r ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.bash && source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.bash
+test -r ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.bash && source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.bash
 
 # This is used by my custom npm config. Also utilizing this for storing all
 # local command line binaries.
