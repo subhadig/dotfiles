@@ -145,7 +145,7 @@ alias py-activate-venv=". .venv/bin/activate"
 alias lr="ls -lrt|grep .json$|grep -v res.json$"
 sr() {
     local file
-    file=`fzf --preview='head -$FZF_PREVIEW_LINES {}' -q '!-res.json$ .json$ '`
+    file=`fzf --preview='head -$FZF_PREVIEW_LINES {}' -q '^get- | ^put- | ^post- !-res.json$ .json$ '`
     if [ $? -ne 0 ]; then
         return
     fi
