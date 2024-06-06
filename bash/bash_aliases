@@ -180,6 +180,7 @@ rc() {
 # pushd and popd
 alias po='popd'
 alias dv='dirs -v'
+alias pws='dirs -v'
 
 ## pushd with fuzzy search
 pu() {
@@ -229,6 +230,7 @@ pf() {
     pushd +$choice
 }
 
+## pushd back - Deprecated
 pub() {
     if [ -n "$1" ]; then
         history -s pushd +$1
