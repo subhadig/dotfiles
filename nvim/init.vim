@@ -153,11 +153,14 @@ vnoremap <silent> <localleader>y "+y
 " Load Python specific init file
 autocmd FileType python source $HOME/workspaces/personal/dotfiles/nvim/python-init.vim
 
-" Load Java speicific init file
+" Load Java specific init file
 autocmd FileType java source $HOME/workspaces/personal/dotfiles/nvim/java-init.vim
 
-" Load Kotlin speicific init file
+" Load Kotlin specific init file
 autocmd FileType kotlin source $HOME/workspaces/personal/dotfiles/nvim/kotlin-init.vim
 
-" Load Markdown speicific init file
+" Load Markdown specific init file
 autocmd FileType markdown source $HOME/workspaces/personal/dotfiles/nvim/markdown-init.vim
+
+" Load Restcall specific config
+autocmd FileType json source $HOME/workspaces/personal/dotfiles/nvim/restcall.vim
