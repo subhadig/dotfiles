@@ -32,8 +32,11 @@ set nofoldenable
 " File browsing (netrw)
 let g:netrw_liststyle = 3
 let g:netrw_winsize = 25
+let g:netrw_banner = 0
 "" Enable line number in netrw
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+"" Opens files in new tab
+let g:netrw_browse_split = 3
 
 " Jedi-vim settings
 let g:jedi#use_tabs_not_buffers = 1
@@ -120,7 +123,7 @@ nnoremap <silent> <C-w>> :vertical resize +30<cr>
 nnoremap <silent> <C-w>< :vertical resize -30<cr>
 
 " Open explore
-nnoremap <localleader>f :Texplore<cr>
+nnoremap <localleader>f :Lexplore<cr>
 
 " Reload vimrc
 nnoremap <localleader><localleader> :source $MYVIMRC<cr>
