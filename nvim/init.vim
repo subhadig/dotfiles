@@ -102,6 +102,20 @@ elseif system("uname") =~ "Darwin"
 endif
 let g:lynxbrowser = "lynx -cfg=$HOME/workspaces/personal/dotfiles/lynx/lynx.cfg "
 
+" Functions
+
+function! MarkCurrFileInNetrwB()
+    let l:currFile = expand("%:p")
+    let l:curTabNr = tabpagenr()
+    for bufNr in tabpagebuflist(l:curTabNr)
+        if getbufvar(bufNr, '&ft') == 'netrw'
+            let l:winId = bufwinid(bufNr)
+            call win_gotoid(l:winId)
+            MF l:currFile
+        endif
+    endfor
+endfunction
+
 " Custom key bindings
 
 " fzf
