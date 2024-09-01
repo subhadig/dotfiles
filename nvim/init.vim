@@ -100,10 +100,10 @@ elseif system("uname") =~ "Darwin"
     " expand might be slower. Come up with a better way
     let g:python3_host_prog=expand($NVIM_PYTHON3_HOST_PROG)
 endif
-let g:lynxbrowser = "lynx -cfg=$HOME/workspaces/personal/dotfiles/lynx/lynx.cfg "
+let g:lynxbrowser = "lynx -cfg=$DOTRCDIR/lynx/lynx.cfg "
 
 " Functions
-
+" The below function does not work
 function! MarkCurrFileInNetrwB()
     let l:currFile = expand("%:p")
     let l:curTabNr = tabpagenr()
@@ -159,22 +159,24 @@ cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 
 " Json formatting
-autocmd FileType json setlocal equalprg=$HOME/workspaces/personal/dotfiles/bin/json-format
+autocmd FileType json setlocal equalprg=$DOTRCDIR/bin/json-format
 
 " Copy to system clipboard
 vnoremap <silent> <localleader>y "+y
 
 " Load Python specific init file
-autocmd FileType python source $HOME/workspaces/personal/dotfiles/nvim/python-init.vim
+autocmd FileType python source $DOTRCDIR/nvim/python-init.vim
 
 " Load Java specific init file
-autocmd FileType java source $HOME/workspaces/personal/dotfiles/nvim/java-init.vim
+autocmd FileType java source $DOTRCDIR/nvim/java-init.vim
 
 " Load Kotlin specific init file
-autocmd FileType kotlin source $HOME/workspaces/personal/dotfiles/nvim/kotlin-init.vim
+autocmd FileType kotlin source $DOTRCDIR/nvim/kotlin-init.vim
 
 " Load Markdown specific init file
-autocmd FileType markdown source $HOME/workspaces/personal/dotfiles/nvim/markdown-init.vim
+autocmd FileType markdown source $DOTRCDIR/nvim/markdown-init.vim
 
 " Load Restcall specific config
-autocmd FileType json source $HOME/workspaces/personal/dotfiles/nvim/restcall.vim
+autocmd FileType json source $DOTRCDIR/nvim/restcall.vim
+
+source $DOTRCDIR/nvim/lua/lspconfig.lua

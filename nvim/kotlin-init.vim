@@ -3,7 +3,7 @@
 " Functions
 function! CompileAndRunKotlin()
     update
-    execute "!" . "$HOME/workspaces/personal/dotfiles/bin/compile-run-kotlin " . "\"%:p:t\""
+    execute "!" . "$DOTRCDIR/bin/compile-run-kotlin " . "\"%:p:t\""
 endfunction
 
 " Key bindings

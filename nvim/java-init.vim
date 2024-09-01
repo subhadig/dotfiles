@@ -3,7 +3,7 @@
 " Functions
 function! CompileAndRunJava()
     update
-    execute "!" . "$HOME/workspaces/personal/dotfiles/bin/compile-run-java " . "\"%:p:t\""
+    execute "!" . "$DOTRCDIR/bin/compile-run-java " . "\"%:p:t\""
 endfunction
 
 function! InsertJavaMain()

@@ -16,7 +16,7 @@ setlocal indentexpr=CustomMarkdownIndent()
 " Functions
 "" View markdown files as HTML in browser
 function! MarkdownView()
-    execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/pdutil m2h " . "\"%:p\" " . "\"%:p\"" . ".html"
+    execute "silent !" . "$DOTRCDIR/bin/pdutil m2h " . "\"%:p\" " . "\"%:p\"" . ".html"
     execute "silent !" . g:private_browser . "\"" . "%:p" . ".html\" &"
     call getchar()
     execute "silent !" . "rm " . "\"%:p" . ".html\" &"
@@ -24,7 +24,7 @@ endfunction
 
 "" Present markdown files as HTML in browser
 function! MarkdownPresent()
-    execute "silent !" . "pandoc -s --webtex -t slidy -c $HOME/workspaces/personal/dotfiles/pandoc/darkdown.css -i " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
+    execute "silent !" . "pandoc -s --webtex -t slidy -c $DOTRCDIR/pandoc/darkdown.css -i " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
     execute "silent !" . g:private_browser . "\"" . "%:p" . ".html\" &"
     call getchar()
     execute "silent !" . "rm " . "\"%:p" . ".html\" &"
@@ -33,7 +33,7 @@ endfunction
 "" View markdown files as PDF in the preferred pdf-reader
 function! MarkdownPdfView()
     cd %:p:h
-    execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/pdutil m2p " . "\"%:p\" " . "\"%:p\"" . ".pdf"
+    execute "silent !" . "$DOTRCDIR/bin/pdutil m2p " . "\"%:p\" " . "\"%:p\"" . ".pdf"
     execute "silent !" . g:pdfreader . "\"" . "%:p" . ".pdf\" &"
     call getchar()
     execute "silent !" . "rm " . "\"%:p" . ".pdf\" &"
@@ -43,7 +43,7 @@ endfunction
 "" View markdown files as MS Word document in the system default word processor
 function! MarkdownWordDocView()
     cd %:p:h
-    execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/pdutil m2d " . "\"%:p\" " . "\"%:p\"" . ".docx"
+    execute "silent !" . "$DOTRCDIR/bin/pdutil m2d " . "\"%:p\" " . "\"%:p\"" . ".docx"
     execute "silent !" . g:wordprocessor . "\"" . "%:p" . ".docx\" &"
     call getchar()
     execute "silent !" . "rm " . "\"%:p" . ".docx\" &"
@@ -53,7 +53,7 @@ endfunction
 "" View markdown files as plain text document in the system default text editor
 function! MarkdownTextView()
     cd %:p:h
-    execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/pdutil m2t " . "\"%:p\" " . "\"%:p\"" . ".txt"
+    execute "silent !" . "$DOTRCDIR/bin/pdutil m2t " . "\"%:p\" " . "\"%:p\"" . ".txt"
     execute "silent !" . g:texteditor . "\"" . "%:p" . ".txt\" &"
     call getchar()
     execute "silent !" . "rm " . "\"%:p" . ".txt\" &"
@@ -121,7 +121,7 @@ endfunction
 
 function! MarkdownLinkOpenAsVideo()
     let l:url=s:get_link_from_current_line()
-    execute "silent !" . "$HOME/workspaces/personal/dotfiles/bin/play " . l:url
+    execute "silent !" . "$DOTRCDIR/bin/play " . l:url
 endfunction
 
 function! MarkdownLinkOpenInBrowser()
@@ -165,7 +165,7 @@ nnoremap <localleader>mp :call MarkdownPresent()<cr>
 nnoremap <localleader>md :call MarkdownPdfView()<cr>
 nnoremap <localleader>mw :call MarkdownWordDocView()<cr>
 nnoremap <localleader>mx :call MarkdownTextView()<cr>
-vnoremap <localleader>mtf :!$HOME/workspaces/personal/dotfiles/nvim/scripts/markdown_table_format.py<cr>
+vnoremap <localleader>mtf :!$DOTRCDIR/nvim/scripts/markdown_table_format.py<cr>
 nnoremap <localleader>mc :call MarkdownTOC()<cr>
 
 "" Yank link in markdown
