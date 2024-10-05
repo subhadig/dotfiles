@@ -36,7 +36,15 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
+
+-- Python language server
 require'lspconfig'.jedi_language_server.setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
+
+-- C language server
+require'lspconfig'.clangd.setup{
     on_attach = on_attach,
     flags = lsp_flags,
 }
