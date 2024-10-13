@@ -28,6 +28,7 @@ set timeoutlen=2000
 " Set foldmethod to syntax but disable fold by default
 set foldmethod=syntax
 set nofoldenable
+let g:markdown_folding = 1
 
 " File browsing (netrw)
 let g:netrw_liststyle = 3
