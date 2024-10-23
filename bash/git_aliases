@@ -93,18 +93,6 @@ gafr() {
     done
 }
 
-# Unstages a file but does not revert the changes
-gunstage() {
-    local file
-    file=`git diff --name-only --cached|fzf`
-    if [ $? -ne 0 ]; then
-        return
-    fi
-    if [ -f "$file" ]; then
-        git reset HEAD "$file"
-    fi
-}
-
 # Revert changes for a file.
 grestore() {
     local file
@@ -118,6 +106,30 @@ grestore() {
         if [ "$choice" = 'y' ]; then
             git checkout -- "$file"
             echo Restored $file.
+        else
+            echo Aborting.
+        fi
+    fi
+}
+
+# Unstage staged changes for a file.
+gunstage() {
+    local file
+    file=`git diff --staged --name-only|fzf`
+    if [ $? -ne 0 ]; then
+        return
+    fi
+    if [ -f "$file" ]; then
+        git diff --staged "$file"
+        read -p "Unstage file? " choice
+        if [ "$choice" = 'y' ]; then
+            git restore --staged "$file"
+            echo Unstaged $file.
+            read -p "Also revert file? " choice
+            if [ "$choice" = 'y' ]; then
+                git checkout -- "$file"
+                echo Reverted $file.
+            fi
         else
             echo Aborting.
         fi
@@ -182,8 +194,8 @@ printgitaliases() {
     echo gpfm: Git pull from master
     echo gfo: Git fetch origin
     echo gafr: Git add with fzf search. Recursive.
-    echo gunstage: Git unstage a file but don\'t revert the changes with fzf search.
-    echo grestore: Git restore a file to HEAD with fzf search.
+    echo gunstage: Git unstage a file and optionally revert with fzf search.
+    echo grevert: Git restore a file to HEAD with fzf search.
     echo gsb: Git switch branch with fzf search.
     echo grb: Git remove branch with fzf search.
     echo gsetconfigp: Git set user.name and user.email config to private.

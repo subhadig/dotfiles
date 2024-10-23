@@ -319,6 +319,8 @@ alias upc="update-personal-config"
 
 alias calc="bc -l"
 
+alias t="trash"
+
 pwgen-sane() {
     pwgen -Byvs --remove-chars='~`$%^&()-_+=\|[{]}"<>/?'"'" $@
 }
