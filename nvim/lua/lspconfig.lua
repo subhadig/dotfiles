@@ -37,20 +37,19 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
-local coq = require "coq"
+local lspconfig = require('lspconfig')
+local coq = require('coq')
 
--- Python language server
-require'lspconfig'.jedi_language_server.setup{
-    coq.lsp_ensure_capabilities{
+local servers = {'jedi_language_server', 'clangd'}
+
+for _, lsp in ipairs(servers) do
+    lspconfig[lsp].setup{
+        coq.lsp_ensure_capabilities{
+            flags = lsp_flags
+        }
+    }
+    lspconfig[lsp].setup{
         on_attach = on_attach,
         flags = lsp_flags
     }
-}
-
--- C language server
-require'lspconfig'.clangd.setup{
-    coq.lsp_ensure_capabilities{
-        on_attach = on_attach,
-        flags = lsp_flags,
-    }
-}
+end
