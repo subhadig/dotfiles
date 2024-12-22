@@ -43,7 +43,7 @@ let g:netrw_browse_split = 3
 let g:jedi#use_tabs_not_buffers = 1
 
 " coq
-let g:coq_settings = { 'auto_start': v:true }
+let g:coq_settings = { 'auto_start': 'shut-up' }
 
 " Spell check
 set spelllang=en
