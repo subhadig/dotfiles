@@ -12,7 +12,7 @@ RETURN: "\e\n"
 
 # Autocompletion settings
 set completion-ignore-case on
-#set show-all-if-ambiguous on
+set show-all-if-ambiguous on
 
 # Keybindings
 Control-n: menu-complete
