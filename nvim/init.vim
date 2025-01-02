@@ -162,6 +162,10 @@ inoremap <F1> <Esc>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 
+" Horizontal navigation with mouse wheel
+nnoremap <S-ScrollWheelUp> zH
+nnoremap <S-ScrollWheelDown> zL
+
 " Json formatting
 autocmd FileType json setlocal equalprg=$DOTRCDIR/bin/json-format
 
@@ -182,5 +186,9 @@ autocmd FileType markdown source $DOTRCDIR/nvim/markdown-init.vim
 
 " Load Restcall specific config
 autocmd FileType json source $DOTRCDIR/nvim/restcall.vim
+
+" DrawIt filetype config
+autocmd BufRead,BufNewFile *.drawit setfiletype drawit
+autocmd FileType drawit set nowrap formatoptions-=tc
 
 source $DOTRCDIR/nvim/lua/lspconfig.lua
