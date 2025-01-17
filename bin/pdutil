@@ -94,9 +94,9 @@ markdown2pdfViaHtml() {
         -o "$temp_output" \
         "$input"
 
-    "$chrome_exec" --headless \
+    "$chrome_exec" --headless=new \
         --disable-gpu \
-        --print-to-pdf-no-header \
+        --no-pdf-header-footer \
         --print-to-pdf="$output" \
         "$temp_output"
 
