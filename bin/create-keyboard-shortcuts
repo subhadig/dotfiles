@@ -27,7 +27,7 @@ $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Shift>KP_Add" -n
 $xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Shift>KP_Subtract" -n -t string -s "pactl set-sink-volume $sink_name -5%"
 
 # Browsers
-$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>w" -n -t string -s "/usr/bin/firefox-latest"
+$xfconf_query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>w" -n -t string -s "/usr/bin/firefox"
 if which google-chrome 1>/dev/null; then
     chrome_exec='/usr/bin/google-chrome'
 else
