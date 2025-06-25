@@ -83,8 +83,8 @@ endif
 
 " Set the preferred browser command and other platform specific settings
 if system("uname") =~ "Linux"
-    let g:private_browser = "firefox-latest --private-window "
-    let g:browser = "firefox-latest "
+    let g:private_browser = "firefox --private-window "
+    let g:browser = "firefox "
     let g:pdfreader = "xdg-open 2>/dev/null "
     let g:wordprocessor = "xdg-open 2>/dev/null "
     let g:texteditor = "open "
