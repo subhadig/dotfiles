@@ -92,10 +92,10 @@ if system("uname") =~ "Linux"
     " venv
     let g:python3_host_prog='/usr/bin/python3'
 elseif system("uname") =~ "Darwin"
-    let g:private_browser = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito "
     let g:private_browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
+    let g:private_browser = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito "
+    let g:browser = "/Applications/Firefox.app/Contents/MacOS/firefox "
     let g:browser = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome "
-    let g:browser  = "/Applications/Firefox.app/Contents/MacOS/firefox "
     let g:pdfreader = "open "
     let g:wordprocessor = "open "
     let g:texteditor = "open "
