@@ -35,9 +35,14 @@ exec_admin_command() {
 
 echo Initiating backup...
 
+if ! which rsync 1>/dev/null; then
+    echo rsync is not available. Exiting...
+    exit 1
+fi
+
 # Find the pretty hostname
 # backup_laptop
-comp_name=`hostnamectl --pretty`
+comp_name=`hostnamectl --static`
 
 if [ -z "$comp_name" ]; then
     echo "Computer name not set. Exiting."
