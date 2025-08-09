@@ -83,8 +83,10 @@ endif
 
 " Set the preferred browser command and other platform specific settings
 if system("uname") =~ "Linux"
-    let g:private_browser = "firefox --private-window "
-    let g:browser = "firefox "
+    "let g:browser = "firefox "
+    let g:browser = "chromium "
+    "let g:private_browser = "firefox --private-window "
+    let g:private_browser = "chromium -incognito "
     let g:pdfreader = "xdg-open 2>/dev/null "
     let g:wordprocessor = "xdg-open 2>/dev/null "
     let g:texteditor = "open "
@@ -92,7 +94,7 @@ if system("uname") =~ "Linux"
     " venv
     let g:python3_host_prog='/usr/bin/python3'
 elseif system("uname") =~ "Darwin"
-    let g:private_browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
+    "let g:private_browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
     let g:private_browser = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito "
     let g:browser = "/Applications/Firefox.app/Contents/MacOS/firefox "
     let g:browser = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome "
