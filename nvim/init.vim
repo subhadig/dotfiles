@@ -122,7 +122,7 @@ function! MarkCurrFileInNetrwB()
     endfor
 endfunction
 
-" Custom key bindings
+" Custom key bindings: Start
 
 " fzf
 nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
@@ -173,6 +173,11 @@ autocmd FileType json setlocal equalprg=$DOTRCDIR/bin/json-format
 
 " Copy to system clipboard
 vnoremap <silent> <localleader>y "+y
+
+" Open Outline
+nnoremap <localleader>o :Outline<cr>
+
+" Custom key bindings: End
 
 " Load Python specific init file
 autocmd FileType python source $DOTRCDIR/nvim/python-init.vim

@@ -53,3 +53,15 @@ for _, lsp in ipairs(servers) do
         flags = lsp_flags
     }
 end
+
+require("outline").setup({
+    outline_window = {
+        -- Where to open the split window: right/left
+        position = 'right',
+
+        -- Vim options for the outline window
+        show_numbers = true,
+        show_relative_numbers = true,
+        wrap = false
+    }
+})
