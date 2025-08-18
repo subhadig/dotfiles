@@ -59,9 +59,16 @@ require("outline").setup({
         -- Where to open the split window: right/left
         position = 'right',
 
+        -- Percentage or integer of columns
+        width = 25,
+        -- Whether width is relative to the total width of nvim
+        -- When relative_width = true, this means take 25% of the total
+        -- screen width for outline window.
+        relative_width = true,
+
         -- Vim options for the outline window
         show_numbers = true,
         show_relative_numbers = true,
-        wrap = false
+        wrap = true
     }
 })

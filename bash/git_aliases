@@ -142,6 +142,7 @@ gsb() {
     if [ $? -ne 0 ]; then
         return
     else
+        branch=`sed 's/+//g' <<<"${branch}"`
         branch=`sed 's/ *$//g' <<<"${branch}"`
         git checkout ${branch}
         history -s git checkout ${branch}
