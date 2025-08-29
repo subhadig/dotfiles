@@ -122,6 +122,11 @@ function! MarkCurrFileInNetrwB()
     endfor
 endfunction
 
+function! LoadGP()
+    :packadd gp.nvim
+    source $DOTRCDIR/nvim/lua/gpconfig.lua
+endfunction
+
 " Custom key bindings: Start
 
 " fzf
