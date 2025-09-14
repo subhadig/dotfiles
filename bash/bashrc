@@ -42,7 +42,7 @@ export PATH
 
 # Load fzf completion on Debian`
 test -f /usr/share/doc/fzf/examples/key-bindings.bash && source /usr/share/doc/fzf/examples/key-bindings.bash
-test -f /usr/share/bash-completion/completions/fzf && source /usr/share/bash-completion/completions/fzf
+test -f /usr/share/doc/fzf/examples/completion.bash && source /usr/share/doc/fzf/examples/completion.bash
 
 # Load fzf completion on MacOS
 test -r ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.bash && source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.bash
