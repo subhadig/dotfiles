@@ -6,7 +6,7 @@ set number
 set cc=80
 
 " Searching
-set hlsearch
+"set hlsearch
 set ignorecase
 set smartcase
 set fileignorecase

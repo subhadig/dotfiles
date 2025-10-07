@@ -159,6 +159,24 @@ function! MarkdownPathOpenInVim()
     execute "tabe" . " " . l:path
 endfunction
 
+function! MarkdownPathOpenSmart()
+    let l:path=s:get_path_from_current_line()
+lua << EOF
+    local path = vim.fn.eval('l:path')
+
+    -- We escape the '.' with a '%' because '.' is a special
+    -- character in Lua patterns (matches any character).
+    -- The '$' anchors the pattern to the end of the string.
+    if path and path:match("%.excalidraw$") then
+        if vim.fn.filereadable(vim.fn.expand(path)) == 0 then
+            local excalidraw_template = vim.fn.expand('$DOTRCDIR/nvim/assets/template.excalidraw')
+            vim.fn.system({'cp', excalidraw_template, path})
+        end
+        vim.fn.system({'open', path})
+    end
+EOF
+endfunction
+
 " Key bindings
 nnoremap <localleader>mv :call MarkdownView()<cr>
 nnoremap <localleader>mp :call MarkdownPresent()<cr>
@@ -187,6 +205,8 @@ nnoremap <localleader>mlol :call MarkdownLinkOpenInLynx()<cr>
 nnoremap <localleader>mpot :call MarkdownPathOpenInTmux()<cr>
 "" Open file in vim
 nnoremap <localleader>mpov :call MarkdownPathOpenInVim()<cr>
+"" Open file generic
+nnoremap <localleader>mpo :call MarkdownPathOpenSmart()<cr>
 
 
 " Autocmd Events

@@ -101,7 +101,7 @@ so() {
 # Search and edit
 se() {
     local file
-    file=`fzf --preview='head -$FZF_PREVIEW_LINES {}'`
+    file=`find . -type f | fzf --preview='head -$FZF_PREVIEW_LINES {}'`
     if [ $? -ne 0 ]; then
         return
     fi
