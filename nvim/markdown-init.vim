@@ -160,9 +160,14 @@ function! MarkdownPathOpenInVim()
 endfunction
 
 function! MarkdownPathOpenSmart()
-    let l:path=s:get_path_from_current_line()
 lua << EOF
-    local path = vim.fn.eval('l:path')
+    local path = vim.fn['s:get_path_from_current_line']()
+
+    local path_starts_with = path:sub(1, 1)
+    if not (path_starts_with == "/" or path_starts_with == "~") then
+      local current_dir = vim.fn.expand("%:h")
+      path = current_dir .. "/" .. path
+    end
 
     -- We escape the '.' with a '%' because '.' is a special
     -- character in Lua patterns (matches any character).
