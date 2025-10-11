@@ -54,21 +54,39 @@ for _, lsp in ipairs(servers) do
     }
 end
 
-require("outline").setup({
-    outline_window = {
-        -- Where to open the split window: right/left
-        position = 'right',
+local function setup_outline()
+    require("outline").setup({
+        outline_window = {
+            -- Where to open the split window: right/left
+            position = 'right',
 
-        -- Percentage or integer of columns
-        width = 25,
-        -- Whether width is relative to the total width of nvim
-        -- When relative_width = true, this means take 25% of the total
-        -- screen width for outline window.
-        relative_width = true,
+            -- Percentage or integer of columns
+            width = 25,
+            -- Whether width is relative to the total width of nvim
+            -- When relative_width = true, this means take 25% of the total
+            -- screen width for outline window.
+            relative_width = true,
 
-        -- Vim options for the outline window
-        show_numbers = true,
-        show_relative_numbers = true,
-        wrap = true
-    }
-})
+            -- Vim options for the outline window
+            show_numbers = true,
+            show_relative_numbers = true,
+            wrap = true
+        }
+    })
+end
+
+-- Define a function that sets up the timer.
+local function delayed_task()
+  -- Create a new libuv timer.
+  local timer = vim.loop.new_timer()
+  
+  -- Start the timer.
+  -- The first argument is the delay in milliseconds (e.g., 2000 for 2 seconds).
+  -- The second argument is the repeat interval (0 for single-shot).
+  -- The third argument is the function to execute.
+  -- We wrap the function with vim.schedule_wrap to ensure it's called on the main event loop.
+  timer:start(2000, 0, vim.schedule_wrap(setup_outline))
+end
+
+-- Call the function to set up the timer in your init.lua.
+delayed_task()
