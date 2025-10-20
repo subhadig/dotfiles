@@ -1,10 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 editor='nvim'
+session_name="dev"
 
-tmux new-session -d -s "dev" -n "notes" -c ~/workspaces/personal/notes $editor
-tmux new-window -c ~/"OneDrive - Pegasystems Inc"/notes/ -n "pega-notes" $editor
-tmux new-window -c ~/workspaces/pega -n "pega-workspace"
-tmux new-window -c ~/"OneDrive - Pegasystems Inc" -n "tmp-notes" $editor -p temp.notes todo.txt
-tmux select-window -t 2
-tmux attach-session -d -c "~"
+tmux has-session -t "$session_name" 2>/dev/null
+
+if [ $? != 0 ]; then
+    tmux new-session -d -s "$session_name" -n "notes" -c ~/workspaces/personal/notes $editor
+    tmux new-window -c ~/"OneDrive - Pegasystems Inc"/notes/ -n "pega-notes" $editor
+    tmux new-window -c ~/workspaces/pega -n "pega-workspace"
+    tmux new-window -c ~/"OneDrive - Pegasystems Inc" -n "tmp-notes" $editor -p temp.notes todo.txt
+    tmux select-window -t 2
+fi
+
+tmux attach-session -d -c "~" -t "$session_name"
