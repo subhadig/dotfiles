@@ -173,6 +173,14 @@ lua << EOF
     -- character in Lua patterns (matches any character).
     -- The '$' anchors the pattern to the end of the string.
     if path and path:match("%.excalidraw$") then
+        -- Get the directory part of the path
+        local dir = vim.fn.fnamemodify(path, ':h')
+
+        -- Create the directory if it doesn't exist
+        if vim.fn.isdirectory(dir) == 0 then
+            vim.fn.mkdir(dir, 'p')
+        end
+
         if vim.fn.filereadable(vim.fn.expand(path)) == 0 then
             local excalidraw_template = vim.fn.expand('$DOTRCDIR/nvim/assets/template.excalidraw')
             vim.fn.system({'cp', excalidraw_template, path})
