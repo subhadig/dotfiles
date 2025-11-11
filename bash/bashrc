@@ -64,5 +64,7 @@ fi
 export PYTHONUSERBASE=~/.local
 
 # fzf custom completions
-_fzf_setup_completion path trash
-_fzf_setup_completion path play
+if declare -F _fzf_setup_completion >/dev/null; then
+    _fzf_setup_completion path trash
+    _fzf_setup_completion path play
+fi

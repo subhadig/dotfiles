@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+prompts_file="$HOME/workspaces/personal/notes/prompts.md"
+
+cp_prompt_pulse() {
+    # Use awk to parse the file:
+  # 1. Set a flag 'found_heading' when "# Bug pulse draft" is seen.
+  # 2. Once the heading is found, look for lines with ```.
+  # 3. The first ``` toggles 'in_code_block' to start printing.
+  # 4. The second ``` stops the script.
+  # 5. Only lines between the ``` are printed.
+  awk '
+    /# Bug pulse draft/ { found_heading = 1 }
+    found_heading && /^```/ {
+      if (in_code_block) {
+        exit # We reached the end of the block, so we stop.
+      } else {
+        in_code_block = 1
+        next # Skip printing the opening ``` line.
+      }
+    }
+    in_code_block { print }
+  ' "$prompts_file" | pbcopy
+}

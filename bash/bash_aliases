@@ -273,7 +273,9 @@ pd() {
     dedup-dirstack 1>/dev/null
     dirs
 }
-_fzf_setup_completion dir pd
+if declare -F _fzf_setup_completion >/dev/null; then
+    _fzf_setup_completion dir pd
+fi
 
 # Gradle
 alias gr="./gradlew"
@@ -354,3 +356,5 @@ kill-bg-jobs() {
     done
     IFS=$IFS_ORIG
 }
+
+source $DOTRCDIR/bash/prompt_aliases
