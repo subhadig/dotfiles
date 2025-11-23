@@ -249,7 +249,8 @@ pub() {
 ## Experimental
 dedup-dirstack() {
     local stack=`dirs -p -l`
-    local ustack=`sort <<<$stack|uniq`
+    #local ustack=`sort <<<$stack|uniq`
+    local ustack=$(awk '!seen[$0]++' <<<"$stack")
     if [ "$stack" != "$ustack" ]; then
         dirs -c
         local cur_dir=`dirs -l`
@@ -276,6 +277,8 @@ pd() {
 if declare -F _fzf_setup_completion >/dev/null; then
     _fzf_setup_completion dir pd
 fi
+alias c="pd"
+alias ch="pf"
 
 # Gradle
 alias gr="./gradlew"
