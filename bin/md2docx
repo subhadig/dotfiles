@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+# --- 1. Auto-Detect Environment and Set Commands ---
+
+CLIPBOARD_COMMAND=""
+OPEN_COMMAND=""
+
+case "$(uname -s)" in
+    Darwin)
+        # macOS: uses pbpaste for clipboard and open for files
+        CLIPBOARD_COMMAND="pbpaste"
+        OPEN_COMMAND="open"
+        ;;
+    Linux)
+        # Linux: prioritizes xclip, falls back to xsel, and uses xdg-open
+        if command -v xclip &> /dev/null; then
+            # Using primary selection for xclip is usually safest for general text
+            CLIPBOARD_COMMAND="xclip -out -selection primary"
+        elif command -v xsel &> /dev/null; then
+            # Fallback to xsel
+            CLIPBOARD_COMMAND="xsel --output --clipboard"
+        else
+            echo "Error: On Linux, you must install 'xclip' or 'xsel' to use the clipboard."
+            exit 1
+        fi
+        OPEN_COMMAND="open"
+        ;;
+    *)
+        echo "Error: Unsupported operating system: $(uname -s)"
+        exit 1
+        ;;
+esac
+
+# Check for pandoc installation
+if ! command -v pandoc &> /dev/null; then
+    echo "Error: pandoc is not installed. Please install it to proceed."
+    exit 1
+fi
+
+# --- 2. Get Markdown Content from Clipboard ---
+
+echo "Reading Markdown content from clipboard..."
+# Execute the dynamically determined clipboard command
+MARKDOWN_CONTENT=$($CLIPBOARD_COMMAND)
+
+if [ -z "$MARKDOWN_CONTENT" ]; then
+    echo "Error: Clipboard is empty or the clipboard utility failed to retrieve content."
+    exit 1
+fi
+
+# --- 3. Create Temporary Files ---
+
+# Create secure, unique temporary files
+MARKDOWN_FILE=$(mktemp --suffix=.md)
+DOCX_FILE=$(mktemp --suffix=.docx)
+
+# Write the clipboard content to the temp markdown file
+echo -e "$MARKDOWN_CONTENT" > "$MARKDOWN_FILE"
+
+# --- 4. Conversion using Pandoc ---
+
+echo "Converting Markdown to temporary DOCX file..."
+pandoc -s "$MARKDOWN_FILE" -o "$DOCX_FILE"
+
+# Check if pandoc failed
+if [ $? -ne 0 ]; then
+    echo "Error: Pandoc conversion failed. Cleaning up..."
+    rm -f "$MARKDOWN_FILE" "$DOCX_FILE"
+    exit 1
+fi
+
+# --- 5. Open the DOCX File (Non-blocking) ---
+
+echo "Opening the document. Please copy the contents or review the file now."
+# Run the open command in the background (&) so the script can proceed to the prompt.
+"$OPEN_COMMAND" "$DOCX_FILE" &
+
+# --- 6. User Confirmation Pause ---
+
+echo ""
+# Use read with a default option (y)
+read -r -p "Press [Enter] to clean up and remove the temporary files, or type 'n' to quit without cleanup (Y/n): " response
+response=${response:-y} # Default to 'y' if user just presses Enter
+
+# --- 7. Conditional Clean Up ---
+
+if [[ "$response" =~ ^([yY])$ ]]; then
+    echo "Removing temporary files..."
+    rm -f "$MARKDOWN_FILE" "$DOCX_FILE"
+    echo "Cleanup complete. Done."
+else
+    echo "Skipping cleanup. Temporary files are located at:"
+    echo "Markdown: $MARKDOWN_FILE"
+    echo "DOCX:     $DOCX_FILE"
+    echo "Please remove them manually when finished."
+    exit 0
+fi
