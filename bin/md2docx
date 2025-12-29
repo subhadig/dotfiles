@@ -50,9 +50,9 @@ fi
 
 # --- 3. Create Temporary Files ---
 
-# Create secure, unique temporary files
-MARKDOWN_FILE=$(mktemp --suffix=.md)
-DOCX_FILE=$(mktemp --suffix=.docx)
+# Create secure, unique temporary files (compatible with both macOS and Linux)
+MARKDOWN_FILE=$(mktemp "${TMPDIR:-/tmp}/md2docx.XXXXXX").md
+DOCX_FILE=$(mktemp "${TMPDIR:-/tmp}/md2docx.XXXXXX").docx
 
 # Write the clipboard content to the temp markdown file
 echo -e "$MARKDOWN_CONTENT" > "$MARKDOWN_FILE"

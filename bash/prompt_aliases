@@ -2,23 +2,48 @@
 
 prompts_file="$HOME/workspaces/personal/notes/prompts.md"
 
-cp_prompt_pulse() {
+# A function to copy a specific prompt from a file to the clipboard.
+# Usage: cp_prompt "# <Your Desired Heading>"
+cp_prompt() {
+    # Ensure a heading argument is provided.
+    if [ -z "$1" ]; then
+        echo "Error: No heading provided."
+        echo "Usage: cp_prompt \"# <Your Heading>\""
+        return 1
+    fi
+
+    # The heading to search for, passed as the first argument.
+    local heading_to_find="$1"
+
     # Use awk to parse the file:
-  # 1. Set a flag 'found_heading' when "# Bug pulse draft" is seen.
-  # 2. Once the heading is found, look for lines with ```.
-  # 3. The first ``` toggles 'in_code_block' to start printing.
-  # 4. The second ``` stops the script.
-  # 5. Only lines between the ``` are printed.
-  awk '
-    /# Bug pulse draft/ { found_heading = 1 }
-    found_heading && /^```/ {
-      if (in_code_block) {
-        exit # We reached the end of the block, so we stop.
-      } else {
-        in_code_block = 1
-        next # Skip printing the opening ``` line.
-      }
-    }
-    in_code_block { print }
-  ' "$prompts_file" | pbcopy
+    # 1. Pass the heading as a variable named 'heading'.
+    # 2. Set 'found_heading' when a line exactly matches the 'heading' variable.
+    # 3. Once found, look for the start of a code block (```).
+    # 4. Print all lines until the end of the code block is found.
+    awk -v heading="$heading_to_find" '
+        # When the current line matches the heading we passed in, set our flag.
+        $0 == heading {
+            found_heading = 1
+        }
+
+        # If the heading has been found and we see a code fence...
+        found_heading && /^\`\`\`/ {
+            if (in_code_block) {
+                exit # Reached the end of the block, so stop.
+            } else {
+                in_code_block = 1
+                next # Skip printing the opening ``` line itself.
+            }
+        }
+
+        # If we are inside the code block, print the line.
+        in_code_block {
+            print
+        }
+    ' "$prompts_file" | pbcopy
+
+    echo "Copied content for \"$heading_to_find\" to clipboard."
 }
+
+alias cp_prompt_pulse="cp_prompt '# Bug pulse draft'"
+alias cp_prompt_notes="cp_prompt '# Academic notes assistant'"

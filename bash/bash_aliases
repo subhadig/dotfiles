@@ -282,10 +282,24 @@ alias ch="pf"
 
 # Gradle
 alias gr="./gradlew"
-alias gr-publishtomavenlocal="./gradlew publishToMavenLocal"
 alias gr-build="./gradlew build -x test"
 alias gr-buildtest="./gradlew build"
 alias gr-componenttest="./gradlew componentTest"
+alias gr-tasks="gr tasks | less"
+
+function gr-publishtomavenlocal() {
+    tmpfile=$(mktemp)
+    ./gradlew publishToMavenLocal >"$tmpfile" 2>&1
+    status=$?
+    if [ $status -eq 0 ]; then
+        head -n 10 "$tmpfile"
+        echo
+        tail -n 10 "$tmpfile"
+    else
+        cat "$tmpfile"
+    fi
+    rm "$tmpfile"
+}
 
 # gpg
 encrypt-file() {
