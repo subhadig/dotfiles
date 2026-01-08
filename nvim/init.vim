@@ -151,7 +151,7 @@ nnoremap <silent> <C-w>< :vertical resize -30<cr>
 nnoremap <localleader>f :Lexplore<cr>
 
 " Reload vimrc
-nnoremap <localleader><localleader> :source $MYVIMRC<cr>
+nnoremap <localleader><localleader> :source $MYVIMRC <bar> doautocmd FileType<cr>
 
 " Open search result pane
 nnoremap <silent> <C-o> :copen<cr>
@@ -184,23 +184,29 @@ nnoremap <localleader>o :Outline<cr>
 
 " Custom key bindings: End
 
-" Load Python specific init file
-autocmd FileType python source $DOTRCDIR/nvim/python-init.vim
+" Create a group for filetype-specific autocommands
+augroup filetype_settings
+    " Clear all previous autocommands in this group
+    autocmd!
 
-" Load Java specific init file
-autocmd FileType java source $DOTRCDIR/nvim/java-init.vim
+    " Load Python specific init file
+    autocmd FileType python source $DOTRCDIR/nvim/python-init.vim
 
-" Load Kotlin specific init file
-autocmd FileType kotlin source $DOTRCDIR/nvim/kotlin-init.vim
+    " Load Java specific init file
+    autocmd FileType java source $DOTRCDIR/nvim/java-init.vim
 
-" Load Markdown specific init file
-autocmd FileType markdown source $DOTRCDIR/nvim/markdown-init.vim
+    " Load Kotlin specific init file
+    autocmd FileType kotlin source $DOTRCDIR/nvim/kotlin-init.vim
 
-" Load Restcall specific config
-autocmd FileType json source $DOTRCDIR/nvim/restcall.vim
+    " Load Markdown specific init file
+    autocmd FileType markdown source $DOTRCDIR/nvim/markdown-init.vim
 
-" DrawIt filetype config
-autocmd BufRead,BufNewFile *.drawit setfiletype drawit
-autocmd FileType drawit set nowrap formatoptions-=tc
+    " Load Restcall specific config
+    autocmd FileType json source $DOTRCDIR/nvim/restcall.vim
+
+    " DrawIt filetype config
+    autocmd BufRead,BufNewFile *.drawit setfiletype drawit
+    autocmd FileType drawit set nowrap formatoptions-=tc
+augroup END
 
 source $DOTRCDIR/nvim/lua/lspconfig.lua
