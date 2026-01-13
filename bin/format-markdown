@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
+# --- 1. Check for Required Commands ---
+for cmd in pandoc nvim; do
+    if ! command -v "$cmd" &> /dev/null; then
+        echo "Error: Required command '$cmd' is not installed or not in your PATH." >&2
+        exit 1
+    fi
+done
+
+# --- 2. Auto-Detect OS and Set Clipboard Command ---
+CLIPBOARD_CMD=""
+case "$(uname -s)" in
+    Darwin) # macOS
+        CLIPBOARD_CMD="pbpaste"
+        ;;
+    Linux) # Linux
+        if command -v xclip &> /dev/null; then
+            CLIPBOARD_CMD="xclip -out -selection clipboard"
+        elif command -v xsel &> /dev/null; then
+            CLIPBOARD_CMD="xsel --output --clipboard"
+        else
+            echo "Error: On Linux, please install 'xclip' or 'xsel' for clipboard access." >&2
+            exit 1
+        fi
+        ;;
+    *)
+        echo "Error: Unsupported operating system: $(uname -s)" >&2
+        exit 1
+        ;;
+esac
+
+# --- 3. Read from Clipboard ---
+echo "Reading from clipboard..."
+MARKDOWN_CONTENT=$($CLIPBOARD_CMD)
+
+if [[ -z "$MARKDOWN_CONTENT" ]]; then
+    echo "Error: Clipboard is empty or could not be read." >&2
+    exit 1
+fi
+
+# --- 4. Create a Temporary File ---
+# mktemp creates a secure, unique temporary file and returns its path.
+TEMP_FILE=$(mktemp "${TMPDIR:-/tmp}/format-md.XXXXXX.md")
+echo "Created temporary file: $TEMP_FILE"
+
+# --- 5. Format Content with Pandoc and Write to File ---
+# Pipe the markdown content into pandoc and redirect the formatted output to the temp file.
+# -f markdown: Input format
+# -t gfm: Output format (GitHub-Flavored Markdown) which defaults to '-' for bullets.
+# --wrap=auto: Smartly wraps lines, avoiding breaks in links/code.
+# --columns=80: Line width.
+# --tab-stop=2: Sets tab spacing.
+echo "Formatting with Pandoc..."
+echo "$MARKDOWN_CONTENT" | pandoc -f markdown -t gfm --wrap=auto --columns=80 --tab-stop=2 > "$TEMP_FILE"
+
+# --- 6. Open File in Neovim ---
+# The script will pause here until you close Neovim.
+echo "Opening in Neovim. Close editor to continue..."
+nvim "$TEMP_FILE"
+
+# --- 7. Prompt for Cleanup ---
+echo ""
+echo "Neovim closed."
+# -r: Prevents backslash escapes.
+# -p: Displays a prompt.
+# -n 1: Reads only one character.
+# -s: Hides the input character.
+read -r -p "Delete temporary file? [Y/n] " response
+echo "" # Add a newline for cleaner output.
+
+# Default to 'y' if the user just presses Enter or types 'y'/'Y'.
+case "$response" in
+    [nN])
+        echo "Cleanup skipped. File is at: $TEMP_FILE"
+        ;;
+    *)
+        echo "Removing temporary file..."
+        rm "$TEMP_FILE"
+        echo "Done."
+        ;;
+esac
