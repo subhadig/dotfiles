@@ -215,7 +215,7 @@ pu() {
         fi
     fi
     echo pd $path
-    pushd "$path"
+    pd "$path"
 }
 
 ## pushd go back to previous directories with fuzzy search
@@ -277,7 +277,15 @@ pd() {
 if declare -F _fzf_setup_completion >/dev/null; then
     _fzf_setup_completion dir pd
 fi
-alias c="pd"
+c() {
+    if [ $# -eq 0 ]; then
+        pu
+    elif [ $# -eq 1 ]; then
+        pd "$1"
+    else
+        echo "Error: invalid no of arguments"
+    fi
+}
 alias ch="pf"
 
 # Gradle
