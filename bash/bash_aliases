@@ -196,10 +196,12 @@ pu() {
         # Show full path (-f)
         # Don't show indentation (-i)
         # Follow symbolic links (-l)
+        # Include hidden files (-a)
+        # Sort the output based on last status change (-c)
         # Do not descend directories containing more than 30 files (--filelimit): Experimental
         # Ignore Library folder - for MacOS
         # Max depth 5
-        path=`tree -dfilc --filelimit 30 -I 'Library/' -L 5 "$initPath" 2>/dev/null | fzf --preview='ls -tC {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
+        path=`tree -dfilac --filelimit 30 -I 'Library/' -L 5 "$initPath" 2>/dev/null | fzf --preview='ls -tC {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
         if [ $? -ne 0 ]; then
             return
         fi
