@@ -19,6 +19,13 @@ export LSCOLORS='gxfxcxdxbxegedabagacad'
 # history
 export HISTIGNORE='cl:history'
 
+# Making the history size to 5000. Default is 500.
+export HISTSIZE=5000
+
+# The history list is appended to the file named by the value of the HISTFILE
+# variable when the shell exits, rather than overwriting the file.
+shopt -s histappend
+
 # PATH
 ## ruby
 test -d /usr/local/opt/ruby/bin && PATH="/usr/local/opt/ruby/bin:${PATH}"
