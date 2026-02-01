@@ -101,7 +101,7 @@ so() {
 # Search and edit
 se() {
     local file
-    file=`find . -type f | cut -c3- | fzf --preview='head -$FZF_PREVIEW_LINES {}'`
+    file=`find . -type f -not -path "*/.*" | cut -c3- | fzf --preview='head -$FZF_PREVIEW_LINES {}'`
     if [ $? -ne 0 ]; then
         return
     fi

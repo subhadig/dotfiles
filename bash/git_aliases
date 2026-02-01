@@ -50,6 +50,7 @@ gaf() {
 # git add with fzf recursive
 gafr() {
     local file
+    local status
     files=`git status -s -uall --no-renames|grep '^.[^ ]'`
     while true
     do
@@ -58,18 +59,19 @@ gafr() {
             return
         fi
         clear
-        echo Generating diff for selection: $file
+        echo -e "Generating diff for selection: $file"
         echo
 
-        status=$(echo ${file}|awk '{print $1}')
-        file=$(echo ${file}|awk '{print $2}')
+        status=`echo "$file" | awk '{print $1}'`
+        file=`echo "$file" | awk '{print $2}'`
 
         # It's very weird that on MacOS when the `git status -s` is being invoked
         # from within a script, for new files, the status is 'db' instead of '??'
-        if [ $status = "??" -o $status = "db"  ]; then
+        if [ "$status" = "??" -o "$status" = "db"  ]; then
+            echo -e "Opening new file in editor"
             vi -R "$file"
-        elif [ $status = "D" ]; then
-            echo Deleted file: $file
+        elif [ "$status" = "D" ]; then
+            echo Deleted file: "$file"
         else
             git diff "$file"
         fi
@@ -78,7 +80,7 @@ gafr() {
         read -p "Add to index? " choice
         if [ "$choice" = 'y' ]; then
             git add "$file"
-            echo Added $file to index.
+            echo Added "$file" to index.
             files=`grep -v " $file$" <<<"$files"`
         else
             echo Aborting.

@@ -153,12 +153,15 @@ nnoremap <localleader>f :Lexplore<cr>
 " Reload vimrc
 nnoremap <localleader><localleader> :source $MYVIMRC <bar> doautocmd FileType<cr>
 
-" Open search result pane
+" Open search result pane (quickfix window)
 nnoremap <silent> <C-o> :copen<cr>
 
 " Navigate to next or previous matches during search
 nnoremap <silent> <C-j> :cn<cr>
 nnoremap <silent> <C-k> :cp<cr>
+
+" Close the quickfix window
+nnoremap <leader>cc :cclose<CR>
 
 " Remap F1 key so that the annoying help does not come up when F1 key is
 " touched by mistake on Mac
@@ -207,6 +210,18 @@ augroup filetype_settings
     " DrawIt filetype config
     autocmd BufRead,BufNewFile *.drawit setfiletype drawit
     autocmd FileType drawit set nowrap formatoptions-=tc
+augroup END
+
+" Set rg as the external grep program
+if executable('rg')
+    set grepprg=rg\ --vimgrep\ --smart-case\ --follow
+    set grepformat=%f:%l:%c:%m
+endif
+
+" Open the quickfix window automatically after grep
+augroup quickfix
+    autocmd!
+    autocmd QuickFixCmdPost grep cwindow
 augroup END
 
 source $DOTRCDIR/nvim/lua/lspconfig.lua
