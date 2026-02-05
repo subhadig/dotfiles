@@ -39,6 +39,24 @@ let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 "" Opens files in new tab
 let g:netrw_browse_split = 3
 
+function! NetrwMappings()
+    " Use 'h' to go up a directory
+    nmap <buffer> h -
+    " Use 'l' to open a file/directory (like Enter)
+    nmap <buffer> l <CR>
+    " Use '.' to toggle hidden files
+    nmap <buffer> . gh
+    " Use 'P' to close the preview window
+    nmap <buffer> P <C-w>z
+endfunction
+
+augroup netrw_mappings
+    autocmd!
+    autocmd FileType netrw call NetrwMappings()
+    " Automatically close netrw if it's the last window remaining
+    autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw" | q | endif
+augroup END
+
 " Jedi-vim settings
 let g:jedi#use_tabs_not_buffers = 1
 
