@@ -78,3 +78,8 @@ fi
 
 # Enable globstar
 shopt -s globstar
+
+# If neovim is available, set it as the EDITOR
+if which nvim 1>/dev/null 2>&1; then
+    export EDITOR='nvim'
+fi
