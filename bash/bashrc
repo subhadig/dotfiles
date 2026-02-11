@@ -26,6 +26,9 @@ export HISTSIZE=5000
 # variable when the shell exits, rather than overwriting the file.
 shopt -s histappend
 
+# Export history on every new command
+export PROMPT_COMMAND='history -a'
+
 # PATH
 ## ruby
 test -d /usr/local/opt/ruby/bin && PATH="/usr/local/opt/ruby/bin:${PATH}"

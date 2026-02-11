@@ -351,6 +351,8 @@ alias calc="bc -l"
 
 alias t="trash"
 
+alias sync-history="history -c; history -r"
+
 pwgen-sane() {
     pwgen -Byvs --remove-chars='~`$%^&()-_+=\|[{]}"<>/?'"'" $@
 }
