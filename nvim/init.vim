@@ -36,8 +36,8 @@ let g:netrw_winsize = 25
 let g:netrw_banner = 0
 "" Enable line number in netrw
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-"" Opens files in new tab
-let g:netrw_browse_split = 3
+"" Opens files in previous window
+let g:netrw_browse_split = 4
 
 function! NetrwMappings()
     " Use 'h' to go up a directory
