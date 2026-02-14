@@ -39,6 +39,7 @@ let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 "" Opens files in previous window
 let g:netrw_browse_split = 4
 
+" Is this really helping??
 function! NetrwMappings()
     " Use 'h' to go up a directory
     nmap <buffer> h -
