@@ -201,12 +201,10 @@ autocmd FileType json setlocal equalprg=$DOTRCDIR/bin/json-format
 " Copy to system clipboard
 vnoremap <silent> <localleader>y "+y
 
-" Open Outline
-nnoremap <localleader>o :Outline<cr>
-
 " Custom key bindings: End
 
 " Plugin configurations: Start
+function! LoadOutline()
 lua << EOF
 require("outline").setup({
     outline_window = {
@@ -227,6 +225,19 @@ require("outline").setup({
     }
 })
 EOF
+endfunction
+call LoadOutline()
+
+let s:outline_loaded=0
+function! LoadOutlineOnUse()
+    if s:outline_loaded==0
+        call LoadOutline()
+        let s:outline_loaded=1
+    endif
+endfunction
+" Open Outline
+nnoremap <silent> <localleader>o :call LoadOutlineOnUse() <bar> :Outline<cr>
+
 " Plugin configurations: End
 
 " Create a group for filetype-specific autocommands
