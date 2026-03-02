@@ -68,6 +68,9 @@ let g:coq_settings = { 'auto_start': 'shut-up' }
 set spelllang=en
 set spellfile=$HOME/workspaces/personal/dotfiles/vim/vim-spell.en.utf-8.add
 
+" Open new split on the right
+set splitright
+
 " This line enables the true color support.
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
@@ -237,6 +240,36 @@ function! LoadOutlineOnUse()
 endfunction
 " Open Outline
 nnoremap <silent> <localleader>o :call LoadOutlineOnUse() <bar> :Outline<cr>
+
+function! LoadCopilot()
+    packadd copilot.vim
+    packadd plenary.nvim
+    packadd CopilotChat.nvim
+lua << EOF
+    require("CopilotChat").setup {
+        model = "claude-opus-4.6",
+        window = {
+            layout = 'vertical',
+            width = 0.3,
+        },
+        mappings = {
+            complete = {
+                insert = ''
+            }
+        }
+    }
+EOF
+
+" Remap keyboard shortcuts for copilot.vim
+imap <silent><script><expr> <S-Tab> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
+inoremap <C-L> <Plug>(copilot-accept-word)
+
+" Remap keyboard shortcuts for CopilotChat.nvim
+nnoremap <leader>gg :CopilotChatToggle<CR>
+endfunction
+
+command! LoadCopilot call LoadCopilot()
 
 " Plugin configurations: End
 

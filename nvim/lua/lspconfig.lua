@@ -40,7 +40,7 @@ local lsp_flags = {
 local lspconfig = require('lspconfig')
 local coq = require('coq')
 
-local servers = {'jedi_language_server', 'clangd'}
+local servers = {'jedi_language_server', 'clangd', 'ts_ls'}
 
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup{
