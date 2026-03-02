@@ -260,13 +260,14 @@ lua << EOF
     }
 EOF
 
-" Remap keyboard shortcuts for copilot.vim
-imap <silent><script><expr> <S-Tab> copilot#Accept("\<CR>")
-let g:copilot_no_tab_map = v:true
-inoremap <C-L> <Plug>(copilot-accept-word)
+    " Remap keyboard shortcuts for copilot.vim
+    imap <silent><script><expr> <S-Tab> copilot#Accept("\<CR>")
+    let g:copilot_no_tab_map = v:true
+    inoremap <C-L> <Plug>(copilot-accept-word)
 
-" Remap keyboard shortcuts for CopilotChat.nvim
-nnoremap <leader>gg :CopilotChatToggle<CR>
+    " Remap keyboard shortcuts for CopilotChat.nvim
+    nnoremap <leader>gg :CopilotChatToggle<CR>
+    vnoremap <leader>gg :CopilotChatToggle<CR>
 endfunction
 
 command! LoadCopilot call LoadCopilot()
