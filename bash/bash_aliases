@@ -232,7 +232,7 @@ pf() {
     pushd +$choice
 }
 
-## pushd back - Deprecated
+## pushd back
 pub() {
     if [ -n "$1" ]; then
         history -s pushd +$1
@@ -247,6 +247,7 @@ pub() {
         pushd +$choice
     fi
 }
+alias cj='pub'
 
 ## Experimental
 dedup-dirstack() {
