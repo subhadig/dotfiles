@@ -76,8 +76,8 @@ autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 "hi LineNr guifg=#848383 guibg=#080808 guisp=NONE gui=NONE cterm=NONE
 
 " Theme - one-dark
-"colorscheme one
-"set background=dark
+colorscheme one
+set background=dark
 
 " Scripts
 
@@ -212,6 +212,20 @@ require("outline").setup({
         show_numbers = true,
         show_relative_numbers = true,
         wrap = true
+    },
+    symbol_folding = {
+        markers = { '>', 'v' }
+    },
+    symbols = {
+        -- You can use a custom function that returns the icon for each symbol kind.
+        -- This function takes a kind (string) as parameter and should return an
+        -- icon as string.
+        ---@param kind string Key of the icons table below
+        ---@param bufnr integer Code buffer
+        ---@param symbol outline.Symbol The current symbol object
+        ---@returns string|boolean The icon string to display, such as "f", or `false`
+        ---                        to fallback to `icon_source`.
+        icon_fetcher = function (kind, bufnr, symbol) return "-" end
     }
 })
 EOF
