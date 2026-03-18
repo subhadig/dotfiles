@@ -45,11 +45,8 @@ local servers = {'jedi_language_server', 'clangd', 'ts_ls'}
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup{
         coq.lsp_ensure_capabilities{
+            on_attach = on_attach,
             flags = lsp_flags
         }
-    }
-    lspconfig[lsp].setup{
-        on_attach = on_attach,
-        flags = lsp_flags
     }
 end
