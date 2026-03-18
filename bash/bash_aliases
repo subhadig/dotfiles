@@ -4,6 +4,9 @@ if [ -z $DOTRCDIR ]; then
     echo WARNING: export DOTRCDIR before sourcing bash_aliases
 fi
 
+# basic
+alias which='command -v'
+
 # nvim
 alias vi='nvim'
 alias vimdiff='nvim -d'
@@ -336,7 +339,7 @@ fi
 
 # lynx
 alias lynx="lynx -cfg=${DOTRCDIR}/lynx/lynx.cfg"
-source $HOME/workspaces/personal/private-configs/lynx/lynx-aliases
+test -d $HOME/workspaces/personal/private-configs/lynx/lynx-aliases && source $HOME/workspaces/personal/private-configs/lynx/lynx-aliases
 
 # Misc
 alias newsboat="newsboat -u $WP/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
@@ -348,7 +351,7 @@ alias cl="clear"
 
 alias upc="update-personal-config"
 
-alias calc="bc -l"
+#alias calc="bc -l"
 
 alias t="trash"
 
@@ -358,7 +361,7 @@ pwgen-sane() {
     pwgen -Byvs --remove-chars='~`$%^&()-_+=\|[{]}"<>/?'"'" $@
 }
 
-source $HOME/workspaces/personal/private-configs/play/play-aliases
+test -d $HOME/workspaces/personal/private-configs/play/play-aliases && source $HOME/workspaces/personal/private-configs/play/play-aliases
 
 case "$(uname -s)" in
     Linux*)

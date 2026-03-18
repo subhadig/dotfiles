@@ -1,4 +1,5 @@
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+PS1='[\u@\h \W]\$ '
 
 # Vi mode
 set -o vi
@@ -31,10 +32,10 @@ export PROMPT_COMMAND='history -a'
 
 # PATH
 ## ruby
-test -d /usr/local/opt/ruby/bin && PATH="/usr/local/opt/ruby/bin:${PATH}"
-if which ruby >/dev/null && which gem >/dev/null; then
-  export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-fi
+# test -d /usr/local/opt/ruby/bin && PATH="/usr/local/opt/ruby/bin:${PATH}"
+# if which ruby >/dev/null && which gem >/dev/null; then
+#   export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+# fi
 # The following commented out lines should be removed after the above logic is
 # tested
 #if [ -d ${HOME}/.gem/ruby/3.1.0/bin ]; then
@@ -57,6 +58,10 @@ test -f /usr/share/doc/fzf/examples/completion.bash && source /usr/share/doc/fzf
 # Load fzf completion on MacOS
 test -r ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.bash && source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.bash
 test -r ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.bash && source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.bash
+
+# Load fzf completion on Arch
+# TODO: If the below works for MacOS, remove the above lines for Debian and MacOS
+eval "$(fzf --bash)"
 
 # This is used by my custom npm config. Also utilizing this for storing all
 # local command line binaries.
@@ -83,6 +88,6 @@ fi
 shopt -s globstar
 
 # If neovim is available, set it as the EDITOR
-if which nvim 1>/dev/null 2>&1; then
+if command -v nvim 1>/dev/null 2>&1; then
     export EDITOR='nvim'
 fi
