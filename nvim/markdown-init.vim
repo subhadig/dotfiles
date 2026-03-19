@@ -89,17 +89,13 @@ function! CustomMarkdownIndent()
 endfunction
 
 function! s:get_staring_space_count(line)
-py3 << endPy3
-import vim
-count = 0
-line = vim.eval('a:line')
-for c in line:
-    if c == ' ':
-        count = count + 1
-    else:
-        break
-endPy3
-    return py3eval("count")
+    let l:count=0
+    for c in a:line
+        if c==' '
+            let l:count = l:count + 1
+        endif
+    endfor
+    return l:count
 endfunction
 
 function! s:get_link_from_current_line()
@@ -110,13 +106,11 @@ function! s:get_link_from_current_line()
 endfunction
 
 function! s:decode_url(url)
-py3 << endPy3
-import vim
-from urllib.parse import unquote
-url = vim.eval('a:url')
-decoded_url = unquote(url).replace('#', '\\#')
-endPy3
-    return py3eval("decoded_url")
+    let l:decoded_url=system(g:python3_host_prog . " -c 'from urllib import parse; print(parse.unquote_plus(\"" . a:url . "\"))'")
+    let l:decoded_url=substitute(l:decoded_url, '#', '\\#', 'g')
+    " Substitue null chacaters coming from system output above
+    let l:decoded_url=substitute(l:decoded_url, '[\x0]', '', 'g')
+    return l:decoded_url
 endfunction
 
 function! MarkdownLinkOpenAsVideo()

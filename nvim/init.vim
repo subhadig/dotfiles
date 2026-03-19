@@ -101,7 +101,13 @@ if system("uname") =~ "Linux"
     let g:texteditor = "open "
     " This will make it easier for nvim to find the python exec to use inside
     " venv
-    let g:python3_host_prog='/usr/bin/python3'
+    if executable("python")
+        let g:python3_host_prog='/usr/bin/python'
+    elseif executable("python3")
+        let g:python3_host_prog='/usr/bin/python3'
+    else
+        echoerr "Python executable not found."
+    endif
 elseif system("uname") =~ "Darwin"
     "let g:private_browser = "/Applications/Firefox.app/Contents/MacOS/firefox --private-window "
     let g:private_browser = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome -incognito "
