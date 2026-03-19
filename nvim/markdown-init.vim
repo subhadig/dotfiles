@@ -82,17 +82,19 @@ endfunction
 function! CustomMarkdownIndent()
     let l:prev_line=getline(v:lnum - 1)
     if l:prev_line=~'^\s*[-*+] .*' " If the line is the starting of a bullet list
-        return s:get_staring_space_count(l:prev_line) + 2
+        return s:get_starting_space_count(l:prev_line) + 2
     else
         return -1
     endif
 endfunction
 
-function! s:get_staring_space_count(line)
+function! s:get_starting_space_count(line)
     let l:count=0
     for c in a:line
         if c==' '
             let l:count = l:count + 1
+        else
+            break
         endif
     endfor
     return l:count
