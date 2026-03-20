@@ -231,7 +231,45 @@ require("outline").setup({
         ---@param symbol outline.Symbol The current symbol object
         ---@returns string|boolean The icon string to display, such as "f", or `false`
         ---                        to fallback to `icon_source`.
-        icon_fetcher = function (kind, bufnr, symbol) return "-" end
+        --icon_fetcher = function (kind, bufnr, symbol) return "-" end,
+
+        -- The next fallback if both icon_fetcher and icon_source has failed, is
+        -- the custom mapping of icons specified below. The icons table is also
+        -- needed for specifying hl group.
+        icons = {
+          File = { icon = 'f', hl = 'Identifier' },
+          Module = { icon = 'M', hl = 'Include' },
+          Namespace = { icon = 'n', hl = 'Include' },
+          Package = { icon = 'p', hl = 'Include' },
+          Class = { icon = 'C', hl = 'Type' },
+          Method = { icon = 'm', hl = 'Function' },
+          Property = { icon = 'p', hl = 'Identifier' },
+          Field = { icon = 'f', hl = 'Identifier' },
+          Constructor = { icon = 'c', hl = 'Special' },
+          Enum = { icon = 'e', hl = 'Type' },
+          Interface = { icon = 'I', hl = 'Type' },
+          Function = { icon = 'f', hl = 'Function' },
+          Variable = { icon = 'v', hl = 'Constant' },
+          Constant = { icon = 'c', hl = 'Constant' },
+          String = { icon = 's', hl = 'String' },
+          Number = { icon = 'n', hl = 'Number' },
+          Boolean = { icon = 'b', hl = 'Boolean' },
+          Array = { icon = 'A', hl = 'Constant' },
+          Object = { icon = 'O', hl = 'Type' },
+          Key = { icon = 'k', hl = 'Type' },
+          Null = { icon = 'NULL', hl = 'Type' },
+          EnumMember = { icon = 'm', hl = 'Identifier' },
+          Struct = { icon = 's', hl = 'Structure' },
+          Event = { icon = 'e', hl = 'Type' },
+          Operator = { icon = '+', hl = 'Identifier' },
+          TypeParameter = { icon = 'T', hl = 'Identifier' },
+          Component = { icon = 'C', hl = 'Function' },
+          Fragment = { icon = 'F', hl = 'Constant' },
+          TypeAlias = { icon = 'TA', hl = 'Type' },
+          Parameter = { icon = 'p', hl = 'Identifier' },
+          StaticMethod = { icon = 'sm ', hl = 'Function' },
+          Macro = { icon = 'M', hl = 'Function' },
+        },
     }
 })
 EOF
