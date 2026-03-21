@@ -16,6 +16,9 @@ export CLICOLOR=1
 # directory foreground: cyan (default: blue)
 export LSCOLORS='gxfxcxdxbxegedabagacad'
 
+# Don't log consecutive identical commands in bash history
+export HISTCONTROL=ignoredups
+
 # Don't add the following colon(:) separated commands are not added in bash
 # history
 export HISTIGNORE='cl:history'
@@ -91,3 +94,6 @@ shopt -s globstar
 if command -v nvim 1>/dev/null 2>&1; then
     export EDITOR='nvim'
 fi
+
+run-help() { help "$READLINE_LINE" 2>/dev/null || man "$READLINE_LINE"; }
+bind -m vi-insert -x '"\C-h": run-help'
