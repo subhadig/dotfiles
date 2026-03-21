@@ -169,7 +169,7 @@ nnoremap <localleader>f :Lexplore<cr>
 nnoremap <localleader><localleader> :source $MYVIMRC <bar> doautocmd FileType<cr>
 
 " Open search result pane (quickfix window)
-nnoremap <silent> <C-o> :copen<cr>
+nnoremap <silent> <localleader>co :copen<cr>
 
 " Navigate to next or previous matches during search
 nnoremap <silent> <C-j> :cn<cr>
