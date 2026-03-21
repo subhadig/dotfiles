@@ -197,6 +197,12 @@ autocmd FileType json setlocal equalprg=$DOTRCDIR/bin/json-format
 " Copy to system clipboard
 vnoremap <silent> <localleader>y "+y
 
+" Increment/decrement section numbering
+nnoremap <leader>a <C-a>
+nnoremap <leader>x <C-x>
+vnoremap <leader>a <C-a>
+vnoremap <leader>x <C-x>
+
 " Custom key bindings: End
 
 " Plugin configurations: Start
