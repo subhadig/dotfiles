@@ -11,6 +11,7 @@ set comments+=n:#
 " Automatically inserts newline after 80 characters when typing in Insert mode
 set textwidth=80
 
+" Evaluated to get the proper indent for a line
 setlocal indentexpr=CustomMarkdownIndent()
 
 " Functions
