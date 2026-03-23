@@ -187,6 +187,25 @@ alias pws='dirs -v'
 
 ## pushd with fuzzy search
 pu() {
+    # Reset the argument counter to 0
+    local OPTIND OPTARG
+
+    local depth=5
+    while getopts "d:" options; do
+        case ${options} in
+            d)
+                depth="$OPTARG"
+                ;;
+            *)
+                echo "ERROR: Invalid option."
+                print_usage
+                return
+                ;;
+        esac
+    done
+
+    shift "$(($OPTIND - 1))"
+
     local initPath
     case $# in
         1) initPath="$1";;
@@ -204,7 +223,7 @@ pu() {
         # Do not descend directories containing more than 30 files (--filelimit): Experimental
         # Ignore Library folder - for MacOS
         # Max depth 5
-        path=`tree -dfilac --filelimit 30 -I 'Library/' -L 5 "$initPath" 2>/dev/null | fzf --preview='ls -tC {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
+        path=`tree -dfilac --filelimit 30 -I 'Library/' -L $depth "$initPath" 2>/dev/null | grep '^\.' | grep -v '^.$' | sed -e s@^./@@ | fzf --preview='ls -tC {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
         if [ $? -ne 0 ]; then
             return
         fi
@@ -285,7 +304,7 @@ if declare -F _fzf_setup_completion >/dev/null; then
 fi
 c() {
     if [ $# -eq 0 ]; then
-        pu
+        pu -d 1
     elif [ $# -eq 1 ]; then
         pd "$1"
     else
