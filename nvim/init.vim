@@ -200,8 +200,8 @@ vnoremap <silent> <localleader>y "+y
 " Increment/decrement section numbering
 nnoremap <leader>a <C-a>
 nnoremap <leader>x <C-x>
-vnoremap <leader>a <C-a>
-vnoremap <leader>x <C-x>
+vnoremap <leader>a g<C-a>
+vnoremap <leader>x g<C-x>
 
 " Custom key bindings: End
 
