@@ -14,11 +14,9 @@ alias view='nvim -R'
 
 # cd
 export WP="$HOME/workspaces/personal"
-export WPN="$WP/notes"
-#alias cd='pushd'
 alias cdwp="pushd $WP"
 alias cdws='pushd $HOME/workspaces/study/'
-alias cdwpn="pushd $WPN"
+alias cdwpn="pushd $WP/notes"
 alias cdwpd="pushd $WP/dotfiles"
 alias cdwppc="pushd $WP/private-configs"
 alias cdwpts="pushd $WP/tmux-scripts"
@@ -296,8 +294,11 @@ dedup-dirstack() {
 ## Pushd with dedup-dirstack
 pd() {
     pushd "$1" 1>/dev/null
+    if [ $? -ne 0 ]; then
+        return
+    fi
     dedup-dirstack 1>/dev/null
-    dirs
+    echo 'Dir stack: ['`dirs`']'
 }
 if declare -F _fzf_setup_completion >/dev/null; then
     _fzf_setup_completion dir pd
@@ -309,6 +310,7 @@ c() {
         pd "$1"
     else
         echo "Error: invalid no of arguments"
+        return 1
     fi
 }
 alias ch="pf"
@@ -376,11 +378,16 @@ alias t="trash"
 
 alias sync-history="history -c; history -r"
 
+## Safe alternatives
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -I'                    # 'rm -i' prompts for every file
+
 pwgen-sane() {
     pwgen -Byvs --remove-chars='~`$%^&()-_+=\|[{]}"<>/?'"'" $@
 }
 
-test -d $HOME/workspaces/personal/private-configs/play/play-aliases && source $HOME/workspaces/personal/private-configs/play/play-aliases
+test -d ${WP}/private-configs/play/play-aliases && source ${WP}/private-configs/play/play-aliases
 
 case "$(uname -s)" in
     Linux*)
