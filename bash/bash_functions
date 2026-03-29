@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+run-help() {
+    (help "$READLINE_LINE" 2>/dev/null || man "$READLINE_LINE") | less
+}
+
+todo() {
+    if [[ ! -f "$TODO_PATH" ]]; then
+        touch "$TODO_PATH"
+    fi
+
+    if ! (($#)); then
+        cat "$TODO_PATH"
+    elif [[ "$1" == "-l" ]]; then
+        nl -b a "$TODO_PATH"
+    elif [[ "$1" == "-c" ]]; then
+        read -p "Clear all todos? [y/N] : " choice
+        if [ "$choice" = "y" ]; then
+            > "$TODO_PATH"
+        fi
+    elif [[ "$1" == "-r" ]]; then
+        nl -b a "$TODO_PATH"
+        eval printf %.0s- '{1..'"${COLUMNS:-$(tput cols)}"\}; echo
+        read -p "Type a number to remove: " number
+        if [ -n "$number" ]; then
+            TMP_TODO_FILE=$(mktemp "${TMPDIR:-/tmp}/todo.XXXXXX").txt
+            sed ${number}d < "$TODO_PATH" > "$TMP_TODO_FILE"
+            mv "$TMP_TODO_FILE" "$TODO_PATH"
+        else
+            echo "Todo not removed."
+        fi
+    else
+        printf "%s\n" "$*" >> "$TODO_PATH"
+    fi
+}
+
+# dict modified
+dm() {
+    if which dict 1>/dev/null; then
+        dict $1 2>&1|less +G
+    else
+        echo ERROR: dict is not installed
+    fi
+}
+
