@@ -18,20 +18,27 @@ endfunction
 
 " Example 1: '    a) Hello world'
 " Output: 7
-" Example 2: '* Hello world'
-" Output: 2
+" Example 2: '*   Hello world'
+" Output: 4
 function! s:get_starting_space_count(line)
     let l:count = 0
     let l:number_started = 0
+    let l:space_after_number_started = 0
     for c in a:line
         if !l:number_started
             let l:count = l:count + 1
             if c!=' '
                 let l:number_started = 1
             endif
-        else
+        elseif !l:space_after_number_started
             let l:count = l:count + 1
             if c==' '
+                let l:space_after_number_started = 1
+            endif
+        else "l:space_after_number_started = 1
+            if c==' '
+                let l:count = l:count + 1
+            else
                 break
             endif
         endif
