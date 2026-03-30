@@ -5,20 +5,18 @@ run-help() {
 }
 
 todo() {
-    if [[ ! -f "$TODO_PATH" ]]; then
+    if [ ! -f "$TODO_PATH" ]; then
         touch "$TODO_PATH"
     fi
 
-    if ! (($#)); then
-        cat "$TODO_PATH"
-    elif [[ "$1" == "-l" ]]; then
+    if [ "$#" -eq 0 -o "$1" = "-l" ]; then
         nl -b a "$TODO_PATH"
-    elif [[ "$1" == "-c" ]]; then
+    elif [ "$1" = "-c" ]; then
         read -p "Clear all todos? [y/N] : " choice
         if [ "$choice" = "y" ]; then
             > "$TODO_PATH"
         fi
-    elif [[ "$1" == "-r" ]]; then
+    elif [ "$1" = "-r" ]; then
         nl -b a "$TODO_PATH"
         eval printf %.0s- '{1..'"${COLUMNS:-$(tput cols)}"\}; echo
         read -p "Type a number to remove: " number
