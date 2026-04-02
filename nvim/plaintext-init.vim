@@ -45,3 +45,34 @@ function! s:get_starting_space_count(line)
     endfor
     return l:count
 endfunction
+
+function! FormatTable()
+    if getpos(".") < getpos("v")
+        let l:header_row = getpos(".")
+        let l:first_row = l:header_row + 2
+        let l:last_row = getpos("v")
+    elseif getpos(".") > getpos("v")
+        let l:header_row = getpos("v")
+        let l:first_row = l:header_row + 2
+        let l:last_row = getpos(".")
+    else
+        throw "Multiline selection is expected for tables"
+    endif
+
+    let l:max_col_lengths = []
+    for header in split(getline(l:header_row), "|")
+        add(l:max_col_lengths, strcharlen(header))
+    endfor
+
+    for row in getline(l:first_row, l:last_row)
+        let l:index = 0
+        for column in split(row, "|")
+            l:max_col_lengths[l:index] = max(l:max_col_lengths[l:index], column)
+            let l:index = l:index + 1
+        endfor
+    endfor
+
+    for header in getline(l:header_row)
+        for column in split(header, "|")
+    endfor
+endfunction
