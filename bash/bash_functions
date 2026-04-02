@@ -32,6 +32,15 @@ todo() {
     fi
 }
 
+print_todo() {
+    TODO_PRINTED_FLAG="/tmp/todo_printed"
+    if [ ! -f "$TODO_PRINTED_FLAG" ]; then
+        echo "TODO:"
+        todo
+        touch "$TODO_PRINTED_FLAG"
+    fi
+}
+
 # dict modified
 dm() {
     if which dict 1>/dev/null; then

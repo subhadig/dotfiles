@@ -103,3 +103,5 @@ export TODO_PATH="$WP/notes/todo.txt"
 if [ -f ${DOTRCDIR}/bash/bash_functions ]; then
     . ${DOTRCDIR}/bash/bash_functions
 fi
+
+print_todo
