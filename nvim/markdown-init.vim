@@ -1,8 +1,8 @@
 " Markdown specific settings
 
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 
 " Treat the header lines as comments and don't merge them with the content
 " lines when formatting them together
@@ -83,12 +83,13 @@ endfunction
 function! CustomMarkdownIndent()
     let l:prev_line=getline(v:lnum - 1)
     if l:prev_line=~'^\s*[-*+] .*' " If the line is the starting of a bullet list
-        return s:get_starting_space_count(l:prev_line) + 2
+        return Get_starting_space_count(l:prev_line)
     else
         return -1
     endif
 endfunction
 
+" TODO: Remove this function
 function! s:get_starting_space_count(line)
     let l:count=0
     for c in a:line

@@ -37,6 +37,7 @@ print_todo() {
     if [ ! -f "$TODO_PRINTED_FLAG" ]; then
         echo "TODO:"
         todo
+        echo
         touch "$TODO_PRINTED_FLAG"
     fi
 }

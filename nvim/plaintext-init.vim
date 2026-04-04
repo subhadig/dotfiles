@@ -9,13 +9,14 @@ setlocal indentexpr=CustomPlaintextIndent()
 function! CustomPlaintextIndent()
     let l:prev_line=getline(v:lnum - 1)
      " If the line is the starting of a bullet or numbered list
-    if l:prev_line=~'^\s*[-*+] .*' || l:prev_line=~'^\s*[0-9a-z.].*[.)] .*'
-        return s:get_starting_space_count(l:prev_line)
+    if l:prev_line=~'^\s*[-*+] .*' || l:prev_line=~'^\s*[0-9a-z]*[.)] .*'
+        return Get_starting_space_count(l:prev_line)
     else
         return -1
     endif
 endfunction
 
+" TODO: Remove this function
 " Example 1: '    a) Hello world'
 " Output: 7
 " Example 2: '*   Hello world'
@@ -46,33 +47,76 @@ function! s:get_starting_space_count(line)
     return l:count
 endfunction
 
-function! FormatTable()
-    if getpos(".") < getpos("v")
-        let l:header_row = getpos(".")
-        let l:first_row = l:header_row + 2
-        let l:last_row = getpos("v")
-    elseif getpos(".") > getpos("v")
-        let l:header_row = getpos("v")
-        let l:first_row = l:header_row + 2
-        let l:last_row = getpos(".")
-    else
-        throw "Multiline selection is expected for tables"
-    endif
+function! FormatTable() range
+    let l:header_row_lnum = getpos("'<")[1]
+    let l:first_row_lnum = l:header_row_lnum + 2
+    let l:last_row_lnum = getpos("'>")[1]
 
     let l:max_col_lengths = []
-    for header in split(getline(l:header_row), "|")
-        add(l:max_col_lengths, strcharlen(header))
+    for header in split(getline(l:header_row_lnum), "|")
+        let l:max_col_lengths = add(l:max_col_lengths, strcharlen(trim(header)))
     endfor
 
-    for row in getline(l:first_row, l:last_row)
+    for row in getline(l:first_row_lnum, l:last_row_lnum)
         let l:index = 0
         for column in split(row, "|")
-            l:max_col_lengths[l:index] = max(l:max_col_lengths[l:index], column)
+            let l:max_col_lengths[l:index] = max([l:max_col_lengths[l:index], strcharlen(trim(column))])
             let l:index = l:index + 1
         endfor
     endfor
 
-    for header in getline(l:header_row)
-        for column in split(header, "|")
+    let l:output = []
+
+    let l:line = ""
+    let l:headers = split(getline(l:header_row_lnum), "|")
+    let l:col_index = 0
+    for max_col_length in l:max_col_lengths
+        let l:trimmed_header = trim(l:headers[l:col_index])
+        let l:line = l:line . " " . l:trimmed_header
+        let l:additional_spaces = max_col_length - strcharlen(l:trimmed_header)
+        while l:additional_spaces > 0
+            let l:line = l:line . " "
+            let l:additional_spaces = l:additional_spaces - 1
+        endwhile
+        let l:line = l:line . " |"
+        let l:col_index = l:col_index + 1
     endfor
+    echom slice(l:line, 0, -2)
+    let l:output = add(l:output, slice(l:line, 0, -2))
+
+    let l:line = ""
+    for max_col_length in l:max_col_lengths
+        let l:index = 0
+        let l:line = l:line . "-"
+        while l:index < max_col_length
+            let l:line = l:line . "-"
+            let l:index = l:index + 1
+        endwhile
+        let l:line = l:line . "-|"
+    endfor
+    echom slice(l:line, 0, -2)
+    let l:output = add(l:output, slice(l:line, 0, -2))
+
+    for row in getline(l:first_row_lnum, l:last_row_lnum)
+        let l:cells = split(row, "|")
+        let l:col_index = 0
+        let l:line = ""
+        for max_col_length in l:max_col_lengths
+            let l:trimmed_cell = trim(l:cells[l:col_index])
+            let l:line = l:line . " " . l:trimmed_cell
+            let l:additional_spaces = max_col_length - strcharlen(l:trimmed_cell)
+            while l:additional_spaces > 0
+                let l:line = l:line . " "
+                let l:additional_spaces = l:additional_spaces - 1
+            endwhile
+            let l:line = l:line . " |"
+            let l:col_index = l:col_index + 1
+        endfor
+        echom slice(l:line, 0, -2)
+        let l:output = add(l:output, slice(l:line, 0, -2))
+    endfor
+    echom l:output
+    call setline(l:header_row_lnum, l:output)
 endfunction
+
+vnoremap <leader>pft :call FormatTable()<cr>

@@ -205,6 +205,37 @@ vnoremap <leader>x g<C-x>
 
 " Custom key bindings: End
 
+
+" Example 1: '    a) Hello world'
+" Output: 7
+" Example 2: '*   Hello world'
+" Output: 4
+function! Get_starting_space_count(line)
+    let l:count = 0
+    let l:number_started = 0
+    let l:space_after_number_started = 0
+    for c in a:line
+        if !l:number_started
+            let l:count = l:count + 1
+            if c!=' '
+                let l:number_started = 1
+            endif
+        elseif !l:space_after_number_started
+            let l:count = l:count + 1
+            if c==' '
+                let l:space_after_number_started = 1
+            endif
+        else "l:space_after_number_started = 1
+            if c==' '
+                let l:count = l:count + 1
+            else
+                break
+            endif
+        endif
+    endfor
+    return l:count
+endfunction
+
 " Create a group for filetype-specific autocommands
 augroup filetype_settings
     " Clear all previous autocommands in this group
