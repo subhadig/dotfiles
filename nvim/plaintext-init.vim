@@ -52,11 +52,13 @@ function! FormatTable() range
     let l:first_row_lnum = l:header_row_lnum + 2
     let l:last_row_lnum = getpos("'>")[1]
 
+    " Get column-lengths for the headers
     let l:max_col_lengths = []
     for header in split(getline(l:header_row_lnum), "|")
         let l:max_col_lengths = add(l:max_col_lengths, strcharlen(trim(header)))
     endfor
 
+    " Get max column-lengths for all data rows
     for row in getline(l:first_row_lnum, l:last_row_lnum)
         let l:index = 0
         for column in split(row, "|")
@@ -67,6 +69,7 @@ function! FormatTable() range
 
     let l:output = []
 
+    " Prepare the formatted header row
     let l:line = ""
     let l:headers = split(getline(l:header_row_lnum), "|")
     let l:col_index = 0
@@ -81,9 +84,9 @@ function! FormatTable() range
         let l:line = l:line . " |"
         let l:col_index = l:col_index + 1
     endfor
-    echom slice(l:line, 0, -2)
     let l:output = add(l:output, slice(l:line, 0, -2))
 
+    " Prepare the formatted header border
     let l:line = ""
     for max_col_length in l:max_col_lengths
         let l:index = 0
@@ -94,9 +97,9 @@ function! FormatTable() range
         endwhile
         let l:line = l:line . "-|"
     endfor
-    echom slice(l:line, 0, -2)
     let l:output = add(l:output, slice(l:line, 0, -2))
 
+    " Prepare the formatted data rows
     for row in getline(l:first_row_lnum, l:last_row_lnum)
         let l:cells = split(row, "|")
         let l:col_index = 0
@@ -112,10 +115,10 @@ function! FormatTable() range
             let l:line = l:line . " |"
             let l:col_index = l:col_index + 1
         endfor
-        echom slice(l:line, 0, -2)
         let l:output = add(l:output, slice(l:line, 0, -2))
     endfor
-    echom l:output
+
+    " Write the table to buffer
     call setline(l:header_row_lnum, l:output)
 endfunction
 
