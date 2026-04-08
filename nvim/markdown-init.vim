@@ -31,6 +31,14 @@ function! MarkdownPresent()
     execute "silent !" . "rm " . "\"%:p" . ".html\" &"
 endfunction
 
+"" Present markdown files as HTML in browser
+function! MarkdownPresent2()
+    execute "silent !" . "pandoc -s --webtex -t slidy -c $DOTRCDIR/pandoc/darkdown.css -i " . "\"%:p\"" . " -o " . "\"%:p\"" . ".html"
+    execute "silent !" . g:private_browser . "\"" . "%:p" . ".html\" &"
+    call getchar()
+    execute "silent !" . "rm " . "\"%:p" . ".html\" &"
+endfunction
+
 "" View markdown files as PDF in the preferred pdf-reader
 function! MarkdownPdfView()
     cd %:p:h
@@ -219,6 +227,9 @@ nnoremap <localleader>mpov :call MarkdownPathOpenInVim()<cr>
 "" Open file generic
 nnoremap <localleader>mpo :call MarkdownPathOpenSmart()<cr>
 
+"" Underline
+nnoremap <localleader>mU :call Underline("=")<CR>
+nnoremap <localleader>mu :call Underline("-")<CR>
 
 " Autocmd Events
 autocmd CursorMovedI *.md call ModifyTextWidth()

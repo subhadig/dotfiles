@@ -76,8 +76,12 @@ autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 "hi LineNr guifg=#848383 guibg=#080808 guisp=NONE gui=NONE cterm=NONE
 
 " Theme - one-dark
-colorscheme one
-set background=dark
+" colorscheme one
+" set background=dark
+
+" Theme - nigh-owl
+packadd night-owl.nvim
+colorscheme night-owl
 
 " Scripts
 
@@ -234,6 +238,12 @@ function! Get_starting_space_count(line)
         endif
     endfor
     return l:count
+endfunction
+
+function! Underline(arg)
+    :execute "normal $"
+    let l:length = getcurpos()[2]
+    :execute "normal a\<CR>\<Esc>" . l:length . "i" . a:arg . "\<Esc>"
 endfunction
 
 " Create a group for filetype-specific autocommands
