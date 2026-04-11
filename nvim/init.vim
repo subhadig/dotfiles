@@ -80,8 +80,12 @@ autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 " set background=dark
 
 " Theme - nigh-owl
-packadd night-owl.nvim
-colorscheme night-owl
+" packadd night-owl.nvim
+" colorscheme night-owl
+
+packadd gruvbox-material
+let g:gruvbox_material_background = 'hard'
+colorscheme gruvbox-material
 
 " Scripts
 
