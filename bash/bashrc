@@ -33,37 +33,9 @@ shopt -s histappend
 # Export history on every new command
 export PROMPT_COMMAND='history -a'
 
-# PATH
-## ruby
-# test -d /usr/local/opt/ruby/bin && PATH="/usr/local/opt/ruby/bin:${PATH}"
-# if which ruby >/dev/null && which gem >/dev/null; then
-#   export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-# fi
-# The following commented out lines should be removed after the above logic is
-# tested
-#if [ -d ${HOME}/.gem/ruby/3.1.0/bin ]; then
-#    PATH="${HOME}/.gem/ruby/3.1.0/bin:${PATH}"
-#elif [ -d ${HOME}/.gem/ruby/3.0.0/bin ]; then
-#    PATH="${HOME}/.gem/ruby/3.0.0/bin:${PATH}"
-#elif [ -d ${HOME}/.gem/ruby/2.7.0/bin ]; then
-#    PATH="${HOME}/.gem/ruby/2.7.0/bin:${PATH}"
-#elif [ -d ${HOME}/.gem/ruby/2.5.0/bin ]; then
-#    PATH="${HOME}/.gem/ruby/2.5.0/bin:${PATH}"
-#fi
-
 PATH="${DOTRCDIR}/bin:${PATH}"
 export PATH
 
-# Load fzf completion on Debian`
-# test -f /usr/share/doc/fzf/examples/key-bindings.bash && source /usr/share/doc/fzf/examples/key-bindings.bash
-# test -f /usr/share/doc/fzf/examples/completion.bash && source /usr/share/doc/fzf/examples/completion.bash
-
-# Load fzf completion on MacOS
-# test -r ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.bash && source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.bash
-# test -r ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.bash && source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.bash
-
-# Load fzf completion on Arch
-# TODO: If the below works for MacOS, remove the above lines for Debian and MacOS
 eval "$(fzf --bash)"
 
 # This is used by my custom npm config. Also utilizing this for storing all
@@ -100,8 +72,22 @@ bind -m vi-insert -x '"\C-h": run-help'
 export WP="$HOME/workspaces/personal"
 export TODO_PATH="$WP/notes/todo.txt"
 
+if [ -f ${DOTRCDIR}/bash/bash_aliases ]; then
+    . ${DOTRCDIR}/bash/bash_aliases
+fi
+
 if [ -f ${DOTRCDIR}/bash/bash_functions ]; then
     . ${DOTRCDIR}/bash/bash_functions
 fi
 
+for config in "${ADDITIONAL_BASH_CONFIGS[@]}"
+do
+    if [ -f "$config" ]; then
+        . "$config"
+    else
+        echo WARNING: $config does not exist.
+    fi
+done
+
+# Print todo once after launch
 print_todo

@@ -13,18 +13,15 @@ Place the following content in `.bashrc` before the `.bash_aliases` is sourced.
 ```bash
 export DOTRCDIR="${HOME}/workspaces/personal/dotfiles"
 
+# Optionally source additional bash configs from ${DOTRCDIR}/bash/bashrc
+declare -a ADDITIONAL_BASH_CONFIGS
+export ADDITIONAL_BASH_CONFIGS
+
 # If the ~/workspaces/personal/dotfiles/bash/bashrc file exists then
 # source it.
 if [ -f ${DOTRCDIR}/bash/bashrc ]; then
     . ${DOTRCDIR}/bash/bashrc
 fi
-```
-
-Append this to your existing `.bash_aliases`.
-If the file does not exist, create one.
-
-```bash
-source $HOME/workspaces/personal/dotfiles/bash/bash_aliases
 ```
 
 ### neovim
