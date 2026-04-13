@@ -122,4 +122,12 @@ function! FormatTable() range
     call setline(l:header_row_lnum, l:output)
 endfunction
 
-vnoremap <leader>pft :call FormatTable()<cr>
+
+" Key bindings
+
+"" Table
+vnoremap <leader>mft :call FormatTable()<cr>
+
+"" Underline
+nnoremap <localleader>mU :call Underline("=")<CR>
+nnoremap <localleader>mu :call Underline("-")<CR>
