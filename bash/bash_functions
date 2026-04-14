@@ -23,7 +23,7 @@ todo() {
         if [ -n "$number" ]; then
             TMP_TODO_FILE=$(mktemp "${TMPDIR:-/tmp}/todo.XXXXXX").txt
             sed ${number}d < "$TODO_PATH" > "$TMP_TODO_FILE"
-            mv "$TMP_TODO_FILE" "$TODO_PATH"
+            mv -f "$TMP_TODO_FILE" "$TODO_PATH"
         else
             echo "Todo not removed."
         fi
