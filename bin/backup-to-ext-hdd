@@ -22,26 +22,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-device_label='TOSHIBA EXT'
-mount_path="/media/${USER}/ext_hdd"
 
-exec_admin_command() {
-    if $user_has_sudo; then
-        sudo $1
-    else
-        su -c "$1"
-    fi
-}
+DEVICE_LABEL='TOSHIBA EXT'
+MOUNT_PATH="/mnt"
+
+# List of top level directories under home that need to be backed up
+# Paths are relative from the user's home directory
+INCLUDE_DIRS=('Documents' 'Music' 'Pictures' 'Videos')
+
 
 echo Initiating backup...
 
-if ! which rsync 1>/dev/null; then
+if ! command -v rsync 1>/dev/null; then
     echo rsync is not available. Exiting...
     exit 1
 fi
 
 # Find the pretty hostname
-# backup_laptop
 comp_name=`hostnamectl --static`
 
 if [ -z "$comp_name" ]; then
@@ -56,67 +53,97 @@ if [ "$comp_name_user" != "$comp_name" ]; then
     exit 1
 fi
 
-user_has_sudo=false
+USER_HAS_SUDO=false
 sudo -v 2>/dev/null
 if [ $? -eq 0 ]; then
-    user_has_sudo=true
+    USER_HAS_SUDO=true
 fi
 
-# List of directories that needs to be backed up
-# Paths are relative from the user's home directory
-backed_dirs[0]='Documents'
-backed_dirs[1]='Notebooks'
-backed_dirs[2]='Music'
-backed_dirs[3]='Pictures'
-backed_dirs[4]='Videos'
+exec_admin_command() {
+    if $USER_HAS_SUDO; then
+        sudo $1
+    else
+        su -c "$1"
+    fi
+}
+
 
 # Get the device path with the matching label
-device_path=''
+DEVICE_PATH=''
 IFS_ORIG=$IFS
 IFS='\n'
 while read line
 do
- label=`echo ${line} | cut -f2- -d' '`
- if [ "$label" = $device_label ]; then
-     device_path=`echo ${line} | cut -f1 -d' '`
+ label=`cut -f2- -d' ' <<< "${line}"`
+ if [ "$label" = "$DEVICE_LABEL" ]; then
+     DEVICE_PATH=`cut -f1 -d' ' <<< "${line}"`
      break
  fi
 done <<<`lsblk -f -o NAME,LABEL -l -n -p`
 IFS=$IFS_ORIG
 
-if [ -z "$device_path" ]; then
+if [ -z "$DEVICE_PATH" ]; then
     echo "Device path not found. Exiting"
     exit 1
 fi
 
 # Mount the external drive
-read -p "Mounting ${device_path} to ${mount_path}. Continue? " choice
+read -p "Mounting ${DEVICE_PATH} to ${MOUNT_PATH}. Continue? [y/N] " choice
 if [ "$choice" != "y" ]; then
     echo Selected $choice. Exiting.
     exit 1
 fi
 
 # Create the mount path if not exists
-if [ ! -d ${mount_path} ]; then
-    echo Path ${mount_path} does not exists. Creating..
-    exec_admin_command "mkdir -p ${mount_path}"
+if [ ! -d "${MOUNT_PATH}" ]; then
+    echo Path ${MOUNT_PATH} does not exists. Creating..
+    exec_admin_command "mkdir -p \"${MOUNT_PATH}\""
 fi
 
 echo Mounting...
-exec_admin_command "mount -o uid=${USER} -t ntfs ${device_path} ${mount_path}"
+exec_admin_command "mount -o uid=${USER} -t ntfs \"${DEVICE_PATH}\" \"${MOUNT_PATH}\""
+
+
+# Unmount the external drive
+unmount() {
+    echo Unmounting ${DEVICE_PATH}...
+    exec_admin_command "umount \"${DEVICE_PATH}\""
+}
+
+trap unmount EXIT
 
 echo
 
+OPTS="-ai --delay-updates --delete"
+SRC_ROOT="$HOME"
+DEST="${MOUNT_PATH}/${comp_name}"
+LOGFILE="$DEST/logs/`date +%Y-%m-%d`.log"
+
+# Create the required dest directories
+mkdir -p "$DEST/latest"
+mkdir -p "$DEST/logs"
+
 # Sync every path in synced_dir
-for dir in "${backed_dirs[@]}"
+for dir in "${INCLUDE_DIRS[@]}"
 do
-    if [ -d "/home/${USER}/${dir}" ]; then
-        echo Syncing /home/${USER}/${dir} to ${mount_path}/${comp_name}/${dir}...
-        rsync -av --delete "/home/${USER}/${dir}" "${mount_path}/${comp_name}"
+    SRC="$SRC_ROOT/$dir"
+    if [ -d "$SRC" ]; then
+        echo Syncing $SRC to $DEST/latest...
+        rsync $OPTS "$SRC" "$DEST/latest" >>$LOGFILE
+    else
+        echo WARNING: Non-existent source directory: $SRC
     fi
     echo
 done
 
-# Unmount the external drive
-echo Unmounting ${device_path}...
-exec_admin_command "umount ${device_path}"
+COUNT=`wc -l $LOGFILE | cut -d ' ' -f 1`
+echo $COUNT
+if [ $COUNT -ne 0 ]; then
+    DATETAG=`date +%Y-%m-%d`
+    if [ ! -e "$DEST/$DATETAG" ]; then
+        echo Creating snapshot: $DATETAG
+        cp -al "$DEST/latest" "$DEST/$DATETAG"
+    else
+        echo Snapshot already exists: $DATETAG. Skipping...
+    fi
+fi
