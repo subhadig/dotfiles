@@ -41,8 +41,9 @@ let g:netrw_browse_split = 4
 
 augroup netrw_mappings
     autocmd!
-    " Automatically close netrw if it's the last window remaining
-    autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw" | q | endif
+    " Automatically close netrw if it's the last window remaining - to prevent
+    " netrw from occupying the entire screen
+    autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw" | bd | endif
 augroup END
 
 " Jedi-vim settings
@@ -63,12 +64,6 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Note, the above line is ignored in Neovim 0.1.5 above, use this line instead.
 set termguicolors
-
-" Yaml speicific configuration
-autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
-
-" Json speicific configuration
-autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " Theme - iosvkem
 "let g:Iosvkem_transp_bg = 1
@@ -270,12 +265,17 @@ augroup filetype_settings
     " Load Plaintext specific init file
     autocmd FileType text source $DOTRCDIR/nvim/plaintext-init.vim
 
-    " Load Restcall specific config
+    " Json speicific configuration
+    autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType json source $DOTRCDIR/nvim/restcall.vim
 
     " DrawIt filetype config
     autocmd BufRead,BufNewFile *.drawit setfiletype drawit
     autocmd FileType drawit set nowrap formatoptions-=tc
+
+    " Yaml speicific configuration
+    autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+
 augroup END
 
 " Set rg as the external grep program
