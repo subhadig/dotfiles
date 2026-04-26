@@ -1,4 +1,5 @@
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+PS1='[\u@\h \W]\$ '
 
 # Vi mode
 set -o vi
@@ -15,38 +16,27 @@ export CLICOLOR=1
 # directory foreground: cyan (default: blue)
 export LSCOLORS='gxfxcxdxbxegedabagacad'
 
+# Don't log consecutive identical commands in bash history
+export HISTCONTROL=ignoredups
+
 # Don't add the following colon(:) separated commands are not added in bash
 # history
 export HISTIGNORE='cl:history'
 
-# PATH
-## ruby
-test -d /usr/local/opt/ruby/bin && PATH="/usr/local/opt/ruby/bin:${PATH}"
-if which ruby >/dev/null && which gem >/dev/null; then
-  export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-fi
-# The following commented out lines should be removed after the above logic is
-# tested
-#if [ -d ${HOME}/.gem/ruby/3.1.0/bin ]; then
-#    PATH="${HOME}/.gem/ruby/3.1.0/bin:${PATH}"
-#elif [ -d ${HOME}/.gem/ruby/3.0.0/bin ]; then
-#    PATH="${HOME}/.gem/ruby/3.0.0/bin:${PATH}"
-#elif [ -d ${HOME}/.gem/ruby/2.7.0/bin ]; then
-#    PATH="${HOME}/.gem/ruby/2.7.0/bin:${PATH}"
-#elif [ -d ${HOME}/.gem/ruby/2.5.0/bin ]; then
-#    PATH="${HOME}/.gem/ruby/2.5.0/bin:${PATH}"
-#fi
+# Making the history size to 5000. Default is 500.
+export HISTSIZE=5000
+
+# The history list is appended to the file named by the value of the HISTFILE
+# variable when the shell exits, rather than overwriting the file.
+shopt -s histappend
+
+# Export history on every new command
+export PROMPT_COMMAND='history -a'
 
 PATH="${DOTRCDIR}/bin:${PATH}"
 export PATH
 
-# Load fzf completion on Debian`
-test -f /usr/share/doc/fzf/examples/key-bindings.bash && source /usr/share/doc/fzf/examples/key-bindings.bash
-test -f /usr/share/doc/fzf/examples/completion.bash && source /usr/share/doc/fzf/examples/completion.bash
-
-# Load fzf completion on MacOS
-test -r ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.bash && source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.bash
-test -r ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.bash && source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.bash
+eval "$(fzf --bash)"
 
 # This is used by my custom npm config. Also utilizing this for storing all
 # local command line binaries.
@@ -68,3 +58,36 @@ if declare -F _fzf_setup_completion >/dev/null; then
     _fzf_setup_completion path trash
     _fzf_setup_completion path play
 fi
+
+# Enable globstar
+shopt -s globstar
+
+# If neovim is available, set it as the EDITOR
+if command -v nvim 1>/dev/null 2>&1; then
+    export EDITOR='nvim'
+fi
+
+bind -m vi-insert -x '"\C-h": run-help'
+
+export WP="$HOME/workspaces/personal"
+export TODO_PATH="$WP/notes/todo.txt"
+
+if [ -f ${DOTRCDIR}/bash/bash_aliases ]; then
+    . ${DOTRCDIR}/bash/bash_aliases
+fi
+
+if [ -f ${DOTRCDIR}/bash/bash_functions ]; then
+    . ${DOTRCDIR}/bash/bash_functions
+fi
+
+for config in "${ADDITIONAL_BASH_CONFIGS[@]}"
+do
+    if [ -f "$config" ]; then
+        . "$config"
+    else
+        echo WARNING: $config does not exist.
+    fi
+done
+
+# Print todo once after launch
+print_todo

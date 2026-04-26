@@ -4,18 +4,18 @@ if [ -z $DOTRCDIR ]; then
     echo WARNING: export DOTRCDIR before sourcing bash_aliases
 fi
 
+# basic
+alias which='command -v'
+
 # nvim
 alias vi='nvim'
 alias vimdiff='nvim -d'
 alias view='nvim -R'
 
 # cd
-export WP="$HOME/workspaces/personal"
-export WPN="$WP/notes"
-#alias cd='pushd'
 alias cdwp="pushd $WP"
 alias cdws='pushd $HOME/workspaces/study/'
-alias cdwpn="pushd $WPN"
+alias cdwpn="pushd $WP/notes"
 alias cdwpd="pushd $WP/dotfiles"
 alias cdwppc="pushd $WP/private-configs"
 alias cdwpts="pushd $WP/tmux-scripts"
@@ -101,7 +101,7 @@ so() {
 # Search and edit
 se() {
     local file
-    file=`find . -type f | cut -c3- | fzf --preview='head -$FZF_PREVIEW_LINES {}'`
+    file=`find . -type f -not -path "*/.*" | cut -c3- | fzf --preview='head -$FZF_PREVIEW_LINES {}'`
     if [ $? -ne 0 ]; then
         return
     fi
@@ -126,15 +126,6 @@ alias dcls='docker container ls'
 alias dclsa='docker container ls -a'
 alias dstart-excalidraw='docker run --rm -dit --name excalidraw -p 5000:80 excalidraw/excalidraw:latest'
 alias dstop-excalidraw='docker stop excalidraw'
-
-# dict modified
-dm() {
-    if which dict 1>/dev/null; then
-        dict $1 2>&1|less +G
-    else
-        echo ERROR: dict is not installed
-    fi
-}
 
 # Python
 alias py-create-venv="python3 -m venv ./.venv"
@@ -184,6 +175,25 @@ alias pws='dirs -v'
 
 ## pushd with fuzzy search
 pu() {
+    # Reset the argument counter to 0
+    local OPTIND OPTARG
+
+    local depth=5
+    while getopts "d:" options; do
+        case ${options} in
+            d)
+                depth="$OPTARG"
+                ;;
+            *)
+                echo "ERROR: Invalid option."
+                print_usage
+                return
+                ;;
+        esac
+    done
+
+    shift "$(($OPTIND - 1))"
+
     local initPath
     case $# in
         1) initPath="$1";;
@@ -196,10 +206,12 @@ pu() {
         # Show full path (-f)
         # Don't show indentation (-i)
         # Follow symbolic links (-l)
+        # Include hidden files (-a)
+        # Sort the output based on last status change (-c)
         # Do not descend directories containing more than 30 files (--filelimit): Experimental
         # Ignore Library folder - for MacOS
         # Max depth 5
-        path=`tree -dfilc --filelimit 30 -I 'Library/' -L 5 "$initPath" 2>/dev/null | fzf --preview='ls -tC {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
+        path=`tree -dfilac --filelimit 30 -I 'Library/' -L $depth "$initPath" 2>/dev/null | grep '^\.' | grep -v '^.$' | sed -e s@^./@@ | fzf --preview='ls -tC {} | head -$FZF_PREVIEW_LINES' --preview-window=up`
         if [ $? -ne 0 ]; then
             return
         fi
@@ -215,7 +227,7 @@ pu() {
         fi
     fi
     echo pd $path
-    pushd "$path"
+    pd "$path"
 }
 
 ## pushd go back to previous directories with fuzzy search
@@ -230,7 +242,7 @@ pf() {
     pushd +$choice
 }
 
-## pushd back - Deprecated
+## pushd back
 pub() {
     if [ -n "$1" ]; then
         history -s pushd +$1
@@ -245,6 +257,7 @@ pub() {
         pushd +$choice
     fi
 }
+alias cj='pub'
 
 ## Experimental
 dedup-dirstack() {
@@ -271,13 +284,25 @@ dedup-dirstack() {
 ## Pushd with dedup-dirstack
 pd() {
     pushd "$1" 1>/dev/null
+    if [ $? -ne 0 ]; then
+        return
+    fi
     dedup-dirstack 1>/dev/null
-    dirs
+    echo 'Dir stack: ['`dirs`']'
 }
 if declare -F _fzf_setup_completion >/dev/null; then
     _fzf_setup_completion dir pd
 fi
-alias c="pd"
+c() {
+    if [ $# -eq 0 ]; then
+        pu -d 1
+    elif [ $# -eq 1 ]; then
+        pd "$1"
+    else
+        echo "Error: invalid no of arguments"
+        return 1
+    fi
+}
 alias ch="pf"
 
 # Gradle
@@ -289,7 +314,7 @@ alias gr-tasks="gr tasks | less"
 
 function gr-publishtomavenlocal() {
     tmpfile=$(mktemp)
-    ./gradlew publishToMavenLocal >"$tmpfile" 2>&1
+    ./gradlew publishToMavenLocal "$@" >"$tmpfile" 2>&1
     status=$?
     if [ $status -eq 0 ]; then
         head -n 10 "$tmpfile"
@@ -325,7 +350,7 @@ fi
 
 # lynx
 alias lynx="lynx -cfg=${DOTRCDIR}/lynx/lynx.cfg"
-source $HOME/workspaces/personal/private-configs/lynx/lynx-aliases
+test -d $HOME/workspaces/personal/private-configs/lynx/lynx-aliases && source $HOME/workspaces/personal/private-configs/lynx/lynx-aliases
 
 # Misc
 alias newsboat="newsboat -u $WP/private-configs/newsboat/urls -C ${DOTRCDIR}/newsboat/config"
@@ -337,15 +362,22 @@ alias cl="clear"
 
 alias upc="update-personal-config"
 
-alias calc="bc -l"
+#alias calc="bc -l"
 
 alias t="trash"
+
+alias sync-history="history -c; history -r"
+
+## Safe alternatives
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -I'                    # 'rm -i' prompts for every file
 
 pwgen-sane() {
     pwgen -Byvs --remove-chars='~`$%^&()-_+=\|[{]}"<>/?'"'" $@
 }
 
-source $HOME/workspaces/personal/private-configs/play/play-aliases
+test -d ${WP}/private-configs/play/play-aliases && source ${WP}/private-configs/play/play-aliases
 
 case "$(uname -s)" in
     Linux*)

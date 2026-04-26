@@ -11,7 +11,7 @@ for repo in ${repos[*]}; do
     if [ -d "$repo" ]; then
         pushd "$repo" 1>/dev/null
         echo Updating `pwd`
-        git pull origin master
+        git pull
         if [ $? -ne 0 ]; then
             echo ERROR: Update failed. Check manually.
         fi
