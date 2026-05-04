@@ -54,7 +54,7 @@ let g:coq_settings = { 'auto_start': 'shut-up' }
 
 " Spell check
 set spelllang=en
-set spellfile=$HOME/workspaces/personal/dotfiles/vim/vim-spell.en.utf-8.add
+set spellfile=$DOTRCDIR/vim/vim-spell.en.utf-8.add
 
 " Open new split on the right
 set splitright

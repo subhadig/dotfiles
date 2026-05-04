@@ -43,10 +43,30 @@ local coq = require('coq')
 local servers = {'jedi_language_server', 'clangd', 'ts_ls'}
 
 for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup{
-        coq.lsp_ensure_capabilities{
+    vim.lsp.config (
+        lsp,
+        coq.lsp_ensure_capabilities {
             on_attach = on_attach,
             flags = lsp_flags
         }
-    }
+    )
+    vim.lsp.enable(lsp)
+    -- TODO: Remove the following commented out lines once the above is tested
+    --
+    -- lspconfig[lsp].setup{
+    --     coq.lsp_ensure_capabilities{
+    --         on_attach = on_attach,
+    --         flags = lsp_flags
+    --     }
+    -- }
 end
+
+vim.lsp.config (
+    'groovyls',
+    coq.lsp_ensure_capabilities {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        cmd = { "java", "-jar", vim.fn.expand("$DOTRCDIR/external/groovy-language-server-all.jar") },
+    }
+)
+vim.lsp.enable('groovyls')
