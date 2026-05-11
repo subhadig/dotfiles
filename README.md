@@ -64,6 +64,13 @@ If using the ideavim plugin for IntelliJ Idea, create a file with name
 source ~/workspaces/personal/dotfiles/intellij/ideavimrc
 ```
 
+### zathura
+Add the following line to `~/.config/zathura/zathurarc`:
+
+```
+include $DOTRCDIR/zathura/zathurarc
+```
+
 ## Dependencies
 Different scripts/configurations in this repository require the following
 packages that do not come installed OOTB:
