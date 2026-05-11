@@ -68,7 +68,7 @@ source ~/workspaces/personal/dotfiles/intellij/ideavimrc
 Add the following line to `~/.config/zathura/zathurarc`:
 
 ```
-include $DOTRCDIR/zathura/zathurarc
+include ~/workspaces/personal/dotfiles/zathura/zathurarc
 ```
 
 ## Dependencies
