@@ -64,12 +64,16 @@ If using the ideavim plugin for IntelliJ Idea, create a file with name
 source ~/workspaces/personal/dotfiles/intellij/ideavimrc
 ```
 
+
 ### zathura
 Add the following line to `~/.config/zathura/zathurarc`:
 
 ```
-include ~/workspaces/personal/dotfiles/zathura/zathurarc
+include /home/<username>/workspaces/personal/dotfiles/zathura/zathurarc
 ```
+
+Replace <username> with your username.
+
 
 ## Dependencies
 Different scripts/configurations in this repository require the following
