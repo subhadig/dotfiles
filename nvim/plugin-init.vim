@@ -1,5 +1,6 @@
 " Plugin configurations
 
+"" Outline: Starts
 function! LoadOutline()
 lua << EOF
 require("outline").setup({
@@ -18,6 +19,18 @@ require("outline").setup({
         show_numbers = true,
         show_relative_numbers = true,
         wrap = true
+    },
+    providers = {
+        priority = { 'lsp', 'coc', 'markdown', 'norg', 'man', 'plaintext' },
+        lsp = {
+            blacklist_clients = {},
+        },
+        markdown = {
+            filetypes = { 'markdown' },
+        },
+        plaintext = {
+            filetypes = { 'text' },
+        }
     },
     symbol_folding = {
         markers = { '>', 'v' }
@@ -86,6 +99,10 @@ endfunction
 " Open Outline
 nnoremap <silent> <localleader>o :call LoadOutlineOnUse() <bar> :Outline<cr>
 
+"" Outline: Ends
+
+
+"" Copilot: Starts
 function! LoadCopilot()
     packadd copilot.vim
     packadd plenary.nvim
@@ -117,3 +134,4 @@ endfunction
 
 command! LoadCopilot call LoadCopilot()
 
+"" Copilot: Ends

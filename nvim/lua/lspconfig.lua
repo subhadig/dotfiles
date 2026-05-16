@@ -40,7 +40,7 @@ local lsp_flags = {
 local lspconfig = require('lspconfig')
 local coq = require('coq')
 
-local servers = {'jedi_language_server', 'clangd', 'ts_ls'}
+local servers = {'jedi_language_server', 'clangd', 'ts_ls', 'lua_ls'}
 
 for _, lsp in ipairs(servers) do
     vim.lsp.config (
@@ -51,14 +51,6 @@ for _, lsp in ipairs(servers) do
         }
     )
     vim.lsp.enable(lsp)
-    -- TODO: Remove the following commented out lines once the above is tested
-    --
-    -- lspconfig[lsp].setup{
-    --     coq.lsp_ensure_capabilities{
-    --         on_attach = on_attach,
-    --         flags = lsp_flags
-    --     }
-    -- }
 end
 
 vim.lsp.config (
