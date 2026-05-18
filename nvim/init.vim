@@ -148,7 +148,8 @@ endfunction
 " Custom key bindings: Start
 
 " fzf
-nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
+"nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
+nnoremap <silent> <C-p> :FZF -q !.png$\ <cr>
 
 " Tabs
 
@@ -295,6 +296,11 @@ source $DOTRCDIR/nvim/lua/lspconfig.lua
 " LSP config: End
 
 " Plugin configurations: Start
+lua << EOF
+    vim.pack.add({
+        'https://github.com/subhadig/outline-plaintext-provider.nvim'
+    })
+EOF
 source $DOTRCDIR/nvim/plugin-init.vim
 " Plugin configurations: End
 
