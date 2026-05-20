@@ -21,31 +21,31 @@ endfunction
 " Output: 7
 " Example 2: '*   Hello world'
 " Output: 4
-function! s:get_starting_space_count(line)
-    let l:count = 0
-    let l:number_started = 0
-    let l:space_after_number_started = 0
-    for c in a:line
-        if !l:number_started
-            let l:count = l:count + 1
-            if c!=' '
-                let l:number_started = 1
-            endif
-        elseif !l:space_after_number_started
-            let l:count = l:count + 1
-            if c==' '
-                let l:space_after_number_started = 1
-            endif
-        else "l:space_after_number_started = 1
-            if c==' '
-                let l:count = l:count + 1
-            else
-                break
-            endif
-        endif
-    endfor
-    return l:count
-endfunction
+" function! s:get_starting_space_count(line)
+"     let l:count = 0
+"     let l:number_started = 0
+"     let l:space_after_number_started = 0
+"     for c in a:line
+"         if !l:number_started
+"             let l:count = l:count + 1
+"             if c!=' '
+"                 let l:number_started = 1
+"             endif
+"         elseif !l:space_after_number_started
+"             let l:count = l:count + 1
+"             if c==' '
+"                 let l:space_after_number_started = 1
+"             endif
+"         else "l:space_after_number_started = 1
+"             if c==' '
+"                 let l:count = l:count + 1
+"             else
+"                 break
+"             endif
+"         endif
+"     endfor
+"     return l:count
+" endfunction
 
 function! FormatTable() range
     let l:header_row_lnum = getpos("'<")[1]
@@ -123,6 +123,27 @@ function! FormatTable() range
 endfunction
 
 
+function! s:yankReference()
+    let init_cur_pos = getcurpos()
+    
+    " Yank the reference number with square braces, presumably at the end of
+    " the line. e.g. [1]
+    execute "normal" "$v%y"
+
+    " Go to the end of file
+    execute "normal" "G"
+
+    " Search with the yanked text
+    call search(escape(getreg('0'), '['), 'b')
+
+    " Yank the link
+    execute "normal" 'WvE"+y'
+
+    " Put the cursor back to the initial position
+    call setpos('.', init_cur_pos)
+endfunction
+
+
 " Key bindings
 
 "" Table
@@ -131,3 +152,6 @@ vnoremap <leader>mft :call FormatTable()<cr>
 "" Underline
 nnoremap <localleader>mU :call Underline("=")<CR>
 nnoremap <localleader>mu :call Underline("-")<CR>
+
+"" Yank link in markdown
+nnoremap <localleader>mly :call <SID>yankReference()<CR>
