@@ -125,10 +125,13 @@ endfunction
 
 function! s:yankReference()
     let init_cur_pos = getcurpos()
+
+    " Go to the closing ] of the reference
+    execute "normal" "$F]"
     
     " Yank the reference number with square braces, presumably at the end of
     " the line. e.g. [1]
-    execute "normal" "$v%y"
+    execute "normal" "v%y"
 
     " Go to the end of file
     execute "normal" "G"
