@@ -1,20 +1,30 @@
+# Configurations
+
 auto-reload yes
 reload-threads 3
 download-timeout 120
 feed-sort-order lastupdated
 
-# Vi like key bindings
-bind-key k up
-bind-key j down
-bind-key ^F pagedown
-bind-key ^B pageup
+## A browser setting that works on both Debian and MacOS
+browser "command -v chromium 1>/dev/null && chromium -incognito %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
+
+
+# Key bindings
+
+bind o everywhere open-in-browser-and-mark-read
+bind <S-o> everywhere open-all-unread-in-browser
+
+## Vi like key bindings
+bind k everywhere up
+bind j everywhere down
+bind <C-f> everywhere pagedown
+bind <C-d> everywhere halfpagedown
+bind <C-b> everywhere pageup
+bind <C-u> everywhere halfpageup
 
 # Podboat configurations
-player "vlc 1>/dev/null 2>&1"
-download-path ".newsboat/podcasts/%n"
-
-# A browser setting that works on both Debian and MacOS
-browser "command -v chromium 1>/dev/null && chromium -incognito %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
+# player "vlc 1>/dev/null 2>&1"
+# download-path ".newsboat/podcasts/%n"
 
 # Open links in lynx
 # macro l set browser "lynx -cfg=${DOTRCDIR}/lynx/lynx.cfg %u"; open-in-browser-and-mark-read ; set browser "which firefox-latest 1>/dev/null && firefox-latest --private-window %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
