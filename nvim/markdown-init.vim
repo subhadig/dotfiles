@@ -97,19 +97,6 @@ function! CustomMarkdownIndent()
     endif
 endfunction
 
-" TODO: Remove this function
-function! s:get_starting_space_count(line)
-    let l:count=0
-    for c in a:line
-        if c==' '
-            let l:count = l:count + 1
-        else
-            break
-        endif
-    endfor
-    return l:count
-endfunction
-
 function! s:get_link_from_current_line()
     let l:line=getline(".")
     let l:starting_parenthesis_index=stridx(l:line, "(", stridx(l:line, "]") + 1)

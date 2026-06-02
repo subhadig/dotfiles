@@ -16,37 +16,6 @@ function! CustomPlaintextIndent()
     endif
 endfunction
 
-" TODO: Remove this function
-" Example 1: '    a) Hello world'
-" Output: 7
-" Example 2: '*   Hello world'
-" Output: 4
-" function! s:get_starting_space_count(line)
-"     let l:count = 0
-"     let l:number_started = 0
-"     let l:space_after_number_started = 0
-"     for c in a:line
-"         if !l:number_started
-"             let l:count = l:count + 1
-"             if c!=' '
-"                 let l:number_started = 1
-"             endif
-"         elseif !l:space_after_number_started
-"             let l:count = l:count + 1
-"             if c==' '
-"                 let l:space_after_number_started = 1
-"             endif
-"         else "l:space_after_number_started = 1
-"             if c==' '
-"                 let l:count = l:count + 1
-"             else
-"                 break
-"             endif
-"         endif
-"     endfor
-"     return l:count
-" endfunction
-
 function! FormatTable() range
     let l:header_row_lnum = getpos("'<")[1]
     let l:first_row_lnum = l:header_row_lnum + 2
@@ -156,5 +125,8 @@ vnoremap <leader>mft :call FormatTable()<cr>
 nnoremap <localleader>mU :call Underline("=")<CR>
 nnoremap <localleader>mu :call Underline("-")<CR>
 
-"" Yank link in markdown
+"" Yank reference link
 nnoremap <localleader>mly :call <SID>yankReference()<CR>
+
+"" Convert markdown link to reference
+nnoremap <localleader>mlc ^wxf]s<Space><Esc>lxdt)maGA<CR>[]<Space><Esc>p^klyi[ji<C-r>=<C-r>0+1<CR><Esc>ByE`a$vp
