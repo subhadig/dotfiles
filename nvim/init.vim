@@ -50,7 +50,7 @@ augroup END
 let g:jedi#use_tabs_not_buffers = 1
 
 " coq
-let g:coq_settings = { 'auto_start': 'shut-up' }
+let g:coq_settings = { 'auto_start': 'shut-up', 'display.icons.mode': 'none' }
 
 " Spell check
 set spelllang=en
@@ -298,7 +298,8 @@ source $DOTRCDIR/nvim/lua/lspconfig.lua
 " Plugin configurations: Start
 lua << EOF
     vim.pack.add({
-        'https://github.com/subhadig/outline-plaintext-provider.nvim'
+        'https://github.com/subhadig/outline-plaintext-provider.nvim',
+        'https://github.com/subhadig/coq_words'
     })
 EOF
 source $DOTRCDIR/nvim/plugin-init.vim
