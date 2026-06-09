@@ -1,2 +1,12 @@
 # Enable copy to clipboard
 set selection-clipboard clipboard
+
+# Easier keymap
+map u scroll half-up
+map d scroll half-down
+
+# The background color of the link overlay (RGBA format)
+set highlight-color "rgba(255, 235, 59, 0.5)"
+
+# The color of the link overlay when it is selected/active
+set highlight-active-color "rgba(244, 67, 54, 0.7)"
