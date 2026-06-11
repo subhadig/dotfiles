@@ -4,6 +4,7 @@ auto-reload yes
 reload-threads 3
 download-timeout 120
 feed-sort-order lastupdated
+cleanup-on-quit yes
 
 ## A browser setting that works on both Debian and MacOS
 browser "command -v chromium 1>/dev/null && chromium -incognito %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
