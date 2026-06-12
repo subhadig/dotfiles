@@ -1,0 +1,1 @@
+image; [ `uname -s` = 'Linux' ] && ristretto %s || open %s

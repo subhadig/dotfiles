@@ -1,0 +1,12 @@
+[display]
+color-mode = "monochrome"
+
+[page]
+'C-k' = '() => pager.load("ddg:")'
+
+[external]
+copy-cmd = "([ `uname -s` = 'Linux' ] && xclip -selection clipboard $1 || pbcopy $1)"
+mailcap = ["${DOTRCDIR}/chawan/mailcap"]
+bookmark = "$WP/private-configs/chawan/bookmark.md"
+history-file = "$WP/private-configs/chawan/history.uri"
+cookie-file = "$WP/private-configs/chawan/cookies.txt"

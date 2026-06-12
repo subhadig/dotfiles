@@ -368,6 +368,8 @@ alias t="trash"
 
 alias sync-history="history -c; history -r"
 
+alias cha="cha -C ${DOTRCDIR}/chawan/config.toml"
+
 ## Safe alternatives
 alias cp='cp -i'
 alias mv='mv -i'
