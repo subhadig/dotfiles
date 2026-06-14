@@ -1,0 +1,3 @@
+image/jpeg;[ `uname -s` = 'Linux' ] && ristretto %s || open %s
+image/png;[ `uname -s` = 'Linux' ] && ristretto %s || open %s
+image/svg+xml;[ `uname -s` = 'Linux' ] && ristretto %s || open %s
