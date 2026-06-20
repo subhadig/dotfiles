@@ -12,7 +12,10 @@ bookmark = "$WP/private-configs/chawan/bookmark.md"
 history-file = "$WP/private-configs/chawan/history.uri"
 cookie-file = "$WP/private-configs/chawan/cookies.txt"
 
-# Disable css for geeksforgeeks
-[siteconf.gfg]
+# Disable css for a bunch of sites
+[[siteconf]]
 url = 'https://www\.geeksforgeeks\.org/.*'
+styling = false
+[[siteconf]]
+url = 'https://www\.atlassian\.com/.*'
 styling = false
