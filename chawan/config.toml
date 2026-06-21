@@ -12,6 +12,15 @@ bookmark = "$WP/private-configs/chawan/bookmark.md"
 history-file = "$WP/private-configs/chawan/history.uri"
 cookie-file = "$WP/private-configs/chawan/cookies.txt"
 
+[buffer]
+user-style = '''
+/* Underline all links in monochrome color-mode */
+@media (monochrome) {
+    a[href] { text-decoration: revert !important }
+    a[href] { text-decoration-line: underline !important }
+}
+'''
+
 # Disable css for a bunch of sites
 [[siteconf]]
 url = 'https://www\.geeksforgeeks\.org/.*'
