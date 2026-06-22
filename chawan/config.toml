@@ -4,6 +4,7 @@ color-mode = "monochrome"
 [page]
 'C-k' = '() => pager.load("ddg:")'
 'd' = 'halfPageDown'
+' r' = "pager.externFilterSource('(command -v rdrview 1>/dev/null 2>&1 && rdrview -Hu \"$CHA_URL\") || docker run --rm rdrview rdrview -H \"$CHA_URL\"')"
 
 [external]
 copy-cmd = "([ `uname -s` = 'Linux' ] && xclip -selection clipboard $1 || pbcopy $1)"
