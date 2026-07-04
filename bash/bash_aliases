@@ -170,6 +170,7 @@ rc() {
 
 # pushd and popd
 alias po='popd'
+alias co='popd'
 alias dv='dirs -v'
 alias pws='dirs -v'
 
@@ -369,6 +370,8 @@ alias t="trash"
 alias sync-history="history -c; history -r"
 
 alias cha="cha -C ${DOTRCDIR}/chawan/config.toml -V"
+
+alias neomutt="neomutt -F /home/subhadig/workspaces/personal/private-configs/neomutt/neomuttrc"
 
 ## Safe alternatives
 alias cp='cp -i'

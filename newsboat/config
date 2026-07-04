@@ -9,7 +9,8 @@ cleanup-on-quit yes
 ## A browser setting that works on both Debian and MacOS
 ## Preferred browser: chawan > chromium (Linux) > chrome (MacOS)
 ## TODO: Update the chrome path in MacOS
-browser "(command -v cha 1>/dev/null && cha -C ${DOTRCDIR}/chawan/config.toml %u) || (command -v chromium 1>/dev/null && chromium -incognito %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u)"
+#browser "(command -v cha 1>/dev/null && cha -C ${DOTRCDIR}/chawan/config.toml %u) || (command -v chromium 1>/dev/null && chromium -incognito %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u)"
+browser "command -v chromium 1>/dev/null && chromium -incognito %u || /Applications/Firefox.app/Contents/MacOS/firefox --private-window %u"
 
 
 # Key bindings
