@@ -373,8 +373,11 @@ alias cha="cha -C ${DOTRCDIR}/chawan/config.toml -V"
 
 ## NeoMutt
 NEOMUTT_EXEC=$(command -v neomutt)
-alias neomutt-w="$NEOMUTT_EXEC -F /home/subhadig/workspaces/personal/private-configs/neomutt/work.neomuttrc"
-alias neomutt-p="$NEOMUTT_EXEC -F /home/subhadig/workspaces/personal/private-configs/neomutt/personal.neomuttrc"
+
+alias neomutt-w="[ -n \"$NEOMUTT_EXEC\" ] && \"$NEOMUTT_EXEC\" -F /home/subhadig/workspaces/personal/private-configs/neomutt/work.neomuttrc || echo \"neomutt not found\""
+
+alias neomutt-p="[ -n \"$NEOMUTT_EXEC\" ] && \"$NEOMUTT_EXEC\" -F /home/subhadig/workspaces/personal/private-configs/neomutt/personal.neomuttrc || echo \"neomutt not found\""
+
 neomutt() {
     read -p "Select a profile [1-work, 2-personal]: " neomutt_profile
     case "$neomutt_profile" in
