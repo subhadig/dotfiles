@@ -1,5 +1,7 @@
 [display]
 color-mode = "monochrome"
+columns = 80
+force-columns = true
 
 [page]
 'C-k' = '() => pager.load("ddg:")'
