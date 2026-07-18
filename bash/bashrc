@@ -71,6 +71,7 @@ bind -m vi-insert -x '"\C-h": run-help'
 
 export WP="$HOME/workspaces/personal"
 export TODO_PATH="$WP/notes/todo.txt"
+export MANWIDTH=80
 
 if [ -f ${DOTRCDIR}/bash/bash_aliases ]; then
     . ${DOTRCDIR}/bash/bash_aliases

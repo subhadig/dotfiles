@@ -4,6 +4,9 @@ set selection-clipboard clipboard
 # Easier keymap
 map u scroll half-up
 map d scroll half-down
+map f scroll full-down
+map b scroll full-up
+map <C-f> follow
 
 # The background color of the link overlay (RGBA format)
 set highlight-color "rgba(255, 235, 59, 0.5)"
