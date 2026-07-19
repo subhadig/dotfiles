@@ -38,14 +38,14 @@ local lsp_flags = {
 }
 
 local lspconfig = require('lspconfig')
-local coq = require('coq')
+--local coq = require('coq')
 
 local servers = {'jedi_language_server', 'clangd', 'ts_ls', 'lua_ls'}
 
 for _, lsp in ipairs(servers) do
     vim.lsp.config (
         lsp,
-        coq.lsp_ensure_capabilities {
+        {
             on_attach = on_attach,
             flags = lsp_flags
         }
@@ -55,7 +55,7 @@ end
 
 vim.lsp.config (
     'groovyls',
-    coq.lsp_ensure_capabilities {
+    {
         on_attach = on_attach,
         flags = lsp_flags,
         cmd = { "java", "-jar", vim.fn.expand("$DOTRCDIR/external/groovy-language-server-all.jar") },
