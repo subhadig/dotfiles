@@ -16,6 +16,7 @@ function! CustomPlaintextIndent()
     endif
 endfunction
 
+" Fixme: When cell is empty, the FormatTable() fails.
 function! FormatTable() range
     let l:header_row_lnum = getpos("'<")[1]
     let l:first_row_lnum = l:header_row_lnum + 2
@@ -119,14 +120,14 @@ endfunction
 " Key bindings
 
 "" Table
-vnoremap <leader>mft :call FormatTable()<cr>
+vnoremap <buffer> <leader>mtf :call FormatTable()<cr>
 
 "" Underline
-nnoremap <localleader>mU :call Underline("=")<CR>
-nnoremap <localleader>mu :call Underline("-")<CR>
+nnoremap <buffer> <localleader>mU :call Underline("=")<CR>
+nnoremap <buffer> <localleader>mu :call Underline("-")<CR>
 
 "" Yank reference link
-nnoremap <localleader>mly :call <SID>yankReference()<CR>
+nnoremap <buffer> <localleader>mly :call <SID>yankReference()<CR>
 
 "" Convert markdown link to reference
-nnoremap <localleader>mlc ^wxf]s<Space><Esc>lxdt)maGA<CR>[]<Space><Esc>p^klyi[ji<C-r>=<C-r>0+1<CR><Esc>ByE`a$vp
+nnoremap <buffer> <localleader>mlc ^wxf]s<Space><Esc>lxdt)maGA<CR>[]<Space><Esc>p^klyi[ji<C-r>=<C-r>0+1<CR><Esc>ByE`a$vp

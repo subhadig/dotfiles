@@ -184,39 +184,39 @@ EOF
 endfunction
 
 " Key bindings
-nnoremap <localleader>mv :call MarkdownView()<cr>
-nnoremap <localleader>mp :call MarkdownPresent()<cr>
-nnoremap <localleader>md :call MarkdownPdfView()<cr>
-nnoremap <localleader>mw :call MarkdownWordDocView()<cr>
-nnoremap <localleader>mx :call MarkdownTextView()<cr>
-vnoremap <localleader>mtf :!$DOTRCDIR/nvim/scripts/markdown_table_format.py<cr>
-nnoremap <localleader>mc :call MarkdownTOC()<cr>
+nnoremap <buffer> <localleader>mv :call MarkdownView()<cr>
+nnoremap <buffer> <localleader>mp :call MarkdownPresent()<cr>
+nnoremap <buffer> <localleader>md :call MarkdownPdfView()<cr>
+nnoremap <buffer> <localleader>mw :call MarkdownWordDocView()<cr>
+nnoremap <buffer> <localleader>mx :call MarkdownTextView()<cr>
+vnoremap <buffer> <localleader>mtf :!$DOTRCDIR/nvim/scripts/markdown_table_format.py<cr>
+nnoremap <buffer> <localleader>mc :call MarkdownTOC()<cr>
 
 "" Yank link in markdown
-nnoremap <localleader>mly ^f(vi("+y
+nnoremap <buffer> <localleader>mly ^f(vi("+y
 
 "" Convert to link in markdown
-nnoremap <localleader>mlc ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
+nnoremap <buffer> <localleader>mlc ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
 
 "" Convert to automatic link in markdown
-nnoremap <localleader>mlca ciW<<C-r>"><Esc>
+nnoremap <buffer> <localleader>mlca ciW<<C-r>"><Esc>
 
 "" Open Links
-nnoremap <localleader>mlov :call MarkdownLinkOpenAsVideo()<cr>
-nnoremap <localleader>mlob :call MarkdownLinkOpenInBrowser()<cr>
-nnoremap <localleader>mlop :call MarkdownLinkOpenInPrivateBrowser()<cr>
-nnoremap <localleader>mlol :call MarkdownLinkOpenInLynx()<cr>
+nnoremap <buffer> <localleader>mlov :call MarkdownLinkOpenAsVideo()<cr>
+nnoremap <buffer> <localleader>mlob :call MarkdownLinkOpenInBrowser()<cr>
+nnoremap <buffer> <localleader>mlop :call MarkdownLinkOpenInPrivateBrowser()<cr>
+nnoremap <buffer> <localleader>mlol :call MarkdownLinkOpenInLynx()<cr>
 
 "" Open path
-nnoremap <localleader>mpot :call MarkdownPathOpenInTmux()<cr>
+nnoremap <buffer> <localleader>mpot :call MarkdownPathOpenInTmux()<cr>
 "" Open file in vim
-nnoremap <localleader>mpov :call MarkdownPathOpenInVim()<cr>
+nnoremap <buffer> <localleader>mpov :call MarkdownPathOpenInVim()<cr>
 "" Open file generic
-nnoremap <localleader>mpo :call MarkdownPathOpenSmart()<cr>
+nnoremap <buffer> <localleader>mpo :call MarkdownPathOpenSmart()<cr>
 
 "" Underline
-nnoremap <localleader>mU :call Underline("=")<CR>
-nnoremap <localleader>mu :call Underline("-")<CR>
+nnoremap <buffer> <localleader>mU :call Underline("=")<CR>
+nnoremap <buffer> <localleader>mu :call Underline("-")<CR>
 
 " Autocmd Events
 autocmd CursorMovedI *.md call ModifyTextWidth()
