@@ -37,19 +37,19 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
-local lspconfig = require('lspconfig')
+--local lspconfig = require('lspconfig')
 --local coq = require('coq')
 
 local servers = {'jedi_language_server', 'clangd', 'ts_ls', 'lua_ls'}
 
 for _, lsp in ipairs(servers) do
-    vim.lsp.config (
-        lsp,
-        {
-            on_attach = on_attach,
-            flags = lsp_flags
-        }
-    )
+    --vim.lsp.config (
+    --    lsp,
+    --    {
+    --        on_attach = on_attach,
+    --        flags = lsp_flags
+    --    }
+    --)
     vim.lsp.enable(lsp)
 end
 

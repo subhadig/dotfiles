@@ -50,7 +50,12 @@ augroup END
 let g:jedi#use_tabs_not_buffers = 1
 
 " coq
-let g:coq_settings = { 'display.icons.mode': 'none' }
+let g:coq_settings = { }
+let g:coq_settings['display.icons.mode'] = 'none'
+let g:coq_settings['clients.paths.weight_adjust'] = 0.5
+let g:coq_settings['clients.buffers.weight_adjust'] = 0.5
+let g:coq_settings['clients.tmux.weight_adjust'] = 0.4
+let g:coq_settings['clients.third_party.weight_adjust'] = 0.2
 
 " Spell check
 set spelllang=en
@@ -298,6 +303,7 @@ source $DOTRCDIR/nvim/lua/lspconfig.lua
 " Plugin configurations: Start
 lua << EOF
     vim.pack.add({
+        'https://github.com/neovim/nvim-lspconfig',
         'https://github.com/ms-jpq/coq_nvim',
         'https://github.com/ms-jpq/coq.artifacts',
         'https://github.com/subhadig/coq_words',
@@ -307,4 +313,3 @@ lua << EOF
 EOF
 source $DOTRCDIR/nvim/plugin-init.vim
 " Plugin configurations: End
-
