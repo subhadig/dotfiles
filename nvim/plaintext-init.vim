@@ -16,7 +16,6 @@ function! CustomPlaintextIndent()
     endif
 endfunction
 
-" Fixme: When cell is empty, the FormatTable() fails.
 function! FormatTable() range
     let l:header_row_lnum = getpos("'<")[1]
     let l:first_row_lnum = l:header_row_lnum + 2
@@ -67,11 +66,11 @@ function! FormatTable() range
         endwhile
         let l:line = l:line . "-|"
     endfor
-    let l:output = add(l:output, slice(l:line, 0, -2))
+    let l:output = add(l:output, slice(l:line, 0, -1))
 
     " Prepare the formatted data rows
     for row in getline(l:first_row_lnum, l:last_row_lnum)
-        let l:cells = split(row, "|")
+        let l:cells = split(row, "|", 1)
         let l:col_index = 0
         let l:line = ""
         for max_col_length in l:max_col_lengths
