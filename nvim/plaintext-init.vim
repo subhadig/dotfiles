@@ -1,7 +1,7 @@
 " Plaintext specific settings
 
 " Automatically inserts newline after 80 characters when typing in Insert mode
-set textwidth=80
+setlocal textwidth=80
 
 " Evaluated to get the proper indent for a line
 setlocal indentexpr=CustomPlaintextIndent()
@@ -110,6 +110,72 @@ function! s:yankReference()
 
     " Yank the link
     execute "normal" 'WvE"+y'
+
+    " Put the cursor back to the initial position
+    call setpos('.', init_cur_pos)
+endfunction
+
+
+" TODO: Handle when unused references are present under REFERENCES section
+" TODO: Remove textwidth hardcoding
+function! RearrangeReferences() abort
+    let init_cur_pos = getcurpos()
+
+    " Set cursor to the beginning of the file
+    call setpos('.', [0, 1, 1, 0])
+    
+    " Get the REFERENCES header line no
+    let [ref_head_line, _] = searchpos('REFERENCES', 'n')
+
+    " Create a list of all references used
+    let references_list = []
+    while 1
+        let [line, col] = searchpos('[\d\+\]', 'W', ref_head_line)
+        if line == 0
+            break
+        endif
+        execute "normal" 'lyt]'
+        call add(references_list, [getreg('0'), line, col, ''])
+    endwhile
+
+    " Set the cursor to the REFERENCES header line
+    call setpos('.', [0, ref_head_line, 1, 0])
+
+    " Add the urls information to references_list
+    while 1
+        let line = search('[\d\+\]', 'W')
+        if line == 0
+            break
+        endif
+        execute "normal" 'l"ayt]'
+        execute "normal" 'W"byE]'
+        for ref in references_list
+            if ref[0] == getreg('a')
+                let ref[3] = getreg('b')
+                break
+            endif
+        endfor
+    endwhile
+   
+    " Now regenerate the references numbers
+    let ref_index = 1
+    for [_, line, col, url] in references_list
+        call setpos('.', [0, line, col + 1, 0])
+        execute "normal" 'ct]' . ref_index
+        let ref_index = ref_index + 1
+    endfor
+
+    " Set the cursor to the REFERENCES content start line
+    call setpos('.', [0, ref_head_line + 2, 1, 0])
+
+    " Regenerate the REFERENCES section
+    let ref_index = 1
+    setlocal textwidth=0
+    for [_, _, _, url] in references_list
+        execute "normal" 'j0C[' . ref_index . '] ' . url
+        let ref_index = ref_index + 1
+    endfor
+    setlocal textwidth=80
 
     " Put the cursor back to the initial position
     call setpos('.', init_cur_pos)
