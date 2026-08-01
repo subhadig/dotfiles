@@ -89,7 +89,10 @@ which xdg-open 1>/dev/null && alias open='xdg-open 2>/dev/null'
 # Search and open
 so() {
     local file
-    file=`find . -type f | cut -c3- | fzf`
+    # Sort by last modified time
+    file=$(find . -type f -printf '%T@ %P\n' \
+                | sort -k 1 -r | cut -f 2 -d ' ' \
+                | fzf)
     if [ $? -ne 0 ]; then
         return
     fi
@@ -101,7 +104,10 @@ so() {
 # Search and edit
 se() {
     local file
-    file=`find . -type f -not -path "*/.*" | cut -c3- | fzf --preview='head -$FZF_PREVIEW_LINES {}'`
+    # Sort by last modified time
+    file=$(find . -type f -not -path "*/.*" -printf '%T@ %P\n' \
+                | sort -k 1 -r | cut -f 2 -d ' ' \
+                | fzf --preview='head -$FZF_PREVIEW_LINES {}')
     if [ $? -ne 0 ]; then
         return
     fi

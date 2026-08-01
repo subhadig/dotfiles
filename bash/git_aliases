@@ -73,7 +73,7 @@ gafr() {
         elif [ "$status" = "D" ]; then
             echo Deleted file: "$file"
         else
-            git diff "$file"
+            git difftool --tool=nvimdiff -y "$file"
         fi
 
         echo
@@ -103,7 +103,7 @@ grestore() {
         return
     fi
     if [ -f "$file" ]; then
-        git diff "$file"
+        git difftool --tool=nvimdiff -y "$file"
         read -p "Restore file? " choice
         if [ "$choice" = 'y' ]; then
             git checkout -- "$file"
