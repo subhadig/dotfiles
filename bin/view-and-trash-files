@@ -2,6 +2,12 @@
 
 TRASH_BIN=$HOME/workspaces/personal/dotfiles/bin/trash
 
+if command -v open 1>/dev/null 2>&1; then
+    OPEN='open'
+else
+    OPEN='xdg-open'
+fi
+
 IFS_ORIG=$IFS
 IFS=$'\n'
 echo Enter \'q\' to quit anytime.
@@ -11,7 +17,7 @@ for file in `ls -1tp | grep -v '/'`;do
         read -p "Open[o]/Trash[t]/Skip[s] file: $file? " choice
         case "$choice" in
             o)
-                open "$file"
+                $OPEN "$file" 2>/dev/null
                 ;;
             t)
                 $TRASH_BIN "$file"
