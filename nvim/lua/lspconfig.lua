@@ -19,6 +19,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, bufopts)
   -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -34,7 +35,7 @@ end
 
 local lsp_flags = {
   -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
+  --debounce_text_changes = 150,
 }
 
 --local lspconfig = require('lspconfig')
@@ -43,13 +44,13 @@ local lsp_flags = {
 local servers = {'jedi_language_server', 'clangd', 'ts_ls', 'lua_ls'}
 
 for _, lsp in ipairs(servers) do
-    --vim.lsp.config (
-    --    lsp,
-    --    {
-    --        on_attach = on_attach,
-    --        flags = lsp_flags
-    --    }
-    --)
+    vim.lsp.config (
+        lsp,
+        {
+            on_attach = on_attach,
+            flags = lsp_flags
+        }
+    )
     vim.lsp.enable(lsp)
 end
 

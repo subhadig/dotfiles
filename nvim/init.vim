@@ -107,6 +107,7 @@ if system("uname") =~ "Linux"
     let g:pdfreader = "xdg-open 2>/dev/null "
     let g:wordprocessor = "xdg-open 2>/dev/null "
     let g:texteditor = "open "
+    let g:open_exec = "xdg-open 2>/dev/null "
     " This will make it easier for nvim to find the python exec to use inside
     " venv
     if executable("python")
@@ -124,6 +125,7 @@ elseif system("uname") =~ "Darwin"
     let g:pdfreader = "open "
     let g:wordprocessor = "open "
     let g:texteditor = "open "
+    let g:open_exec = "open "
     " This will make it easier for nvim to find the python exec to use inside
     " venv
     " expand might be slower. Come up with a better way

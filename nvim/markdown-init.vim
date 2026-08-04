@@ -152,6 +152,17 @@ function! MarkdownPathOpenInVim()
     execute "tabe" . " " . l:path
 endfunction
 
+
+function! MarkdownLinkOpenSmart()
+    let l:url = s:decode_url(s:get_link_from_current_line())
+
+    if match(l:url, "^http.* \| ^\\~.* \| ^/.*") == -1
+        let l:url = expand("%:h") . "/" . l:url
+    endif
+
+    execute "silent !" . g:open_exec . "\"" . l:url . "\" &"
+endfunction
+
 " TODO: Try converting this function to vimscript
 "       Add image support
 "       Make sure works when open is not present
@@ -205,10 +216,11 @@ nnoremap <buffer> <localleader>mlc ^wi[<Esc>f>gea]<Esc>lcth(<Esc>A)<Esc>
 nnoremap <buffer> <localleader>mlca ciW<<C-r>"><Esc>
 
 "" Open Links
-nnoremap <buffer> <localleader>mlov :call MarkdownLinkOpenAsVideo()<cr>
-nnoremap <buffer> <localleader>mlob :call MarkdownLinkOpenInBrowser()<cr>
-nnoremap <buffer> <localleader>mlop :call MarkdownLinkOpenInPrivateBrowser()<cr>
-nnoremap <buffer> <localleader>mlol :call MarkdownLinkOpenInLynx()<cr>
+"nnoremap <buffer> <localleader>mlov :call MarkdownLinkOpenAsVideo()<cr>
+"nnoremap <buffer> <localleader>mlob :call MarkdownLinkOpenInBrowser()<cr>
+"nnoremap <buffer> <localleader>mlop :call MarkdownLinkOpenInPrivateBrowser()<cr>
+"nnoremap <buffer> <localleader>mlol :call MarkdownLinkOpenInLynx()<cr>
+nnoremap <buffer> <localleader>mlo :call MarkdownLinkOpenSmart()<cr>
 
 "" Open path
 nnoremap <buffer> <localleader>mpot :call MarkdownPathOpenInTmux()<cr>
