@@ -152,6 +152,9 @@ function! MarkdownPathOpenInVim()
     execute "tabe" . " " . l:path
 endfunction
 
+" TODO: Try converting this function to vimscript
+"       Add image support
+"       Make sure works when open is not present
 function! MarkdownPathOpenSmart()
 lua << EOF
     local path = vim.fn['s:get_path_from_current_line']()
