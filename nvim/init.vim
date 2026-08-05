@@ -156,9 +156,12 @@ endfunction
 
 " fzf
 "nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
-nnoremap <silent> <C-p> :FZF -q !.png$\ <cr>
-" TODO: Make it supported for Linux
-nnoremap <silent> <C-l> :call fzf#run(fzf#wrap({'source': 'find . -type f -not -path "*/.*" -not -name *.png -print0 \| xargs -0 stat -f "%m %N" \| sort -k 1 -r \| cut -f 2- -d " " \| cut -c3-', 'sink': 'e'})) <cr>
+"nnoremap <silent> <C-p> :FZF -q !.png$\ <cr>
+if system("uname") =~ "Linux"
+    nnoremap <silent> <C-p> :call fzf#run(fzf#wrap({'source': 'find . -type f -not -path "*/.*" -not -name *.png -printf "%T@ %P\\n" \| sort -k 1 -r \| cut -f 2- -d " "', 'sink': 'e'}))<cr>
+elseif system("uname") =~ "Darwin"
+    nnoremap <silent> <C-p> :call fzf#run(fzf#wrap({'source': 'find . -type f -not -path "*/.*" -not -name *.png -print0 \| xargs -0 stat -f "%m %N" \| sort -k 1 -r \| cut -f 2- -d " " \| cut -c3-', 'sink': 'e'}))<cr>
+endif
 
 " Tabs
 
