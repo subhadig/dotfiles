@@ -155,6 +155,8 @@ endfunction
 " fzf
 "nnoremap <silent> <C-p> :FZF -q !.png$\  --preview file\ {+1}\|grep\ -qv\ [PNG]\ &&\ cat\ {}<cr>
 nnoremap <silent> <C-p> :FZF -q !.png$\ <cr>
+" TODO: Make it supported for Linux
+nnoremap <silent> <C-l> :call fzf#run(fzf#wrap({'source': 'find . -type f -not -path \"*/.*\" -not -path \"*.png\" -print0 \| xargs -0 stat -f "%m %N" \| sort -k 1 -r \| cut -f 2- -d " " \| cut -c3-', 'sink': 'e'})) <cr>
 
 " Tabs
 
