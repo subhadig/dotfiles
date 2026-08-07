@@ -41,7 +41,7 @@ local lsp_flags = {
 --local lspconfig = require('lspconfig')
 --local coq = require('coq')
 
-local servers = {'jedi_language_server', 'clangd', 'ts_ls', 'lua_ls'}
+local servers = {'jedi_language_server', 'clangd', 'ts_ls', 'lua_ls', 'helm_ls', 'yamlls'}
 
 for _, lsp in ipairs(servers) do
     vim.lsp.config (
