@@ -156,11 +156,17 @@ endfunction
 function! MarkdownLinkOpenSmart()
     let l:url = s:decode_url(s:get_link_from_current_line())
 
-    if match(l:url, "^http.* \| ^\\~.* \| ^/.*") == -1
+    if match(l:url, '^http.*\|^\\\~.*\|^\/.*') == -1
         let l:url = expand("%:h") . "/" . l:url
     endif
 
-    execute "silent !" . g:open_exec . "\"" . l:url . "\" &"
+    if match(l:url, '^http.*') != -1
+        call setreg("+", l:url)
+        echomsg "URL is copied to clipboard!"
+    else
+        execute "silent !" . g:open_exec . "\"" . l:url . "\" &"
+    endif
+
 endfunction
 
 " TODO: Try converting this function to vimscript
