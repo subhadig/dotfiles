@@ -93,11 +93,11 @@ so() {
     case "$(uname -s)" in
         Linux*)     file=$(find . -type f -printf '%T@ %P\n' \
                         | sort -k 1 -r | cut -f 2- -d ' ' \
-                        | fzf);;
+                        | fzf --tiebreak='index');;
         Darwin*)    file=$(find . -type f -print0 \
                         | xargs -0 stat -f '%m %N' \
                         | sort -k 1 -r | cut -f 2- -d ' ' | cut -c3- \
-                        | fzf);;
+                        | fzf --tiebreak='index');;
         *)          echo "ERROR: Unknown OS";;
     esac
     
@@ -116,11 +116,11 @@ se() {
     case "$(uname -s)" in
         Linux*)     file=$(find . -type f -not -path "*/.*" -printf '%T@ %P\n' \
                         | sort -k 1 -r | cut -f 2- -d ' ' \
-                        | fzf --preview='head -$FZF_PREVIEW_LINES {}');;
+                        | fzf --tiebreak='index' --preview='head -$FZF_PREVIEW_LINES {}');;
         Darwin*)    file=$(find . -type f -not -path "*/.*" -print0 \
                         | xargs -0 stat -f '%m %N' \
                         | sort -k 1 -r | cut -f 2- -d ' ' | cut -c3- \
-                        | fzf --preview='head -$FZF_PREVIEW_LINES {}');;
+                        | fzf --tiebreak='index' --preview='head -$FZF_PREVIEW_LINES {}');;
         *)          echo "ERROR: Unknown OS";;
     esac
     if [ $? -ne 0 ]; then
