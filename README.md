@@ -74,6 +74,12 @@ include /home/<username>/workspaces/personal/dotfiles/zathura/zathurarc
 
 Replace <username> with your username.
 
+### dict
+
+```
+ln ~/workspaces/personal/dotfiles/dict/dictrc ~/.dictrc
+```
+
 
 ## Dependencies
 Different scripts/configurations in this repository require the following

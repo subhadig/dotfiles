@@ -425,7 +425,7 @@ case "$(uname -s)" in
         alias clear-clipboard="xclip -selection clipboard </dev/null \
             && xclip -selection primary </dev/null \
             && xclip -selection secondary </dev/null"
-        alias cal="ncal -b"
+        #alias cal="ncal -b"
         alias pbcopy='xclip -selection clipboard'
         ;;
     Darwin*)
