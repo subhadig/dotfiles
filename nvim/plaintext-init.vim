@@ -95,6 +95,10 @@ endfunction
 function! s:yankReference()
     let init_cur_pos = getcurpos()
 
+    " TODO: If the char under cursor is [, then skip the next step.
+    " Otherwise just find the next [
+    " This can support multiple link references in a line
+
     " Go to the closing ] of the reference
     execute "normal" "$F]"
     
